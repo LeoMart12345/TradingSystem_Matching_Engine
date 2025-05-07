@@ -62,14 +62,14 @@ void MaxHeap::heapify(int index) {
 	int leftChild = getLeftChild(index);
 	int rightChild = getRightChild(index);
 
-	if (vctr[leftChild] > vctr[largest]) {
+	if (leftChild < vctr.size() && vctr[leftChild] > vctr[largest]) {
 		largest = leftChild;
 	}
-	if (vctr[rightChild] > vctr[largest]) {
+	if (rightChild < vctr.size() && vctr[rightChild] > vctr[largest]) {
 		largest = rightChild;
 	}
 
-	if (index != index) {
+	if (index != largest) {
 		//if the parent is not then swap them and run heapify again on the sub tree
 		std::swap(vctr[index], vctr[largest]);
 		heapify(largest);
@@ -84,7 +84,7 @@ void MaxHeap::insert(float value) {
 		3. bubble to the top(if needed). could make a function for this
 	*/
 	vctr.push_back(value);
-	int i = vctr.back();
+	int i = vctr.size() - 1;
 
 	// while the index of the added value is not the root && the value of it is larger than its parent swap element with its parent
 	while (i != 1 && vctr[i] > vctr[getParent(i)]) {
@@ -96,11 +96,15 @@ void MaxHeap::insert(float value) {
 }
 
 float MaxHeap::Pop() {
-	float valueToReturn = vctr[1];
-	//remove the value from the vector IMPLEMENT THAT FUNCTION
-	deleteValue(vctr[1]);
+	if (isEmpty()) {
+		throw std::runtime_error("Heap is empty!");
+	}
+
+	float maxValue = vctr[1];
+	std::swap(vctr[1], vctr.back());
+	vctr.pop_back();
 	heapify(1);
-	return valueToReturn;
+	return maxValue;
 }
 
 // O(n) as it needs to search for the value to delete.. //maybe dont need to delete the price level in the final implementation
@@ -117,13 +121,20 @@ void MaxHeap::deleteValue(float value) {
 		std::cout << "that value was not found in the heap!" << std::endl;
 		return;
 	}
+
+	// Swap with last element and remove
+	std::swap(vctr[index], vctr.back());
+	vctr.pop_back();
+
+	// Restore heaps structure
+	heapify(index);
 }
 
-void MaxHeap::print() {
 
-	std::cout << "Printing Maxheap" << std::endl;
-	for (int i = 0; i < vctr.size(); i++) {
-		std::cout << vctr[i] << "" << std::endl;
+void MaxHeap::print() {
+	std::cout << "MaxHeap elements (excluding dummy -1.0f):" << std::endl;
+	for (int i = 1; i < vctr.size(); i++) {  // Start from 1
+		std::cout << vctr[i] << std::endl;
 	}
 }
 
