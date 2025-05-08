@@ -5,8 +5,11 @@
 #include <memory>
 #include <map>
 
-//Eventually needs to be a vector of queues, 
+/// <summary>
+/// Eventually needs to be a vector of queues, 
 // the heap represents the value of each price level, and the queue represents the individual price level for FIFO
+// rught now its just a 
+/// </summary>
 
 class MaxHeap {
 
@@ -132,7 +135,7 @@ void MaxHeap::deleteValue(float value) {
 
 
 void MaxHeap::print() {
-	std::cout << "MaxHeap elements (excluding dummy -1.0f):" << std::endl;
+	std::cout << "MaxHeap elements (excluding placeholder at first index):" << std::endl;
 	for (int i = 1; i < vctr.size(); i++) {  // Start from 1
 		std::cout << vctr[i] << std::endl;
 	}
