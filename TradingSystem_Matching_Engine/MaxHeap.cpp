@@ -15,38 +15,35 @@ class MaxHeap {
 
 private:
 	int size;
-
+	 
 	std::vector<float> vctr = { -1.0f };
 
-	int getParent(int index) // i / 2
-	{
-		return index >> 1;
-	}
-	int getLeftChild(int index) // i * 2
-	{
-		return index << 1;
-	}
-	int getRightChild(int index)
-	{
-		return (index << 1) + 1; //index * 2 +1
-	}
+	int getParent(int index){ return index >> 1; }
+	int getLeftChild(int index){ return index << 1; }
+	int getRightChild(int index){ return ( index << 1 ) + 1; }
 
-	void heapify(int index);
+	
+
+public:
 	void insert(float value);
+	void heapify(int index);
 	void deleteValue(float value);
 	void print();
 
-public:
 
-	MaxHeap(int size) {
-		this->size = 1;
-	}
+	MaxHeap() = default;
 
 	bool isEmpty() const
 	{
-		return size == 0;
+		return vctr.size() <= 1;
 	}
-	auto Top() const { return vctr[1]; }
+	auto Top() const {
+		if (isEmpty()) {
+			throw std::runtime_error("Heap is empty!");
+		}
+		else { return vctr[1]; }
+	}
+
 	float Pop();
 };
 
@@ -100,6 +97,7 @@ void MaxHeap::insert(float value) {
 
 float MaxHeap::Pop() {
 	if (isEmpty()) {
+		
 		throw std::runtime_error("Heap is empty!");
 	}
 
@@ -114,7 +112,7 @@ float MaxHeap::Pop() {
 void MaxHeap::deleteValue(float value) {
 	int index = -1;
 
-	for (int i = 0; i < vctr.size(); i++) {
+	for (int i = 1; i < vctr.size(); i++) {
 		if (vctr[i] == value) {
 			index = i;
 		}
@@ -143,11 +141,25 @@ void MaxHeap::print() {
 
 //test the heap here.
 
-int main() {
-
-	MaxHeap heap(10);
-
-	// Test isEmpty on new heap
-	std::cout << "Is empty (should be 1): " << heap.isEmpty() << std::endl;
-
-}
+//int main() {
+//	MaxHeap heap;
+//
+//	heap.insert(30);
+//	heap.insert(20);
+//	heap.insert(10);
+//	heap.insert(30);
+//
+//	std::cout << "Heap elements (unsorted heap structure):" << std::endl;
+//	heap.print();  // Prints in heap order (not sorted)
+//
+//	std::cout << "\nElements in descending order (sorted by Pop()):" << std::endl;
+//	while (!heap.isEmpty()) {
+//		std::cout << heap.Pop() << std::endl;  // Extracts max element each time
+//	}
+//
+//	heap.insert(30);
+//	heap.insert(20);
+//	heap.insert(10);
+//	heap.insert(30);
+//
+//}

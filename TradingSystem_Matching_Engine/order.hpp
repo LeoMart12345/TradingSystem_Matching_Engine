@@ -6,20 +6,21 @@
 #include <map>
 
 enum Type {
-   BUY,
-   SELL
+	BUY,
+	SELL
 };
 
 class order {
 
-public: 
+public:
 	Type BuyOrSell;
 	int mVolume;
 	std::string mName;
 	int mOrderID;
 	int mPriceLevel;
 
-	order(Type type, int volume, std::string name, int orderID, int priceLevel) 
+
+	order(Type type, int volume, std::string name, int orderID, int priceLevel)
 		: BuyOrSell(type), mVolume(volume), mName(name), mOrderID(orderID), mPriceLevel(priceLevel) {
 	}
 
