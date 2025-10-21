@@ -2,7 +2,9 @@
 #include <stdexcept>
 #include <iostream>
 
-class MinHeap {
+namespace myMaxHeapImplementation{
+
+    class MinHeap {
 private:
     std::vector<float> vctr = { -1.0f };  // 1-based indexing (placeholder at index 0)
 
@@ -77,3 +79,5 @@ public:
         }
     }
 };
+
+}

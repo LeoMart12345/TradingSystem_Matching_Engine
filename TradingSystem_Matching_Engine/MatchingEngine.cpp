@@ -3,18 +3,20 @@
 #include <map>
 #include <unordered_map>
 #include <deque>
-
+#include <queue>
 
 class MatchingEngine {
 
 
 
 private:
-	// The queue represents the individual orders at that price level for FIFO. maps a price level -> queue of orders
-	// using doubly ended queue to have 0(1) access to add a new order on a price level we need a deque also allowd for best prices to match being o(1) also
-	std::unordered_map<float, std::deque<order>> buyOrders; // max heap
-	std::unordered_map<float, std::deque<order>> sellOrders; // max heap
-	
-	
-};
 
+//Buy and sell side as maps
+std::unordered_map<int, std::deque<Order>> buyOrders; // maps an int price to a queue on the buy heap
+std::unordered_map<int, std::deque<Order>> sellOrders; // maps an int price to a queue on the sell heap
+
+// Heaps for both buy and sell price levels
+
+
+
+};

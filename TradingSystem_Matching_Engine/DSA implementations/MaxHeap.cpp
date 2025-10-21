@@ -10,6 +10,7 @@
 // the heap represents the value of each price level, and the queue represents the individual price level for FIFO
 // rught now its just a 
 /// </summary>
+namespace myMaxHeapImplementation{
 
 class MaxHeap {
 
@@ -163,3 +164,4 @@ void MaxHeap::print() {
 //	heap.insert(30);
 //
 //}
+}

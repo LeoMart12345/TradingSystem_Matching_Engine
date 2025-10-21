@@ -1,13 +1,26 @@
 #include <iostream>
 #include <array>
 #include <vector>
- 
+#include <memory>
+
+class Dog{
+
+    public:
+        void bark(){
+            std::cout << "ehhh bark bark!" << std::endl;
+        }
+
+};
+
+class Husky: public Dog{
+
+};
+
 int main(){
-    int x = 53;
+  
+    Husky huzz;
 
-    int& ref = x;
-    // refs need to reference somthing at compile time.
-    // you cant reference somthing that is null
- 
+    huzz.bark();
+
+    return 0;
 }
-
