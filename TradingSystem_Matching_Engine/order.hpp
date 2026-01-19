@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include "Price.hpp"
 
 enum Type {
     BUY,
@@ -12,22 +13,18 @@ public:
     int mVolume;
     std::string mName;
     int mOrderID;
-    int mPriceLevel;
+    Price mPrice;
 
-    Order(Type type, int volume, std::string name, int orderID, int priceLevel);
+    Order(Type type, int volume, std::string name, int orderID, Price Price);
 
 	void PrintOrder() const;
-
+    //getters
+    Type GetBuyOrSell() const;
+    int GetVolume() const;
+    std::string getName()const;
+    int getOrderId() const;
+    Price getPrice() const;
 
 private:
-    // Future functions:
-    // void placeOrder(const Order& order);
-    // void cancelOrder(int orderID);
-    // int getVolumeAtPriceLevel(int priceLevel, Type side) const;
-
-
-	//just used to print the order for now 
-	
-
 	
 };
