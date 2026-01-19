@@ -1,11 +1,11 @@
-#include "Order.hpp"
+#include "order.hpp"
 #include <string>
 #include <iostream>
 #include <array>
+#include "Price.hpp"
 
-
-Order::Order(Type type, int volume, std::string name, int orderID, int priceLevel)
-    : BuyOrSell(type), mVolume(volume), mName(name), mOrderID(orderID), mPriceLevel(priceLevel) {}
+Order::Order(Type type, int volume, std::string name, int orderID, Price priceLevel)
+    : BuyOrSell(type), mVolume(volume), mName(name), mOrderID(orderID), mPrice(priceLevel) {}
 
 void Order::PrintOrder() const{
 
@@ -14,17 +14,21 @@ void Order::PrintOrder() const{
     std::cout << "Name: " << mName << "\n";
     std::cout << "Volume: " << mVolume << "\n";
     std::cout << "Order ID: " << mOrderID << "\n";
-    std::cout << "Price Level: " << mPriceLevel << "\n";
+    std::cout << "Price Level: " << mPrice.mPriceValueInCent << "\n";
 }
+// Getters
+int Order::GetVolume() const{return mVolume;}
+Type Order::GetBuyOrSell() const{return BuyOrSell;}
 
-void PrintArray(int arr[]){
-    std::cout << sizeof(arr[0]); // this will print the size of the decayed pointer and not the array size!
-}
+std::string Order::getName() const {return mName;}
+int Order::getOrderId() const {return mOrderID;}
+Price Order::getPrice() const {return mPrice;}
 
 int main(){
+ 
+    Order myOrder = Order(BUY, 100, "apple", 100, 10);
     
-    std::string mystr = "very long string wow!";
-    
-    std::cout << mystr;
+    myOrder.PrintOrder();
+
     return 0; 
 }
