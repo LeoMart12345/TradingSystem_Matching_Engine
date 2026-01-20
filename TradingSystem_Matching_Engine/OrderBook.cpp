@@ -1,19 +1,9 @@
 #include <iostream> 
 #include <array> 
 #include <vector>
+#include "OrderBook.hpp"
 
 
-class OrderBook{
+OrderBook::OrderBook(){
 
-private:
-    std::array<int> PriceLevelBitmap;
-public:
-    OrderBook(): PriceLevelBitmap(100) {}
-
-};
-
-int main()
-{
-    std::cout << "hello" << std::endl;
-    
 }
