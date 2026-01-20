@@ -1,8 +1,10 @@
+#pragma once
 #include <iostream>
 #include <array>
 #include <vector>
 #include "Price.hpp"
 #include "order.hpp"
+#include <deque>
 
 class OrderBook{
 
@@ -12,11 +14,11 @@ private:
     std::vector<u_int64_t> mAskBitmap;
 
     // each of these levels will hold a queue of orders
-    std::vector<int> mBidpriceLevel;
-    std::vector<int> mAskPriceLevel;
+    std::vector<std::deque<Order>> mBidpriceLevel;
+    std::vector<std::deque<Order>> mAskPriceLevel;
 
 public:
-    OrderBook(size_t size);
+    explicit OrderBook(size_t size);
     
     // APi for the OrderBook
     void addBid(Order order);
@@ -24,9 +26,12 @@ public:
     void getVolumeAtLevel(Price price);
     void getTotalVolume();
 
+    // Bitmap getters
+    void getBestBid();
+    void getBestAsk();
 
-    //writing to the bitmap
-    
+    //helpeer functions
+    int priceToIndex(Price price);
 
 };
 
