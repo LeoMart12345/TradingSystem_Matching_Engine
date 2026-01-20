@@ -2,27 +2,27 @@
 #include <string>
 #include "Price.hpp"
 
-enum Type {
-    BUY,
-    SELL
+enum Side {
+    Bid,
+    Ask 
 };
 
 class Order {
 public:
-    Type BuyOrSell;
-    int mVolume;
+    Side BidOrAsk;
+    u_int64_t mVolume;
     std::string mName;
-    int mOrderID;
+    u_int64_t mOrderID;
     Price mPrice;
 
-    Order(Type type, int volume, std::string name, int orderID, Price Price);
+    Order(Side Side, u_int64_t volume, std::string name, u_int64_t orderID, Price Price);
 
 	void PrintOrder() const;
     //getters
-    Type GetBuyOrSell() const;
+    Side getBidOrAsk() const;
     int GetVolume() const;
     std::string getName()const;
-    int getOrderId() const;
+    u_int64_t getOrderId() const;
     Price getPrice() const;
 
 private:

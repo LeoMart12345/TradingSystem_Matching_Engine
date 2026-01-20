@@ -4,13 +4,13 @@
 #include <array>
 #include "Price.hpp"
 
-Order::Order(Type type, int volume, std::string name, int orderID, Price priceLevel)
-    : BuyOrSell(type), mVolume(volume), mName(name), mOrderID(orderID), mPrice(priceLevel) {}
+Order::Order(Side side, u_int64_t volume, std::string name, u_int64_t orderID, Price priceLevel)
+    : BidOrAsk(side), mVolume(volume), mName(name), mOrderID(orderID), mPrice(priceLevel) {}
 
 void Order::PrintOrder() const{
 
     std::cout << "Printing Order...\n";
-    std::cout << "Type: " << (BuyOrSell == BUY ? "BUY" : "SELL") << "\n";
+    std::cout << "Side: " << (BidOrAsk == Bid ? "Bid" : "Ask") << "\n";
     std::cout << "Name: " << mName << "\n";
     std::cout << "Volume: " << mVolume << "\n";
     std::cout << "Order ID: " << mOrderID << "\n";
@@ -18,15 +18,14 @@ void Order::PrintOrder() const{
 }
 // Getters
 int Order::GetVolume() const{return mVolume;}
-Type Order::GetBuyOrSell() const{return BuyOrSell;}
-
+Side Order::getBidOrAsk() const{return BidOrAsk;}
 std::string Order::getName() const {return mName;}
-int Order::getOrderId() const {return mOrderID;}
+u_int64_t Order::getOrderId() const {return mOrderID;}
 Price Order::getPrice() const {return mPrice;}
 
 int main(){
  
-    Order myOrder = Order(BUY, 100, "apple", 100, 10);
+    Order myOrder = Order(Bid, 100, "apple", 100, 10);
     
     myOrder.PrintOrder();
 
