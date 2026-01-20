@@ -25,7 +25,8 @@ mBidpriceLevel(size), mAskPriceLevel(size)
 
 void OrderBook::addBid(Order order){
     // get the price of the bid
-
+    int BidLevel = priceToIndex(order.mPrice.mPriceValueInCent);
+    mBidpriceLevel[BidLevel].emplace(order);
 }
 
 void OrderBook::removeBid(Order Order) {
@@ -44,5 +45,19 @@ void OrderBook::getTotalVolume(){
 
 // helper
 int OrderBook::priceToIndex(Price price){
+    int index = price.mPriceValueInCent - StartOfPrice;
+    
+    // need to do bounds checking here. // TODO
+    if(index < 0 || index > NumOfLevels){
+        std::cout << "ERROR that price is not a price that this asset can be traded at" << std::endl;
+        throw std::invalid_argument( "Invalid price to bid/ask");
+
+    }
+
+    return index;
+}
+
+//testing the API
+int main(){
 
 }
