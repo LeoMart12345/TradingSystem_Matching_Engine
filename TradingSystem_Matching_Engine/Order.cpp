@@ -23,11 +23,11 @@ std::string Order::getName() const {return mName;}
 u_int64_t Order::getOrderId() const {return mOrderID;}
 Price Order::getPrice() const {return mPrice;}
 
-int main(){
+// int main(){
  
-    Order myOrder = Order(Bid, 100, "apple", 100, 10);
+//     Order myOrder = Order(Bid, 100, "apple", 100, 10);
     
-    myOrder.PrintOrder();
+//     myOrder.PrintOrder();
 
-    return 0; 
-}
+//     return 0; 
+// }

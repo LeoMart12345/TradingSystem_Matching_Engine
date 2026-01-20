@@ -2,6 +2,7 @@
 #include <array> 
 #include <vector>
 #include "OrderBook.hpp"
+#include "order.hpp"
 
 static constexpr int CHUNK = 64; 
 // this represents the number that will be used to determine the + & - 5% of the prices that can be bid and ask.
@@ -18,15 +19,17 @@ mBidpriceLevel(size), mAskPriceLevel(size)
     mBidBitmap.resize(mBitmapSize, 0ULL); 
     mAskBitmap.resize(mBitmapSize, 0ULL);
 
-    std::cout << "OrderBook created with" << size << "price levels" << std::endl;
-    std::cout << "BitMap create with" << mBitmapSize << " 64 bit elements" << std::endl;
+    std::cout << "OrderBook created with " << size << " price levels" << std::endl;
+    std::cout << "BitMap create with " << mBitmapSize << " 64 bit elements" << std::endl;
 
 }
 
 void OrderBook::addBid(Order order){
     // get the price of the bid
     int BidLevel = priceToIndex(order.mPrice.mPriceValueInCent);
-    mBidpriceLevel[BidLevel].emplace(order);
+    mBidpriceLevel[BidLevel].emplace_back(order);
+
+    //TODO : Update the bitmap if its 0 else do nothing
 }
 
 void OrderBook::removeBid(Order Order) {
@@ -44,11 +47,11 @@ void OrderBook::getTotalVolume(){
 
 
 // helper
-int OrderBook::priceToIndex(Price price){
+int OrderBook::priceToIndex(Price price) const{
     int index = price.mPriceValueInCent - StartOfPrice;
     
     // need to do bounds checking here. // TODO
-    if(index < 0 || index > NumOfLevels){
+    if(index < 0 || index >= NumOfLevels){
         std::cout << "ERROR that price is not a price that this asset can be traded at" << std::endl;
         throw std::invalid_argument( "Invalid price to bid/ask");
 
@@ -57,7 +60,21 @@ int OrderBook::priceToIndex(Price price){
     return index;
 }
 
+void OrderBook::printOrderBook() const{
+    std::cout << "------------------------------" << std::endl;
+    
+}
+
+
 //testing the API
 int main(){
+    OrderBook Book1(NumOfLevels);
 
+    
+    Order myOrder = Order(Bid, 100, "apple", 100, 1000);
+
+    Book1.addBid(myOrder);
+
+    Book1.printOrderBook();
+   
 }

@@ -31,12 +31,8 @@ public:
     void getBestAsk();
 
     //helpeer functions
-    int priceToIndex(Price price);
+    int priceToIndex(Price price) const;
 
+    void printOrderBook() const;
 };
 
-int main()
-{
-    std::cout << "hello" << std::endl;
-    OrderBook testing(1000);
-}
