@@ -47,7 +47,7 @@ void OrderBook::getTotalVolume(){
 }
 
 
-// helper
+// Helper functions
 int OrderBook::priceToIndex(Price price) const{
     int index = price.mPriceValueInCent - StartOfPrice;
     
@@ -58,6 +58,30 @@ int OrderBook::priceToIndex(Price price) const{
 
     }
     return index;
+}
+
+std::pair<size_t, size_t> OrderBook::priceToBitmapIndex(Price price){
+    // TODO imeplement
+
+    int levelIndex = priceToIndex(price);
+    
+    return indexToBitmapIndex(levelIndex);
+}
+
+std::pair<size_t, size_t> OrderBook::indexToBitmapIndex(int levelIndex){
+    //TODO implement.
+
+
+    size_t wordIndex = levelIndex / CHUNK;
+    size_t bitIndex = levelIndex % CHUNK;
+
+    // Printing for testing
+    std::cout << wordIndex << std::endl; 
+
+
+    std::cout << bitIndex << std::endl; 
+
+    return{wordIndex, bitIndex};
 }
 
 void OrderBook::printOrderBook() const{
@@ -100,24 +124,14 @@ void OrderBook::printOrderBook() const{
 int main(){
     OrderBook Book1(NumOfLevels);
 
-    
+    // make a price then make the order or make the 
     Order myOrder = Order(Bid, 100, "apple", 100, 1000);
 
     Book1.addBid(myOrder);
     
     Book1.printOrderBook();
-   
-
-
     
-    int wordIndex = myOrder.getPrice().mPriceValueInCent - StartOfPrice;
 
-    std::cout << "Word Index for the bitmap " << wordIndex << std::endl;
-
-    int bit = wordIndex % CHUNK; 
-    
-    std::cout << "Bit Index for the bitmap " << bit << std::endl;
-
-    // 50th level 
+    Book1.priceToBitmapIndex(myOrder.getPrice());
     
 }

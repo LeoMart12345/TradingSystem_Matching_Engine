@@ -32,8 +32,13 @@ public:
 
     //helper functions
     int priceToIndex(Price price) const;
-   
-    int indexToBit();
+    
+
+    
+    // int indexToBit();
+
+    std::pair<size_t, size_t> priceToBitmapIndex(Price price);
+    std::pair<size_t, size_t> indexToBitmapIndex(int priceIndex);
 
     void printOrderBook() const;
 

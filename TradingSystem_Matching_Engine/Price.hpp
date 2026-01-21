@@ -10,7 +10,7 @@ class Price{
     //constructors
     Price(): mPriceValueInCent(0) {};
     Price(long long value): mPriceValueInCent(value) {};
-    
+    int getPriceInTicks() const {return mPriceValueInCent; } 
     // Destructor
 
     //operator overloading
