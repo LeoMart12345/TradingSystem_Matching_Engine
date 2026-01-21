@@ -21,7 +21,6 @@ mBidpriceLevel(size), mAskPriceLevel(size)
 
     std::cout << "OrderBook created with " << size << " price levels" << std::endl;
     std::cout << "BitMap create with " << mBitmapSize << " 64 bit elements" << std::endl;
-
 }
 
 void OrderBook::addBid(Order order){
@@ -29,7 +28,9 @@ void OrderBook::addBid(Order order){
     int BidLevel = priceToIndex(order.mPrice.mPriceValueInCent);
     mBidpriceLevel[BidLevel].emplace_back(order);
 
-    //TODO : Update the bitmap if its 0 else do nothing
+    // TODO : Update the bitmap if its 0 else do nothing
+    // if(mBidBitmap[])
+    // mBidBitmap
 }
 
 void OrderBook::removeBid(Order Order) {
@@ -56,15 +57,44 @@ int OrderBook::priceToIndex(Price price) const{
         throw std::invalid_argument( "Invalid price to bid/ask");
 
     }
-
     return index;
 }
 
 void OrderBook::printOrderBook() const{
-    std::cout << "------------------------------" << std::endl;
-    
-}
+    std::cout << "------ OrderBook  -----" << std::endl;
+        std::cout << "\nBIDS (high -> low)\n";
+    for (int i = static_cast<int>(mBidpriceLevel.size()) - 1; i >= 0; --i) {
+        if (mBidpriceLevel[i].empty()) continue;
 
+        int priceTicks = StartOfPrice + i;
+        std::cout << "Level " << i << " (Price €" << priceTicks/100 << "): ";
+
+        for (const auto& o : mBidpriceLevel[i]) {
+            std::cout << "[id=" << o.mOrderID
+                      << ", qty=" << o.mVolume
+                      << ", user=" << o.mName
+                      << "] ";
+        }
+        std::cout << "\n";
+    }
+
+    std::cout << "\nASKS (low -> high)\n";
+    for (int i = 0; i < static_cast<int>(mAskPriceLevel.size()); ++i) {
+        if (mAskPriceLevel[i].empty()) continue;
+
+        int priceTicks = StartOfPrice + i;
+        std::cout << "Level " << i << " (ticks " << priceTicks << "): ";
+
+        for (const auto& o : mAskPriceLevel[i]) {
+            std::cout << "[id=" << o.mOrderID
+                      << ", qty=" << o.mVolume
+                      << ", Asset=" << o.mName
+                      << "] ";
+        }
+        std::cout << "\n";
+    }
+    std::cout << "------------------------------" << std::endl;
+}
 
 //testing the API
 int main(){
@@ -74,7 +104,20 @@ int main(){
     Order myOrder = Order(Bid, 100, "apple", 100, 1000);
 
     Book1.addBid(myOrder);
-
+    
     Book1.printOrderBook();
    
+
+
+    
+    int wordIndex = myOrder.getPrice().mPriceValueInCent - StartOfPrice;
+
+    std::cout << "Word Index for the bitmap " << wordIndex << std::endl;
+
+    int bit = wordIndex % CHUNK; 
+    
+    std::cout << "Bit Index for the bitmap " << bit << std::endl;
+
+    // 50th level 
+    
 }

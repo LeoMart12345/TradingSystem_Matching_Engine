@@ -30,9 +30,11 @@ public:
     void getBestBid();
     void getBestAsk();
 
-    //helpeer functions
+    //helper functions
     int priceToIndex(Price price) const;
+   
+    int indexToBit();
 
     void printOrderBook() const;
-};
 
+};
