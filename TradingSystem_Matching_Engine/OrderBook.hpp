@@ -32,13 +32,14 @@ public:
 
     //helper functions
     int priceToIndex(Price price) const;
-    
-
-    
-    // int indexToBit();
-
     std::pair<size_t, size_t> priceToBitmapIndex(Price price);
     std::pair<size_t, size_t> indexToBitmapIndex(int priceIndex);
+    // make function to se specified bit to 1 and 0.
+
+    void setBitTo1(const Price& Price); // takes in the price, uses helpers to set bitmap bit to 1 to indicate active price level.
+    void setBitTo0(const Price& price);
+    
+
 
     void printOrderBook() const;
 

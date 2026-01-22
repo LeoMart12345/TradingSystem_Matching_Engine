@@ -1,2 +1,0 @@
-#!/bin/bash
-/usr/bin/perf "$@" 2> >(grep -v "WARNING" >&2)
