@@ -84,6 +84,26 @@ std::pair<size_t, size_t> OrderBook::indexToBitmapIndex(int levelIndex){
     return{wordIndex, bitIndex};
 }
 
+    void OrderBook::setBidBitTo1(const Price& price){
+
+        // TODO check if the bit is already 1   
+        // use a logical AND with a bitmask with all 0 apart from the bit its checking 
+        
+        auto result = priceToBitmapIndex(price);
+        size_t wordPos = result.first; // the position of the word in the bitmap array
+        size_t bitPos = result.second; // the position of the bit in that word
+
+        // make a bitmask that has all 0s apart from the place where im checking for 1. 0001000000 etc
+        //then OR the original word with this bitmask
+
+    }  
+
+    void OrderBook::setBidBitTo0(const Price& price){
+
+    }
+    
+
+
 void OrderBook::printOrderBook() const{
     std::cout << "------ OrderBook  -----" << std::endl;
         std::cout << "\nBIDS (high -> low)\n";
@@ -133,5 +153,7 @@ int main(){
     
 
     Book1.priceToBitmapIndex(myOrder.getPrice());
-    
+
+    // Book1.setBidBitTo1(1000);
+
 }
