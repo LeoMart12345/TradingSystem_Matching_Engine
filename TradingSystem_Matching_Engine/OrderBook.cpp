@@ -3,6 +3,8 @@
 #include <vector>
 #include "OrderBook.hpp"
 #include "order.hpp"
+#include "bitset"
+
 
 static constexpr int CHUNK = 64; 
 // this represents the number that will be used to determine the + & - 5% of the prices that can be bid and ask.
@@ -28,6 +30,7 @@ void OrderBook::addBid(Order order){
     int BidLevel = priceToIndex(order.mPrice.mPriceValueInCent);
     mBidpriceLevel[BidLevel].emplace_back(order);
 
+    setBidBitTo1(order.getPrice());
     // TODO : Update the bitmap if its 0 else do nothing
     // if(mBidBitmap[])
     // mBidBitmap
@@ -95,6 +98,17 @@ std::pair<size_t, size_t> OrderBook::indexToBitmapIndex(int levelIndex){
 
         // make a bitmask that has all 0s apart from the place where im checking for 1. 0001000000 etc
         //then OR the original word with this bitmask
+
+        u_int64_t bitmask = (1ULL <<  bitPos);
+        
+        // TODO take this out: Testing
+        std::cout << "64-bit: " << std::bitset<64>(bitmask) << std::endl;
+        std::cout << "64-bit: " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
+
+        bool wasSet = (mBidBitmap[wordPos] & bitmask) != 0;
+
+        mBidBitmap[wordPos] |= bitmask; //  always set to avoid branches
+
 
     }  
 
