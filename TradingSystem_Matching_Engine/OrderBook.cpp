@@ -1,9 +1,11 @@
 #include <iostream> 
 #include <array> 
 #include <vector>
+#include <bitset>
+//
 #include "OrderBook.hpp"
 #include "order.hpp"
-#include "bitset"
+
 
 
 static constexpr int CHUNK = 64; 
@@ -27,7 +29,7 @@ mBidpriceLevel(size), mAskPriceLevel(size)
 
 void OrderBook::addBid(Order order){
     // get the price of the bid
-    int BidLevel = priceToIndex(order.mPrice.mPriceValueInCent);
+    int BidLevel = priceToIndex(order.mPrice);
     mBidpriceLevel[BidLevel].emplace_back(order);
 
     setBidBitTo1(order.getPrice());
@@ -89,6 +91,7 @@ std::pair<size_t, size_t> OrderBook::indexToBitmapIndex(int levelIndex){
 
     void OrderBook::setBidBitTo1(const Price& price){
 
+        
         // TODO check if the bit is already 1   
         // use a logical AND with a bitmask with all 0 apart from the bit its checking 
         
@@ -99,17 +102,20 @@ std::pair<size_t, size_t> OrderBook::indexToBitmapIndex(int levelIndex){
         // make a bitmask that has all 0s apart from the place where im checking for 1. 0001000000 etc
         //then OR the original word with this bitmask
 
+        // std::cout << "64-bit: Current: " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
+
+
         u_int64_t bitmask = (1ULL <<  bitPos);
         
         // TODO take this out: Testing
-        std::cout << "64-bit: " << std::bitset<64>(bitmask) << std::endl;
-        std::cout << "64-bit: " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
+        std::cout << "64-bit: Current: " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
+        std::cout << "64-bit Mask:     " << std::bitset<64>(bitmask) << std::endl;
 
-        bool wasSet = (mBidBitmap[wordPos] & bitmask) != 0;
+        // bool wasSet = (mBidBitmap[wordPos] & bitmask) != 0; // TODO use this if need
 
-        mBidBitmap[wordPos] |= bitmask; //  always set to avoid branches
+        mBidBitmap[wordPos] |= bitmask; //  no if(): always set to avoid branches
 
-
+        std::cout << "64-bit: After  : " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
     }  
 
     void OrderBook::setBidBitTo0(const Price& price){
@@ -165,9 +171,13 @@ int main(){
     
     Book1.printOrderBook();
     
+    // Price testPrice;
+    // testPrice.mPriceValueInCent = 975;
 
+    // Book1.setBidBitTo1(myOrder.mPrice);
+
+        
     Book1.priceToBitmapIndex(myOrder.getPrice());
-
-    // Book1.setBidBitTo1(1000);
+    // Book1.priceToBitmapIndex(myOrder.getPrice()); // try same
 
 }
