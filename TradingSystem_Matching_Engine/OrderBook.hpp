@@ -26,6 +26,12 @@ public:
     void setBidBitTo1(const Price& price); // takes in the price, uses helpers to set bitmap bit to 1 to indicate active price level.
     void setBidBitTo0(const Price& price);
     
+    // updated API that takes into account quantity and the posibility of a partial fill
+    const Order& getBestBid() const;
+    Order popBestBid();
+    void fillBestBid(u_int16_t quantity);
+    
+
     // Ask
     void addAsk(Order order);
     void removeAsk(Order order);
@@ -34,16 +40,14 @@ public:
 
     void getVolumeAtLevel(Price price);
     void getTotalVolume();
-
-    // Bitmap getters
-    void getBestBid();
-    void getBestAsk();
-
+    
     //helper functions
     int priceToIndex(Price price) const;
+    Price indexToPrice(int levelIndex) const;
     std::pair<size_t, size_t> priceToBitmapIndex(Price price);
     std::pair<size_t, size_t> indexToBitmapIndex(int priceIndex);
+    
+    int findBestBidLevel() const; //returns -1 if there are no bids
 
     void printOrderBook() const;
-
 };

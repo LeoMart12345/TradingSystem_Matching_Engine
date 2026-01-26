@@ -5,6 +5,7 @@
 //
 #include "OrderBook.hpp"
 #include "order.hpp"
+#include <bit>
 
 static constexpr int CHUNK = 64;
 // this represents the number that will be used to determine the + & - 5% of the prices that can be bid and ask.
@@ -36,19 +37,20 @@ void OrderBook::removeBid(Order order)
 {
     // get the price of the bid
     int bidLevel = priceToIndex(order.mPrice);
-    
-    const Order& frontOrder = mBidpriceLevel[bidLevel].front();
+    // check to avoid UB
+    if(mBidpriceLevel[bidLevel].empty() == false){
+        const Order& frontOrder = mBidpriceLevel[bidLevel].front();
+        
+        // check if the order is fully filled
+        // if(frontOrder.getPrice().getPriceInTicks() == 0){
+            mBidpriceLevel[bidLevel].pop_front();
+        // }
+    }
 
-    // check if the order is fully filled
-    // if(frontOrder.getPrice().getPriceInTicks() == 0){
-        mBidpriceLevel[bidLevel].pop_front();
-    // }
-    
     // this shouldent be called every time just when the level is completely empty.
     if(mBidpriceLevel[bidLevel].empty()){
         setBidBitTo0(order.getPrice());
     }
-
 }
 
 void OrderBook::getVolumeAtLevel(Price price)
@@ -73,6 +75,19 @@ int OrderBook::priceToIndex(Price price) const
         throw std::invalid_argument("Invalid price to bid/ask");
     }
     return index;
+}
+
+Price OrderBook::indexToPrice(int levelIndex) const
+{
+    
+    // need to do bounds checking here. // TODO
+    if (levelIndex < 0 || levelIndex >= static_cast<int>(mBidpriceLevel.size())) {
+        throw std::invalid_argument("Invalid level index: " + std::to_string(levelIndex));
+    }
+
+    int priceInCents = StartOfPrice + levelIndex;
+
+    return Price(priceInCents);
 }
 
 std::pair<size_t, size_t> OrderBook::priceToBitmapIndex(Price price)
@@ -187,9 +202,80 @@ void OrderBook::setAskBitTo0(const Price &price)
     std::cout << "64-bit: After  : " << std::bitset<64>(mAskBitmap[wordPos]) << std::endl;
 }
 
+const Order& OrderBook::getBestBid() const{
+    int bestBidLevel = findBestBidLevel();
+
+    if(bestBidLevel != -1){
+        throw std::runtime_error("No bids in the OrderBook!");
+    }
+    // deque at that level
+    const auto deque = mBidpriceLevel[bestBidLevel];
+
+    if(deque.empty()){
+        std::runtime_error("bitmapp shows the level marked but the deque is empty");
+    }
+    // int word = static_cast<int>(bestBidLevel / 64); 
+    // int bit = bestBidLevel % 64;
+
+    return deque.front();
+}
+
+Order OrderBook::popBestBid(){
+    int bestBidLevel = findBestBidLevel();
+
+    if(bestBidLevel != -1){
+        throw std::runtime_error("No bids in the OrderBook!");
+    }
+    // deque at that level
+    auto& deque = mBidpriceLevel[bestBidLevel];
+
+    if(deque.empty()){
+        std::runtime_error("bitmapp shows the level marked but the deque is empty");
+    }
+
+    Order orderCopy = deque.front();
+
+    deque.pop_front();
+
+    if (deque.empty()) {
+        //TODO set the bitmap to 0
+
+        setBidBitTo0(index)
+    }
+
+}
+
+void OrderBook::fillBestBid(u_int16_t quantity){
+
+}
+
+
+int OrderBook::findBestBidLevel() const{
+
+    // 
+    for(int i = static_cast<int>(mBidBitmap.size() - 1); i >= 0; --i){
+        u_int64_t word = mBidBitmap[i];
+
+        if(word != 0){
+            int leadingZeros = std::__countl_zero(word);
+            
+            int bitPositionFromRight = 63 - leadingZeros;
+            // should the bit position not be from the left?
+
+            std::cout << "word index: " << i << std::endl;
+            std::cout << "bit Index from LSB: " << bitPositionFromRight << std::endl;
+            std::cout << "gloval bit position: " << i * CHUNK  + bitPositionFromRight << std::endl;
+            
+            return i * CHUNK  + bitPositionFromRight; 
+        }
+    }
+
+    return -1;
+}
+
 void OrderBook::printOrderBook() const
 {
-    std::cout << "------ OrderBook  -----" << std::endl;
+    std::cout << "--------  OrderBook  ---------------------------------------------" << std::endl;
     std::cout << "\nBIDS (high -> low)\n";
     for (int i = static_cast<int>(mBidpriceLevel.size()) - 1; i >= 0; --i)
     {
@@ -227,7 +313,7 @@ void OrderBook::printOrderBook() const
         }
         std::cout << "\n";
     }
-    std::cout << "------------------------------" << std::endl;
+    std::cout << "------------------------------------------------------------------" << std::endl;
 }
 
 // testing the API
@@ -236,15 +322,18 @@ int main()
     OrderBook Book1(NumOfLevels);
 
     // make a price then make the order or make the
-    Order myOrder = Order(Bid, 100, "apple", 100, 1000);
+    Order myOrder = Order(Bid, 100, "apple", 100, 1050);
 
     Book1.addBid(myOrder);
 
     Book1.printOrderBook();
 
-    Book1.removeAsk(myOrder);
+    // Book1.removeBid(myOrder);
 
-    Book1.printOrderBook();
+    // Book1.printOrderBook();
+
+    Book1.findBestBidLevel();
 
     // test the bits if it doesnt work.
+
 }
