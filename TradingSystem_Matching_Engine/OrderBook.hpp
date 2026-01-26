@@ -20,9 +20,18 @@ private:
 public:
     explicit OrderBook(size_t size);
     
-    // APi for the OrderBook
+    // Bid
     void addBid(Order order);
-    void removeBid(Order Order);
+    void removeBid(Order order);
+    void setBidBitTo1(const Price& price); // takes in the price, uses helpers to set bitmap bit to 1 to indicate active price level.
+    void setBidBitTo0(const Price& price);
+    
+    // Ask
+    void addAsk(Order order);
+    void removeAsk(Order order);
+    void setAskBitTo1(const Price& price);
+    void setAskBitTo0(const Price& price);
+
     void getVolumeAtLevel(Price price);
     void getTotalVolume();
 
@@ -34,12 +43,6 @@ public:
     int priceToIndex(Price price) const;
     std::pair<size_t, size_t> priceToBitmapIndex(Price price);
     std::pair<size_t, size_t> indexToBitmapIndex(int priceIndex);
-    // make function to se specified bit to 1 and 0.
-
-    void setBidBitTo1(const Price& price); // takes in the price, uses helpers to set bitmap bit to 1 to indicate active price level.
-    void setBidBitTo0(const Price& price);
-
-
 
     void printOrderBook() const;
 
