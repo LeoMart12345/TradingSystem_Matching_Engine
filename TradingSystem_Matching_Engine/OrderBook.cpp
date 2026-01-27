@@ -220,6 +220,22 @@ const Order& OrderBook::getBestBid() const{
     return deque.front();
 }
 
+const Order& OrderBook::getBestAsk() const{
+    int bestAskLevel = findBestAskLevel();
+
+    if(bestAskLevel == -1){
+        throw std::runtime_error("No Asks in the OrderBook");
+    }
+
+    const auto deque = mAskPriceLevel[bestAskLevel];
+
+    if(deque.empty()){
+        std::runtime_error("bitmapp shows the level marked but the deque is empty");
+    }
+
+    return deque.front();
+}
+
 Order OrderBook::popBestBid(){
     int bestBidLevel = findBestBidLevel();
 
@@ -230,32 +246,70 @@ Order OrderBook::popBestBid(){
     auto& deque = mBidpriceLevel[bestBidLevel];
 
     if(deque.empty()){
-        std::runtime_error("bitmapp shows the level marked but the deque is empty");
+        std::runtime_error("bitmapp shows the level marked but the deque at that level is empty!");
     }
 
     Order orderCopy = deque.front();
-
     deque.pop_front();
 
     if (deque.empty()) {
-        //TODO set the bitmap to 0
-
         setBidBitTo0(indexToPrice(bestBidLevel));
     }
 
     return orderCopy;
 }
 
-void OrderBook::fillBestBid(u_int16_t quantity){
+Order OrderBook::popBestAsk(){
+    int bestAskLevel = findBestAskLevel();
 
+    if(bestAskLevel == -1){
+        throw std::runtime_error("no asks in the OrderBook!");
+    }
+    auto& deque = mAskPriceLevel[bestAskLevel];
+    if(deque.empty()){
+        std::runtime_error("bitmap shows the level marked but the deque at that level is empty!");
+    }
+    Order orderCopy = deque.front();
+    deque.pop_front();
+
+    if(deque.empty()){
+        setAskBitTo0(indexToPrice(bestAskLevel));
+    }
+
+    return orderCopy;
 }
+
+// void OrderBook::fillBestBid(u_int16_t quantity){
+
+// }
 
 
 int OrderBook::findBestBidLevel() const{
-
     // 
     for(int i = static_cast<int>(mBidBitmap.size() - 1); i >= 0; --i){
         u_int64_t word = mBidBitmap[i];
+
+        if(word != 0){
+            int leadingZeros = std::__countl_zero(word);
+            
+            int bitPositionFromRight = 63 - leadingZeros;
+            // should the bit position not be from the left?
+
+            std::cout << "word index: " << i << std::endl;
+            std::cout << "bit Index from LSB: " << bitPositionFromRight << std::endl;
+            std::cout << "gloval bit position: " << i * CHUNK  + bitPositionFromRight << std::endl;
+            
+            return i * CHUNK  + bitPositionFromRight; 
+        }
+    }
+    return -1;
+}
+
+int OrderBook::findBestAskLevel() const{
+    // 
+    for(int i =0; i < static_cast<int>(mAskBitmap.size() - 1); ++i){
+
+        u_int64_t word = mAskBitmap[i];
 
         if(word != 0){
             int leadingZeros = std::__countl_zero(word);
@@ -283,7 +337,9 @@ void OrderBook::printOrderBook() const
             continue;
 
         int priceTicks = StartOfPrice + i;
-        std::cout << "Level " << i << " (Price €" << priceTicks / 100 << "): ";
+        float TicksToPrice = static_cast<float>(priceTicks / 100.0f);
+
+        std::cout << "Level " << i << " (Price €" << TicksToPrice<< "): ";
 
         for (const auto &o : mBidpriceLevel[i])
         {
@@ -322,26 +378,15 @@ int main()
     OrderBook Book1(NumOfLevels);
 
     // make a price then make the order or make the
-    Order myOrder = Order(Bid, 100, "apple", 100, 1050);
+    Order myOrder = Order(Bid, 100, "apple", 100, 1040);
 
     Book1.addBid(myOrder);
 
     Book1.printOrderBook();
 
-    // Book1.removeBid(myOrder);
+    Order best = Book1.getBestBid();
 
-    // Book1.printOrderBook();
-
-    Book1.findBestBidLevel();
-
-    // Book1.getBestBid();
-
-    // Order bestBidOrder = Book1.popBestBid();
-    // test the bits if it doesnt work.
-
-    // bestBidOrder.PrintOrder();
-
-    Book1.popBestBid();
+    best.PrintOrder();
 
     Book1.printOrderBook();
 

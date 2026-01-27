@@ -1,4 +1,6 @@
 #pragma once
+
+#include <format>
 #include <iostream>
 #include <array>
 #include <vector>
@@ -29,9 +31,12 @@ public:
     // updated API that takes into account quantity and the posibility of a partial fill
     const Order& getBestBid() const;
     Order popBestBid();
-    void fillBestBid(u_int16_t quantity);
-    
+    // void fillBestBid(u_int16_t quantity); // todo decide if this needs to be matching engine logic
 
+    const Order& getBestAsk() const;
+    Order popBestAsk();
+    
+    // void fillBestAsk(u_int16_t quantity);
     // Ask
     void addAsk(Order order);
     void removeAsk(Order order);
@@ -44,10 +49,14 @@ public:
     //helper functions
     int priceToIndex(Price price) const;
     Price indexToPrice(int levelIndex) const;
+    
     std::pair<size_t, size_t> priceToBitmapIndex(Price price);
     std::pair<size_t, size_t> indexToBitmapIndex(int priceIndex);
-    
+
     int findBestBidLevel() const; //returns -1 if there are no bids
+    int findBestAskLevel() const; // same for the asks
 
     void printOrderBook() const;
+
+    
 };
