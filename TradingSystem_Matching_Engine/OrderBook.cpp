@@ -205,7 +205,7 @@ void OrderBook::setAskBitTo0(const Price &price)
 const Order& OrderBook::getBestBid() const{
     int bestBidLevel = findBestBidLevel();
 
-    if(bestBidLevel != -1){
+    if(bestBidLevel == -1){
         throw std::runtime_error("No bids in the OrderBook!");
     }
     // deque at that level
@@ -223,7 +223,7 @@ const Order& OrderBook::getBestBid() const{
 Order OrderBook::popBestBid(){
     int bestBidLevel = findBestBidLevel();
 
-    if(bestBidLevel != -1){
+    if(bestBidLevel == -1){
         throw std::runtime_error("No bids in the OrderBook!");
     }
     // deque at that level
@@ -240,9 +240,10 @@ Order OrderBook::popBestBid(){
     if (deque.empty()) {
         //TODO set the bitmap to 0
 
-        setBidBitTo0(index)
+        setBidBitTo0(indexToPrice(bestBidLevel));
     }
 
+    return orderCopy;
 }
 
 void OrderBook::fillBestBid(u_int16_t quantity){
@@ -269,7 +270,6 @@ int OrderBook::findBestBidLevel() const{
             return i * CHUNK  + bitPositionFromRight; 
         }
     }
-
     return -1;
 }
 
@@ -334,6 +334,15 @@ int main()
 
     Book1.findBestBidLevel();
 
+    // Book1.getBestBid();
+
+    // Order bestBidOrder = Book1.popBestBid();
     // test the bits if it doesnt work.
+
+    // bestBidOrder.PrintOrder();
+
+    Book1.popBestBid();
+
+    Book1.printOrderBook();
 
 }
