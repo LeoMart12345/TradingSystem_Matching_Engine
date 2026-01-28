@@ -8,12 +8,13 @@
 class MatchingEngine {
 
     private:
-
+        OrderBook orderBook;
 
     public:
-        explicit MatchingEngine(OrderBook orderBook);
+        explicit MatchingEngine(OrderBook& orderBook): orderBook(orderBook){}
+        
 
-        void matchLimitOrders(OrderBook orderBook);
+        void matchLimitOrders();
 
 
 };

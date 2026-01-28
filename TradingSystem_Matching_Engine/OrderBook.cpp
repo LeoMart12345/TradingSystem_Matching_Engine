@@ -33,6 +33,13 @@ void OrderBook::addBid(Order order)
     setBidBitTo1(order.getPrice());
 }
 
+void OrderBook::addAsk(Order order)
+{
+    int AskLevel = priceToIndex(order.mPrice);
+    mAskPriceLevel[AskLevel].emplace_back(order);
+    setAskBitTo1(order.getPrice());
+}
+
 void OrderBook::removeBid(Order order)
 {
     // get the price of the bid
@@ -51,6 +58,11 @@ void OrderBook::removeBid(Order order)
     if(mBidpriceLevel[bidLevel].empty()){
         setBidBitTo0(order.getPrice());
     }
+}
+
+void OrderBook::removeAsk(Order order)
+{
+
 }
 
 void OrderBook::getVolumeAtLevel(Price price)
@@ -153,15 +165,9 @@ void OrderBook::setBidBitTo0(const Price &price)
     std::cout << "64-bit: After  : " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
 }
 
-void OrderBook::addAsk(Order order)
-{
 
-}
 
-void OrderBook::removeAsk(Order order)
-{
 
-}
 
 void OrderBook::setAskBitTo1(const Price &price)
 {
@@ -293,7 +299,6 @@ int OrderBook::findBestBidLevel() const{
             int leadingZeros = std::__countl_zero(word);
             
             int bitPositionFromRight = 63 - leadingZeros;
-            // should the bit position not be from the left?
 
             std::cout << "word index: " << i << std::endl;
             std::cout << "bit Index from LSB: " << bitPositionFromRight << std::endl;
@@ -306,8 +311,8 @@ int OrderBook::findBestBidLevel() const{
 }
 
 int OrderBook::findBestAskLevel() const{
-    // 
-    for(int i =0; i < static_cast<int>(mAskBitmap.size() - 1); ++i){
+    // TODO double check this logic to make sure its correct.
+    for(int i = 0; i < static_cast<int>(mAskBitmap.size()); ++i){
 
         u_int64_t word = mAskBitmap[i];
 
