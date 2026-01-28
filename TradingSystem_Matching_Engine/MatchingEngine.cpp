@@ -1,23 +1,23 @@
-#pragma once
-#include "order.hpp"
-#include <map>
-#include <unordered_map>
-#include <deque>
-#include <queue>
+#include "MatchingEngine.hpp"
 
-class MatchingEngine {
+// Constructor
+MatchingEngine::MatchingEngine(OrderBook orderBook){
+    std::cout << "matchingEngine was constructed!" << std::endl;
+}
 
+void MatchingEngine::matchLimitOrders(OrderBook orderBook){ 
+    orderBook.getBestAsk();
+    orderBook.getBestBid();
 
+    
+}
 
-private:
+int main(){
 
+    OrderBook Book2(101);
 
+    MatchingEngine APPL_matchingEngine(Book2);
 
-};
-
-
-
-//Buy and sell side as maps
-// std::unordered_map<int, std::deque<Order>> buyOrders; // maps an int price to a queue on the buy heap
-// std::unordered_map<int, std::deque<Order>> sellOrders; // maps an int price to a queue on the sell heap
-// Heaps for both buy and sell price levels
+    APPL_matchingEngine.matchLimitOrders(Book2);
+   
+}

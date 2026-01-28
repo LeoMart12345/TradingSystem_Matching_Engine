@@ -373,21 +373,21 @@ void OrderBook::printOrderBook() const
 }
 
 // testing the API
-int main()
-{
-    OrderBook Book1(NumOfLevels);
+// int main()
+// {
+//     OrderBook Book1(NumOfLevels);
 
-    // make a price then make the order or make the
-    Order myOrder = Order(Bid, 100, "apple", 100, 1040);
+//     // make a price then make the order or make the
+//     Order myOrder = Order(Bid, 100, "apple", 100, 1040);
 
-    Book1.addBid(myOrder);
+//     Book1.addBid(myOrder);
 
-    Book1.printOrderBook();
+//     Book1.printOrderBook();
 
-    Order best = Book1.getBestBid();
+//     Order best = Book1.getBestBid();
 
-    best.PrintOrder();
+//     best.PrintOrder();
 
-    Book1.printOrderBook();
+//     Book1.printOrderBook();
 
-}
+// }

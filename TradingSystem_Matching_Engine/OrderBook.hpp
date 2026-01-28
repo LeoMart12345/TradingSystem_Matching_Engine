@@ -56,7 +56,5 @@ public:
     int findBestBidLevel() const; //returns -1 if there are no bids
     int findBestAskLevel() const; // same for the asks
 
-    void printOrderBook() const;
-
-    
+    void printOrderBook() const;    
 };
