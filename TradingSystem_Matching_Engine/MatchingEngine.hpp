@@ -11,7 +11,7 @@ class MatchingEngine {
         OrderBook orderBook;
 
     public:
-        explicit MatchingEngine(OrderBook& orderBook): orderBook(orderBook){}
+        explicit MatchingEngine(OrderBook& orderBook);
         
 
         void matchLimitOrders();

@@ -1,7 +1,9 @@
 #include "MatchingEngine.hpp"
 
 // Constructor
-MatchingEngine::MatchingEngine(OrderBook& orderBook): orderBook(orderBook){
+MatchingEngine::MatchingEngine(OrderBook& orderBook)
+    : orderBook(orderBook)
+{
     std::cout << "matchingEngine was constructed!" << std::endl;
 }
 
