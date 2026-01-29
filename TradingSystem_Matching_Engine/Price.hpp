@@ -15,10 +15,12 @@ class Price{
     // copy constructor
     Price(const Price& other) : mPriceValueInCent(other.mPriceValueInCent){};
     // copy assignment operator
-
-    
-    Price()
-
+    Price& operator=(const Price& other){
+        if(this != &other){
+            mPriceValueInCent = other.mPriceValueInCent;
+        }
+        return *this;
+    }
 
     int getPriceInTicks() const {return mPriceValueInCent; } 
 
