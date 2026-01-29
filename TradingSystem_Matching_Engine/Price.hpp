@@ -5,13 +5,22 @@ class Price{
 
     public:
 
-    long long mPriceValueInCent;
+    uint mPriceValueInCent;
     
-    //constructors
+    // Default constructor
     Price(): mPriceValueInCent(0) {};
+    // parameterised constructor
     Price(long long value): mPriceValueInCent(value) {};
+    
+    // copy constructor
+    Price(const Price& other) : mPriceValueInCent(other.mPriceValueInCent){};
+    // copy assignment operator
+
+    
+    Price()
+
+
     int getPriceInTicks() const {return mPriceValueInCent; } 
-    // Destructor
 
     //operator overloading
     Price operator<(const Price& rhs){ return mPriceValueInCent < rhs.mPriceValueInCent; };

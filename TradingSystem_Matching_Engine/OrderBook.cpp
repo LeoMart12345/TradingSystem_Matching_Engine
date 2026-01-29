@@ -2,7 +2,7 @@
 #include <array>
 #include <vector>
 #include <bitset>
-//
+
 #include "OrderBook.hpp"
 #include "order.hpp"
 #include <bit>
@@ -316,17 +316,18 @@ int OrderBook::findBestAskLevel() const{
 
         u_int64_t word = mAskBitmap[i];
 
+        // use trailing as opposed to leading zero
+
         if(word != 0){
-            int leadingZeros = std::__countl_zero(word);
             
-            int bitPositionFromRight = 63 - leadingZeros;
+            int trailingZeros = std::__countr_zero(word);
             // should the bit position not be from the left?
 
             std::cout << "word index: " << i << std::endl;
-            std::cout << "bit Index from LSB: " << bitPositionFromRight << std::endl;
-            std::cout << "gloval bit position: " << i * CHUNK  + bitPositionFromRight << std::endl;
+            std::cout << "bit Index from LSB: " << trailingZeros << std::endl;
+            std::cout << "gloval bit position: " << i * CHUNK  + trailingZeros << std::endl;
             
-            return i * CHUNK  + bitPositionFromRight; 
+            return i * CHUNK  + trailingZeros; 
         }
     }
     return -1;
