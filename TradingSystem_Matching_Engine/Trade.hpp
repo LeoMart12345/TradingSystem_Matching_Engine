@@ -8,14 +8,19 @@ class Trade{
 public:
 
 private:
-    Order askOrder;
-    Order bidOrder;
-    int askOrderId;
-    int bidOrderId;
-    int tradeVolume;
+    Order mBidOrder;
+    Order mAskOrder;
+    // int mAskOrderId;
+    // int mBidOrderId;
+    int mTradeVolume;
 
+public:
+    Trade(Order& bidOrderParam, Order& askOrderParam, int tradeVolumeParam)
+    : mBidOrder(bidOrderParam)
+    , mAskOrder(askOrderParam)
+    , mTradeVolume(tradeVolumeParam)
+    {
     
-
-    private:
+    }
 
 };

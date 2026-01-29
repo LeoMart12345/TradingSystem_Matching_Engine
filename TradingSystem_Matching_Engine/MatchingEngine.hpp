@@ -14,7 +14,7 @@ class MatchingEngine {
         explicit MatchingEngine(OrderBook& orderBook);
         
 
-        void matchLimitOrders();
-    
+        Trade matchLimitOrders();
+
 
 };
