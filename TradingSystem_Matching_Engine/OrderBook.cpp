@@ -214,8 +214,8 @@ const Order& OrderBook::getBestBid() const{
     if(bestBidLevel == -1){
         throw std::runtime_error("No bids in the OrderBook!");
     }
-    // deque at that level
-    const auto deque = mBidpriceLevel[bestBidLevel];
+    // deque at that level (dont copy the deque use ref)
+    const auto& deque = mBidpriceLevel[bestBidLevel];
 
     if(deque.empty()){
         std::runtime_error("bitmapp shows the level marked but the deque is empty");
@@ -232,8 +232,8 @@ const Order& OrderBook::getBestAsk() const{
     if(bestAskLevel == -1){
         throw std::runtime_error("No Asks in the OrderBook");
     }
-
-    const auto deque = mAskPriceLevel[bestAskLevel];
+    // use ref
+    const auto& deque = mAskPriceLevel[bestAskLevel];
 
     if(deque.empty()){
         std::runtime_error("bitmapp shows the level marked but the deque is empty");
