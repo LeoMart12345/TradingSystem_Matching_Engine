@@ -29,11 +29,13 @@ public:
     void setBidBitTo0(const Price& price);
     
     // updated API that takes into account quantity and the posibility of a partial fill
-    const Order& getBestBid() const;
+    Order& getBestBid();
+    //todo peek best bid
     Order popBestBid();
+    
     // void fillBestBid(u_int16_t quantity); // todo decide if this needs to be matching engine logic
-
-    const Order& getBestAsk() const;
+    Order& getBestAsk();
+    //todo peek best ask
     Order popBestAsk();
     
     // void fillBestAsk(u_int16_t quantity);

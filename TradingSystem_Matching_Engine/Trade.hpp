@@ -1,6 +1,7 @@
 #pragma once
 #include "order.hpp"
 #include <iostream>
+#include <optional>
 
 class Trade{
 
@@ -10,6 +11,9 @@ private:
     int mTradeVolume;
 
 public:
+    // TODO make a default constructor:
+    Trade() = default;
+
     Trade(const Order& bidOrderParam, const Order& askOrderParam, int tradeVolumeParam)
     : mBidOrder(bidOrderParam)
     , mAskOrder(askOrderParam)
@@ -24,5 +28,5 @@ public:
         std::cout << "Bid Price: " << mBidOrder.getPrice().mPriceValueInCent << std::endl;
         std::cout << "Volume: " << mTradeVolume << std::endl;
     }
-    
+
 };

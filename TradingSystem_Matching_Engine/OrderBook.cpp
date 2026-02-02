@@ -206,32 +206,30 @@ void OrderBook::setAskBitTo0(const Price &price)
     // std::cout << "64-bit: After  : " << std::bitset<64>(mAskBitmap[wordPos]) << std::endl;
 }
 
-const Order& OrderBook::getBestBid() const{
+Order& OrderBook::getBestBid(){
     int bestBidLevel = findBestBidLevel();
 
     if(bestBidLevel == -1){
         throw std::runtime_error("No bids in the OrderBook!");
     }
-    // deque at that level (dont copy the deque use ref)
-    const auto& deque = mBidpriceLevel[bestBidLevel];
+    // deque at that level
+    auto& deque = mBidpriceLevel[bestBidLevel];
 
     if(deque.empty()){
         std::runtime_error("bitmapp shows the level marked but the deque is empty");
     }
-    // int word = static_cast<int>(bestBidLevel / 64); 
-    // int bit = bestBidLevel % 64;
 
     return deque.front();
 }
 
-const Order& OrderBook::getBestAsk() const{
+Order& OrderBook::getBestAsk(){
     int bestAskLevel = findBestAskLevel();
 
     if(bestAskLevel == -1){
         throw std::runtime_error("No Asks in the OrderBook");
     }
     // use ref
-    const auto& deque = mAskPriceLevel[bestAskLevel];
+    auto& deque = mAskPriceLevel[bestAskLevel];
 
     if(deque.empty()){
         std::runtime_error("bitmapp shows the level marked but the deque is empty");
