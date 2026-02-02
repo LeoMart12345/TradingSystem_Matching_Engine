@@ -19,6 +19,9 @@ Trade MatchingEngine::matchLimitOrders(){
     std::cout << "Best Bid: ";
     BestBid.PrintOrder();
     
+    // TODO implement the trade logic (partial fill etc.)
+
+
     return Trade(bestAsk, BestBid, 1000);
 }
 

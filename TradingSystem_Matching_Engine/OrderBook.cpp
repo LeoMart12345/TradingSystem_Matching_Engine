@@ -138,13 +138,13 @@ void OrderBook::setBidBitTo1(const Price &price)
 
     u_int64_t bitmask = (1ULL << bitPos);
 
-    // TODO take this out: Testing
-    std::cout << "64-bit: Current: " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
-    std::cout << "64-bit Mask:     " << std::bitset<64>(bitmask) << std::endl;
+    // // TODO take this out: Testing
+    // std::cout << "64-bit: Current: " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
+    // std::cout << "64-bit Mask:     " << std::bitset<64>(bitmask) << std::endl;
 
     mBidBitmap[wordPos] |= bitmask;
 
-    std::cout << "64-bit: After  : " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
+    // std::cout << "64-bit: After  : " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
 }
 
 void OrderBook::setBidBitTo0(const Price &price)
@@ -154,13 +154,13 @@ void OrderBook::setBidBitTo0(const Price &price)
     size_t wordPos = result.first; // the position of the word in the bitmap array
     size_t bitPos = result.second; // the position of the bit in that word
 
-    // Before resetting
-    std::cout << "64-bit: Current: " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
+    // Before resetting TODO remove these
+    // std::cout << "64-bit: Current: " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
 
     mBidBitmap[wordPos] &= ~(1ULL << bitPos);    
 
     // After resetting
-    std::cout << "64-bit: After  : " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
+    // std::cout << "64-bit: After  : " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
 }
 
 
@@ -180,13 +180,13 @@ void OrderBook::setAskBitTo1(const Price &price)
 
     u_int64_t bitmask = (1ULL << bitPos);
 
-    // TODO take this out: Testing
-    std::cout << "64-bit: Current: " << std::bitset<64>(mAskBitmap[wordPos]) << std::endl;
-    std::cout << "64-bit Mask:     " << std::bitset<64>(bitmask) << std::endl;
+    // // TODO take this out: Testing
+    // std::cout << "64-bit: Current: " << std::bitset<64>(mAskBitmap[wordPos]) << std::endl;
+    // std::cout << "64-bit Mask:     " << std::bitset<64>(bitmask) << std::endl;
 
     mAskBitmap[wordPos] |= bitmask;
 
-    std::cout << "64-bit: After  : " << std::bitset<64>(mAskBitmap[wordPos]) << std::endl;
+    // std::cout << "64-bit: After  : " << std::bitset<64>(mAskBitmap[wordPos]) << std::endl;
 }
 
 // Makes bitmask and bitwise AND to set bit in bitmap to 0
@@ -197,13 +197,13 @@ void OrderBook::setAskBitTo0(const Price &price)
     size_t wordPos = result.first; // the position of the word in the bitmap array
     size_t bitPos = result.second; // the position of the bit in that word
 
-    // Before resetting
-    std::cout << "64-bit: Current: " << std::bitset<64>(mAskBitmap[wordPos]) << std::endl;
+    // Before resetting TODO remove these
+    // std::cout << "64-bit: Current: " << std::bitset<64>(mAskBitmap[wordPos]) << std::endl;
 
     mAskBitmap[wordPos] &= ~(1ULL << bitPos);    
 
     // After resetting
-    std::cout << "64-bit: After  : " << std::bitset<64>(mAskBitmap[wordPos]) << std::endl;
+    // std::cout << "64-bit: After  : " << std::bitset<64>(mAskBitmap[wordPos]) << std::endl;
 }
 
 const Order& OrderBook::getBestBid() const{

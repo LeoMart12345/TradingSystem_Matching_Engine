@@ -1,20 +1,16 @@
 #pragma once
-#include <iostream>
 #include "order.hpp"
+#include <iostream>
 
 class Trade{
-
-public:
 
 private:
     Order mBidOrder;
     Order mAskOrder;
-    // int mAskOrderId;
-    // int mBidOrderId;
     int mTradeVolume;
 
 public:
-    Trade(Order& bidOrderParam, Order& askOrderParam, int tradeVolumeParam)
+    Trade(const Order& bidOrderParam, const Order& askOrderParam, int tradeVolumeParam)
     : mBidOrder(bidOrderParam)
     , mAskOrder(askOrderParam)
     , mTradeVolume(tradeVolumeParam)
@@ -22,4 +18,11 @@ public:
     
     }
 
+    void printTrade() const {
+        std::cout << "Trade Details:" << std::endl;
+        std::cout << "Ask Price: " << mAskOrder.getPrice().mPriceValueInCent << std::endl;
+        std::cout << "Bid Price: " << mBidOrder.getPrice().mPriceValueInCent << std::endl;
+        std::cout << "Volume: " << mTradeVolume << std::endl;
+    }
+    
 };

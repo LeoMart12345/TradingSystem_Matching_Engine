@@ -24,6 +24,7 @@ public:
     std::string getName()const;
     u_int64_t getOrderId() const;
     Price getPrice() const;
+    void fillOrder(const int volume);
 
 private:
 	
