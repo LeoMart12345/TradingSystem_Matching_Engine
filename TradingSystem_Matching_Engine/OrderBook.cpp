@@ -38,27 +38,27 @@ void OrderBook::addAsk(Order order)
     setAskBitTo1(order.getPrice());
 }
 
-void OrderBook::removeBid(Order order)
+void OrderBook::removeBid(u_int64_t orderId)
 {
-    // get the price of the bid
-    int bidLevel = priceToIndex(order.mPrice);
-    // check to avoid UB
-    if(mBidpriceLevel[bidLevel].empty() == false){
-        const Order& frontOrder = mBidpriceLevel[bidLevel].front();
-        
-        // check if the order is fully filled
-        // if(frontOrder.getPrice().getPriceInTicks() == 0){
-            mBidpriceLevel[bidLevel].pop_front();
-        // }
-    }
+    int bestLevel = findBestAskLevel();
+    if(bestLevel == -1) return;
 
-    // this shouldent be called every time just when the level is completely empty.
-    if(mBidpriceLevel[bidLevel].empty()){
-        setBidBitTo0(order.getPrice());
+    auto& deque = mBidpriceLevel[bestLevel];
+    if (deque.empty()) return;
+
+    if(deque.front().getOrderId() != orderId){
+        std::__throw_logic_error("orderId does not match the order at the front of that queue level");
+    }
+    
+    deque.pop_front();
+    
+    if (deque.empty()) {
+        setBidBitTo0(indexToPrice(bestLevel));
     }
 }
 
-void OrderBook::removeAsk(Order order)
+
+void OrderBook::removeAsk(u_int64_t orderId)
 {
 
 }
@@ -373,23 +373,3 @@ void OrderBook::printOrderBook() const
     }
     std::cout << "------------------------------------------------------------------" << std::endl;
 }
-
-// testing the API
-// int main()
-// {
-//     OrderBook Book1(NumOfLevels);
-
-//     // make a price then make the order or make the
-//     Order myOrder = Order(Bid, 100, "apple", 100, 1040);
-
-//     Book1.addBid(myOrder);
-
-//     Book1.printOrderBook();
-
-//     Order best = Book1.getBestBid();
-
-//     best.PrintOrder();
-
-//     Book1.printOrderBook();
-
-// }

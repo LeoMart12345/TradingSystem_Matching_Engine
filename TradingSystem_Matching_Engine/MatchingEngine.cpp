@@ -14,11 +14,6 @@ std::optional<Trade> MatchingEngine::matchLimitOrders(){
     Order& bestAsk = orderBook.getBestAsk();
     Order& bestBid = orderBook.getBestBid();
     
-    // std::cout << "Best Ask: ";
-    // bestAsk.PrintOrder();
-    // std::cout << "Best Bid: ";
-    // bestBid.PrintOrder();
-    
     u_int64_t bidPrice = bestBid.getPrice().getPriceInTicks();
     u_int64_t askPrice = bestAsk.getPrice().getPriceInTicks();
 
@@ -41,14 +36,14 @@ std::optional<Trade> MatchingEngine::matchLimitOrders(){
         u_int64_t askReduced = bestAsk.reduceVolume(tradeVolume);
         u_int64_t bidReduced = bestBid.reduceVolume(tradeVolume);
 
-        Trade trade(bestBid, bestAsk, tradeVolume);
+        Trade trade(bestBid, bestAsk, tradeVolume, tradePrice);
 
         // remove the filled orders from the orderBook.
         if(bestAsk.GetVolume() == 0){
-            orderBook.removeAsk(bestAsk);
+            orderBook.removeAsk(bestAsk.getOrderId());
         }
         if(bestBid.GetVolume() == 0){
-            orderBook.removeBid(bestBid);
+            orderBook.removeBid(bestBid.getOrderId());
         }
         
         std::cout << "Trade executed successfully!" << std::endl;
@@ -84,6 +79,6 @@ int main(){
 
     // MatchingEngine APPL_matchingEngine(Book2);
     MatchingEngine APPL_matchingEngine(Book2);
-    Trade testTrade = APPL_matchingEngine.matchLimitOrders();
+    std::optional<Trade> testTrade = APPL_matchingEngine.matchLimitOrders();
 
 }
