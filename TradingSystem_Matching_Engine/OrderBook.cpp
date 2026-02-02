@@ -13,16 +13,14 @@ static constexpr int CHUNK = 64;
 constexpr int StartOfPrice = 950; // aka stock price is 10 euro so this represents 5% below that price
 constexpr int NumOfLevels = 101;  // allowing for +- 5% of 10
 
-OrderBook::OrderBook(size_t size) : mBidpriceLevel(size), mAskPriceLevel(size)
+OrderBook::OrderBook(size_t size) 
+    : mBidpriceLevel(size),
+      mAskPriceLevel(size),
+      mBidBitmap((size + CHUNK - 1) / CHUNK, 0ULL),
+      mAskBitmap((size + CHUNK - 1) / CHUNK, 0ULL)
 {
-    // Initializing bitmaps based on the size
-    size_t mBitmapSize = (size + CHUNK - 1) / CHUNK; // add 63 to allow size to always be divisable
-
-    mBidBitmap.resize(mBitmapSize, 0ULL);
-    mAskBitmap.resize(mBitmapSize, 0ULL);
-
     std::cout << "OrderBook created with " << size << " price levels" << std::endl;
-    std::cout << "BitMap create with " << mBitmapSize << " 64 bit elements" << std::endl;
+    std::cout << "BitMap create with " << mBidBitmap.size() << " 64 bit elements" << std::endl;
 }
 
 void OrderBook::addBid(Order order)

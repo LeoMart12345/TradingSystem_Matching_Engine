@@ -4,6 +4,7 @@
 #include <deque>
 #include <queue>
 #include "OrderBook.hpp"
+#include "Trade.hpp"
 
 class MatchingEngine {
 

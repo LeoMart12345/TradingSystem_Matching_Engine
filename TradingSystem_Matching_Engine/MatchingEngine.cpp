@@ -1,6 +1,7 @@
 #include "MatchingEngine.hpp"
 #include "Trade.hpp"
 
+
 // Constructor
 MatchingEngine::MatchingEngine(OrderBook& orderBook)
     : orderBook(orderBook)
@@ -44,6 +45,6 @@ int main(){
 
     // MatchingEngine APPL_matchingEngine(Book2);
     MatchingEngine APPL_matchingEngine(Book2);
-    APPL_matchingEngine.matchLimitOrders();
+    Trade testTrade = APPL_matchingEngine.matchLimitOrders();
 
 }

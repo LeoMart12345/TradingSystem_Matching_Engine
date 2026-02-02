@@ -1,6 +1,5 @@
 #pragma once
 #include <iostream>
-
 #include "order.hpp"
 
 class Trade{
