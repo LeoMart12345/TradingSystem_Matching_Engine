@@ -42,14 +42,13 @@ void OrderBook::removeBid(u_int64_t orderId)
 {
     int bestLevel = findBestAskLevel();
     if(bestLevel == -1) return;
-
     auto& deque = mBidpriceLevel[bestLevel];
+    
     if (deque.empty()) return;
 
     if(deque.front().getOrderId() != orderId){
         std::__throw_logic_error("orderId does not match the order at the front of that queue level");
     }
-    
     deque.pop_front();
     
     if (deque.empty()) {
@@ -60,7 +59,20 @@ void OrderBook::removeBid(u_int64_t orderId)
 
 void OrderBook::removeAsk(u_int64_t orderId)
 {
+    int bestLevel = findBestAskLevel();
+    if(bestLevel == -1) return;
+    auto& deque = mAskPriceLevel[bestLevel];
 
+    if(deque.empty()) return;
+
+    if(deque.front().getOrderId() != orderId){
+        std::__throw_logic_error("orderId does not matche the order at thr front of that queue level");
+    }
+    deque.pop_front();
+
+    if(deque.empty()){
+        setAskBitTo0(indexToPrice(bestLevel));
+    }
 }
 
 void OrderBook::getVolumeAtLevel(Price price)
@@ -197,13 +209,7 @@ void OrderBook::setAskBitTo0(const Price &price)
     size_t wordPos = result.first; // the position of the word in the bitmap array
     size_t bitPos = result.second; // the position of the bit in that word
 
-    // Before resetting TODO remove these
-    // std::cout << "64-bit: Current: " << std::bitset<64>(mAskBitmap[wordPos]) << std::endl;
-
     mAskBitmap[wordPos] &= ~(1ULL << bitPos);    
-
-    // After resetting
-    // std::cout << "64-bit: After  : " << std::bitset<64>(mAskBitmap[wordPos]) << std::endl;
 }
 
 Order& OrderBook::getBestBid(){
