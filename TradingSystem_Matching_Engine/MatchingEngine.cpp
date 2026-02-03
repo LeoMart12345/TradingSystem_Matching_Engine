@@ -73,15 +73,15 @@ int main(){
     std::lock_guard<std::mutex> gGuard(gLock);
 
     OrderBook Book2(101);
-    Order ask1 = Order(Ask, 100, "apple", 101, Price(960));
-    Order bid1 = Order(Bid, 100, "apple", 102, Price(1041));
+    Order ask1 = Order(Ask, 100, "apple", generateUniqueOrderId(), Price(960));
+    Order bid1 = Order(Bid, 100, "apple", generateUniqueOrderId(), Price(1041));
     
-    Order ask2 = Order(Ask, 100, "apple", 103, Price(1000));
-    Order bid2 = Order(Bid, 100, "apple", 104, Price(1000));
+    Order ask2 = Order(Ask, 100, "apple", generateUniqueOrderId(), Price(1000));
+    Order bid2 = Order(Bid, 100, "apple", generateUniqueOrderId(), Price(1000));
     
-    Order ask3 = Order(Ask, 100, "apple", 105, Price(1035));
-    Order bid3 = Order(Bid, 100, "apple", 106, Price(1035));
-    
+    Order ask3 = Order(Ask, 100, "apple", generateUniqueOrderId(), Price(1035));
+    Order bid3 = Order(Bid, 100, "apple", generateUniqueOrderId(), Price(1035));
+     
     Book2.addAsk(ask1);
     Book2.addBid(bid1);
     
