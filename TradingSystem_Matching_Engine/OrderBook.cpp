@@ -40,12 +40,15 @@ void OrderBook::addAsk(Order order)
 
 void OrderBook::removeBid(u_int64_t orderId)
 {
-    int bestLevel = findBestAskLevel();
+    int bestLevel = findBestBidLevel();
     if(bestLevel == -1) return;
     auto& deque = mBidpriceLevel[bestLevel];
     
     if (deque.empty()) return;
 
+    std::cout << "front of deque Id: " << deque.front().getOrderId() << " OrderId: " << orderId << std::endl; 
+
+    // TODO: Fix the error here.
     if(deque.front().getOrderId() != orderId){
         std::__throw_logic_error("orderId does not match the order at the front of that queue level");
     }
@@ -302,9 +305,9 @@ int OrderBook::findBestBidLevel() const{
             
             int bitPositionFromRight = 63 - leadingZeros;
 
-            std::cout << "word index: " << i << std::endl;
-            std::cout << "bit Index from LSB: " << bitPositionFromRight << std::endl;
-            std::cout << "gloval bit position: " << i * CHUNK  + bitPositionFromRight << std::endl;
+            // std::cout << "word index: " << i << std::endl;
+            // std::cout << "bit Index from LSB: " << bitPositionFromRight << std::endl;
+            // std::cout << "gloval bit position: " << i * CHUNK  + bitPositionFromRight << std::endl;
             
             return i * CHUNK  + bitPositionFromRight; 
         }
@@ -325,9 +328,9 @@ int OrderBook::findBestAskLevel() const{
             int trailingZeros = std::__countr_zero(word);
             // should the bit position not be from the left?
 
-            std::cout << "word index: " << i << std::endl;
-            std::cout << "bit Index from LSB: " << trailingZeros << std::endl;
-            std::cout << "gloval bit position: " << i * CHUNK  + trailingZeros << std::endl;
+            // std::cout << "word index: " << i << std::endl;
+            // std::cout << "bit Index from LSB: " << trailingZeros << std::endl;
+            // std::cout << "gloval bit position: " << i * CHUNK  + trailingZeros << std::endl;
             
             return i * CHUNK  + trailingZeros; 
         }
