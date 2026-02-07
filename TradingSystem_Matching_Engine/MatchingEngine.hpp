@@ -17,5 +17,4 @@ class MatchingEngine {
 
         std::optional<Trade> matchLimitOrders();
 
-
 };

@@ -1,7 +1,8 @@
 #include  <iostream>
 #include <boost/asio.hpp>
 
-void client(const std::string& order){
+void client(){
+    std::string order = "BUY AAPL 100 @ 150.25";
 
     using namespace boost::asio;
 
@@ -24,4 +25,8 @@ void client(const std::string& order){
     std::cout << "Server response: " << response_str << std::endl;
     
     socket.close();
+}
+
+int main(){
+    client();
 }
