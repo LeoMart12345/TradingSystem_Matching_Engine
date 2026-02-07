@@ -14,7 +14,5 @@ class MatchingEngine {
     public:
         explicit MatchingEngine(OrderBook& orderBook);
         
-
         std::optional<Trade> matchLimitOrders();
-
 };
