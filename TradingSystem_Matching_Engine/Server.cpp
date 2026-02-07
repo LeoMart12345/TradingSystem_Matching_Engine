@@ -1,0 +1,29 @@
+#include <iostream>
+#include <boost/asio.hpp>
+
+void server(){
+    using namespace boost::asio;
+    
+    io_context context;
+    ip::tcp::acceptor acceptor(context, ip::tcp::endpoint(ip::tcp::v4(), 5555));
+    std::cout << "order entry via tcp on port 5555" << std::endl;
+
+    while(true){
+        ip::tcp::socket socket(context);
+        acceptor.accept(socket);
+        
+        char order[1024];
+        size_t bytes = socket.read_some(buffer(order));
+        std::string order_str(order, bytes);
+
+        // check if the order is valid
+
+        // logic to process the order:
+        
+        std::string confirm = "ORDER_ACCEPTED: " + order_str;
+        std::cout << confirm << std::endl;
+
+        socket.write_some(boost::asio::buffer(confirm));
+    }
+    
+}

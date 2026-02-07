@@ -1,35 +1,27 @@
 #include  <iostream>
-#include <iostream>
-#include <chrono>
 #include <boost/asio.hpp>
 
+void client(const std::string& order){
 
-
-
-void server(){
-    using namespace boost::asio;
-    
-    io_context context;
-    ip::udp::socket serverSocket(context, ip::udp::endpoint(ip::udp::v4(), 5000));
-    
-    char bufferData[1024];
-    
-    ip::udp::endpoint senderEndpoint;
-
-    context.run();
-}
-
-
-void client(){
     using namespace boost::asio;
 
     io_context context;
 
+    ip::tcp::socket socket(context);
 
-    context.run();
-}
+    socket.connect(ip::tcp::endpoint(ip::address::from_string("127.0.0.1"), 5555));
 
-int main(){
+    std::cout << "Connected to server. Sending: " << order << std::endl;
 
+    // send the order.
+    socket.write_some(boost::asio::buffer(order));
     
-} 
+    // Wait for response
+    char response[1024];
+    size_t bytes = socket.read_some(boost::asio::buffer(response));
+    std::string response_str(response, bytes);
+    
+    std::cout << "Server response: " << response_str << std::endl;
+    
+    socket.close();
+}
