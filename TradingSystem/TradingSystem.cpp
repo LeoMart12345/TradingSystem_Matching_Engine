@@ -1,14 +1,15 @@
 #include <iostream>
+#include <vector>
 #include "../MatchingEngine.hpp"
-#include "../TCP_Server.hpp"
-#include "../TCP_Client.hpp"
+#include "./Network Servers/TCP_Client.hpp"
+#include "./Network Servers/TCP_Server.hpp"
+
 
 class TradingSystem{
 
     MatchingEngine matchineEngine;
-
-
-
+    
+    // vector
 
 };
 
