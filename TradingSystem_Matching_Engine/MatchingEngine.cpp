@@ -100,5 +100,4 @@ int main(){
         std::cout << index << "\n";
         ++index;
     }
-
 }
