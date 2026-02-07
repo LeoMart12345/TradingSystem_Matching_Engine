@@ -27,6 +27,3 @@ void server(){
     }
     
 }
-int main(){
-    server();
-}

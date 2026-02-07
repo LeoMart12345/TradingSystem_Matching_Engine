@@ -26,7 +26,3 @@ void client(){
     
     socket.close();
 }
-
-int main(){
-    client();
-}
