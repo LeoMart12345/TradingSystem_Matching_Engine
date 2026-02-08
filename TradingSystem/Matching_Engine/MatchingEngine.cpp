@@ -12,6 +12,15 @@ MatchingEngine::MatchingEngine(OrderBook& orderBook)
     std::cout << "matchingEngine was constructed!" << std::endl;
 }
 
+bool MatchingEngine::addBid(const Order& order){
+
+    if(order.BidOrAsk == Side::Bid){
+        orderBook.addBid(order);
+    }else{
+        orderBook.addAsk(order);
+    }
+}
+
 std::optional<Trade> MatchingEngine::matchLimitOrders(){ 
 
     Order& bestAsk = orderBook.getBestAsk();

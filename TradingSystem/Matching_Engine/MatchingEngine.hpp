@@ -10,7 +10,7 @@
 
 
 class MatchingEngine {
-
+    
     private:
         OrderBook orderBook;
 
@@ -18,4 +18,5 @@ class MatchingEngine {
         explicit MatchingEngine(OrderBook& orderBook);
         
         std::optional<Trade> matchLimitOrders();
+        bool addBid(const Order& order);
 };

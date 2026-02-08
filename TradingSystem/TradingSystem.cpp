@@ -11,20 +11,22 @@ TradingSystem::TradingSystem(int tcp_port, int udp_port)
     matchingEngine(*orderBook),
     TCPServerI(std::make_unique<TCPServer>(tcp_port, matchingEngine))
 {
-
+    
 }
 
 TradingSystem::~TradingSystem(){
-    
+
 }
 
 void TradingSystem::start(){
     //start the TCP server for clients to connect.
     TCPServerI->run(); 
-        
     //start the UDP server for distributing market data.
 
-    // main loop
+    // Match limit orders:    
+    // matchingEngine.matchLimitOrders();
+
+    
 }
     
 void TradingSystem::stop(){

@@ -178,10 +178,6 @@ void OrderBook::setBidBitTo0(const Price &price)
     // std::cout << "64-bit: After  : " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
 }
 
-
-
-
-
 void OrderBook::setAskBitTo1(const Price &price)
 {
     auto result = priceToBitmapIndex(price);

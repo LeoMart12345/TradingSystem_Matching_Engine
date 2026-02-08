@@ -34,10 +34,28 @@ class TCPServer{
             size_t bytes = socket.read_some(buffer(order));
             std::string order_str(order, bytes);
 
-            // check if the order is valid
+            // TODO: check if the order is valid
+            std::string orderSide;
+            std::string ticker;
+            int volume;
+            int price;
 
-            // logic to process the order:
-            
+            std::stringstream ss(order_str);
+
+            ss >> orderSide;
+            ss >> ticker;
+            ss >> volume;
+            ss >> price;
+
+            std::cout << "Parsed messges" << orderSide << ticker << volume << price << std::endl;
+
+            if(){
+                matchingEngine.orderBook.addBid();
+            }else{
+                matchingEngine.orderBook.addAsk();
+            }
+
+
             std::string confirm = "ORDER_ACCEPTED: " + order_str;
             std::cout << confirm << std::endl;
 
