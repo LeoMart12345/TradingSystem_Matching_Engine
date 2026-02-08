@@ -12,7 +12,11 @@ MatchingEngine::MatchingEngine(OrderBook& orderBook)
     std::cout << "matchingEngine was constructed!" << std::endl;
 }
 
-bool MatchingEngine::addBid(const Order& order){
+void processOrder(std::string orderstring){
+    // parse the string and form an order then pass that order to the addorder or the orderbook.
+}
+
+bool MatchingEngine::addOrder(const Order& order){
 
     if(order.BidOrAsk == Side::Bid){
         orderBook.addBid(order);

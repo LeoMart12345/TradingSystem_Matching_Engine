@@ -49,11 +49,7 @@ class TCPServer{
 
             std::cout << "Parsed messges" << orderSide << ticker << volume << price << std::endl;
 
-            if(){
-                matchingEngine.orderBook.addBid();
-            }else{
-                matchingEngine.orderBook.addAsk();
-            }
+            
 
 
             std::string confirm = "ORDER_ACCEPTED: " + order_str;

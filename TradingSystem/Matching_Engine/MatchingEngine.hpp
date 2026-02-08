@@ -18,5 +18,6 @@ class MatchingEngine {
         explicit MatchingEngine(OrderBook& orderBook);
         
         std::optional<Trade> matchLimitOrders();
-        bool addBid(const Order& order);
+        bool addOrder(const Order& order);
+        void processOrder(std::string orderstring);
 };
