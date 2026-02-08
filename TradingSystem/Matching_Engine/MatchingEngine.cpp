@@ -4,6 +4,7 @@
 #include <atomic>
 #include <thread>
 #include <mutex>
+#include <sstream>
 
 // Constructor
 MatchingEngine::MatchingEngine(OrderBook& orderBook)
@@ -14,6 +15,26 @@ MatchingEngine::MatchingEngine(OrderBook& orderBook)
 
 void processOrder(std::string orderstring){
     // parse the string and form an order then pass that order to the addorder or the orderbook.
+    std::string orderSide;
+    std::string ticker;
+    int volume;
+    int price;
+    int orderId;
+
+    std::stringstream ss(orderstring);
+
+    ss >> orderSide;
+    ss >> ticker;
+    ss >> volume;
+    ss >> price;
+    ss >> orderId;
+
+    std::cout << "Parsed messges" << orderSide << ticker << volume << price << std::endl;
+
+    
+
+    Order order(orderSide, volume, ticker, orderId, price);
+        
 }
 
 bool MatchingEngine::addOrder(const Order& order){

@@ -49,9 +49,7 @@ class TCPServer{
 
             std::cout << "Parsed messges" << orderSide << ticker << volume << price << std::endl;
 
-            
-
-
+        
             std::string confirm = "ORDER_ACCEPTED: " + order_str;
             std::cout << confirm << std::endl;
 

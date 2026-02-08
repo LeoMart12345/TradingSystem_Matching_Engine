@@ -13,7 +13,7 @@ public:
             5555
         ));
         
-        std::string order = "BUY AAPL 100 150.25";
+        std::string order = "BUY AAPL 100 101 150.25";
         
         socket.write_some(boost::asio::buffer(order));
         
