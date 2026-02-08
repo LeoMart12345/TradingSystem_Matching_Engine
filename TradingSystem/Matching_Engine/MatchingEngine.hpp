@@ -1,10 +1,13 @@
-#include "order.hpp"
+#pragma once
+#include "./OrderBook/order.hpp"
+#include "./OrderBook/OrderBook.hpp"
+#include "./OrderBook/Trade.hpp"
+
 #include <map>
 #include <unordered_map>
 #include <deque>
 #include <queue>
-#include "OrderBook.hpp"
-#include "Trade.hpp"
+
 
 class MatchingEngine {
 

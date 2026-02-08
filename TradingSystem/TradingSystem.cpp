@@ -1,24 +1,39 @@
 #include <iostream>
 #include <vector>
-#include "../MatchingEngine.hpp"
-#include "./Network Servers/TCP_Client.hpp"
-#include "./Network Servers/TCP_Server.hpp"
+#include "./Matching_Engine/MatchingEngine.hpp"
+// #include "./Network Servers/TCP_Client.hpp"
+#include "./Matching_Engine/OrderBook/OrderBook.hpp"
+#include "./TradingSystem.hpp"
 
 
-class TradingSystem{
+TradingSystem::TradingSystem(int tcp_port, int udp_port)
+    : orderBook(std::make_unique<OrderBook>(101)),
+    matchingEngine(*orderBook),
+    TCPServerI(std::make_unique<TCPServer>(tcp_port, matchingEngine))
+{
 
-    MatchingEngine matchineEngine;
+}
+
+TradingSystem::~TradingSystem(){
     
-    // vector
+}
 
-};
-
-void start(){
-
+void TradingSystem::start(){
     //start the TCP server for clients to connect.
-
+    TCPServerI->run(); 
+        
     //start the UDP server for distributing market data.
 
-    
     // main loop
+}
+    
+void TradingSystem::stop(){
+
+}
+
+int main(){
+
+    auto TS  = std::make_unique<TradingSystem>(5555, 12345);
+    TS->start();
+
 }

@@ -1,13 +1,21 @@
+// #pragma once
 #include <iostream>
 #include <boost/asio.hpp>
+#include "../Matching_Engine/MatchingEngine.hpp"
 
 class TCPServer{
 
     private:
         int port;
-
+        MatchingEngine& matchingEngine;
+    
     public:
-        TCPServer(int p): port(p){}
+        TCPServer(int p, MatchingEngine& engine) : 
+        port(p),
+        matchingEngine(engine)
+        {
+
+        }
        
 
     void run(){
@@ -36,6 +44,10 @@ class TCPServer{
             socket.write_some(boost::asio::buffer(confirm));
         }
         
+    }
+
+    void stop(){
+
     }
 
 };

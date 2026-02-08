@@ -5,13 +5,6 @@
 #include <thread>
 #include <mutex>
 
-std::atomic<int> gOrderIdCounter = 0;
-
-int generateUniqueOrderId(){
-    
-    return ++gOrderIdCounter; 
-}
-
 // Constructor
 MatchingEngine::MatchingEngine(OrderBook& orderBook)
     : orderBook(orderBook)
@@ -66,38 +59,45 @@ std::optional<Trade> MatchingEngine::matchLimitOrders(){
     return std::nullopt;
 }
 
-int main(){
-    //testing atomic counter logic
-    
-    std::mutex gLock;
-    std::lock_guard<std::mutex> gGuard(gLock);
+std::atomic<int> gOrderIdCounter = 0;
 
-    OrderBook Book2(101);
-    Order ask1 = Order(Ask, 100, "apple", generateUniqueOrderId(), Price(960));
-    Order bid1 = Order(Bid, 100, "apple", generateUniqueOrderId(), Price(1041));
+int generateUniqueOrderId(){
     
-    Order ask2 = Order(Ask, 100, "apple", generateUniqueOrderId(), Price(1000));
-    Order bid2 = Order(Bid, 100, "apple", generateUniqueOrderId(), Price(1000));
-    
-    Order ask3 = Order(Ask, 100, "apple", generateUniqueOrderId(), Price(1035));
-    Order bid3 = Order(Bid, 100, "apple", generateUniqueOrderId(), Price(1035));
-     
-    Book2.addAsk(ask1);
-    Book2.addBid(bid1);
-    
-    Book2.addAsk(ask2);
-    Book2.addBid(bid2);
-    
-    Book2.addAsk(ask3);
-    Book2.addBid(bid3);
-
-    // MatchingEngine APPL_matchingEngine(Book2);
-    MatchingEngine APPL_matchingEngine(Book2);
-    
-    int index = 1;
-    while(1){
-        std::optional<Trade> testTrade = APPL_matchingEngine.matchLimitOrders();
-        std::cout << index << "\n";
-        ++index;
-    }
+    return ++gOrderIdCounter; 
 }
+
+// int main(){
+//     //testing atomic counter logic
+    
+//     std::mutex gLock;
+//     std::lock_guard<std::mutex> gGuard(gLock);
+
+//     OrderBook Book2(101);
+//     Order ask1 = Order(Ask, 100, "apple", generateUniqueOrderId(), Price(960));
+//     Order bid1 = Order(Bid, 100, "apple", generateUniqueOrderId(), Price(1041));
+    
+//     Order ask2 = Order(Ask, 100, "apple", generateUniqueOrderId(), Price(1000));
+//     Order bid2 = Order(Bid, 100, "apple", generateUniqueOrderId(), Price(1000));
+    
+//     Order ask3 = Order(Ask, 100, "apple", generateUniqueOrderId(), Price(1035));
+//     Order bid3 = Order(Bid, 100, "apple", generateUniqueOrderId(), Price(1035));
+     
+//     Book2.addAsk(ask1);
+//     Book2.addBid(bid1);
+    
+//     Book2.addAsk(ask2);
+//     Book2.addBid(bid2);
+    
+//     Book2.addAsk(ask3);
+//     Book2.addBid(bid3);
+
+//     // MatchingEngine APPL_matchingEngine(Book2);
+//     MatchingEngine APPL_matchingEngine(Book2);
+    
+//     int index = 1;
+//     while(1){
+//         std::optional<Trade> testTrade = APPL_matchingEngine.matchLimitOrders();
+//         std::cout << index << "\n";
+//         ++index;
+//     }
+// }

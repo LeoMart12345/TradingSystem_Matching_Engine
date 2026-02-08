@@ -1,0 +1,26 @@
+#pragma once
+#include <iostream>
+#include <vector>
+#include "./Matching_Engine/MatchingEngine.hpp"
+#include "./Network Servers/TCP_Client.hpp"
+#include "./Network Servers/TCP_Server.hpp"
+#include "./Matching_Engine/OrderBook/OrderBook.hpp"
+
+class TradingSystem{
+    private:
+        std::unique_ptr<OrderBook> orderBook;
+        MatchingEngine matchingEngine;
+        std::unique_ptr<TCPServer> TCPServerI;
+    
+    //upd multicast server
+    // std::unique_ptr<TCPclient> Clients;
+    public:
+    
+        TradingSystem(int tcp_port, int udp_port);
+        
+        ~TradingSystem();
+
+    void start();
+    void stop();
+    void process_order(const std::string& order_str);
+};
