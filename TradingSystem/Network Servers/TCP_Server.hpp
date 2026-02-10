@@ -1,4 +1,4 @@
-// #pragma once
+#pragma once
 #include <iostream>
 #include <boost/asio.hpp>
 #include "../Matching_Engine/MatchingEngine.hpp"

@@ -1,4 +1,7 @@
-#include "MatchingEngine.hpp"
+// #include "MatchingEngine.hpp"
+
+#include "./Matching_Engine/MatchingEngine.hpp"
+
 #include "Trade.hpp"
 #include <optional>
 #include <atomic>
@@ -30,11 +33,19 @@ void processOrder(std::string orderstring){
     ss >> orderId;
 
     std::cout << "Parsed messges" << orderSide << ticker << volume << price << std::endl;
+    Side orderSideProperType;
 
+    if(orderSide == "Bid"){
+        orderSideProperType = Bid;
+    }else{
+        orderSideProperType = Ask;
+    }
     
 
-    Order order(orderSide, volume, ticker, orderId, price);
-        
+    Order order(orderSideProperType, volume, ticker, orderId, price);
+    
+    order.PrintOrder();
+
 }
 
 bool MatchingEngine::addOrder(const Order& order){
@@ -44,6 +55,7 @@ bool MatchingEngine::addOrder(const Order& order){
     }else{
         orderBook.addAsk(order);
     }
+    return 0;
 }
 
 std::optional<Trade> MatchingEngine::matchLimitOrders(){ 
