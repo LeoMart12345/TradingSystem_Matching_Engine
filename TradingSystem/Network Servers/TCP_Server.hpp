@@ -50,6 +50,9 @@ class TCPServer{
             std::cout << "Parsed messges" << orderSide << ticker << volume << price << std::endl;
 
         
+            matchingEngine.processOrder(order_str);
+            std::cout << "Order sent to the matching engine" << std::endl;
+            
             std::string confirm = "ORDER_ACCEPTED: " + order_str;
             std::cout << confirm << std::endl;
 

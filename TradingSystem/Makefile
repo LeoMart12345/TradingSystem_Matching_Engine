@@ -25,7 +25,6 @@ SOURCES = $(SRC_DIR)/TradingSystem.cpp \
           $(OB_DIR)/OrderBook.cpp \
           $(OB_DIR)/Order.cpp
 
-
 OBJECTS = $(SOURCES:.cpp=.o)
 
 # execcutable name

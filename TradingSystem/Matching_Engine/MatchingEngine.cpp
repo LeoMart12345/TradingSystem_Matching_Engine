@@ -16,7 +16,7 @@ MatchingEngine::MatchingEngine(OrderBook& orderBook)
     std::cout << "matchingEngine was constructed!" << std::endl;
 }
 
-void processOrder(std::string orderstring){
+void MatchingEngine::processOrder(std::string orderstring){
     // parse the string and form an order then pass that order to the addorder or the orderbook.
     std::string orderSide;
     std::string ticker;
@@ -44,6 +44,7 @@ void processOrder(std::string orderstring){
 
     Order order(orderSideProperType, volume, ticker, orderId, price);
     
+    std::cout << "TESTING!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
     order.PrintOrder();
 
 }
