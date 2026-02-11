@@ -25,10 +25,10 @@ int main() {
             system("clear");
             std::cout << "=== PLACE ORDER ===\n\n";
             
-            std::string symbol, side, qty, price;
+            std::string tickerSymbol, side, qty, price;
             
-            std::cout << "Symbol: ";
-            std::cin >> symbol;
+            std::cout << "Ticker Symbol: ";
+            std::cin >> tickerSymbol;
             
             std::cout << "Side (BUY/SELL): ";
             std::cin >> side;
@@ -39,11 +39,11 @@ int main() {
             std::cout << "Price: ";
             std::cin >> price;
             
-            std::cout << "\nSending: " << side << " " << symbol 
+            std::cout << "\nSending: " << side << " " << tickerSymbol 
                       << " " << qty << " @ " << price << "\n";
             
 
-            // TODO:  send the order to the server.
+            // make the order request.
 
 
             std::cout << "\nPress Enter...";

@@ -1,5 +1,8 @@
 #pragma once
 #include <iostream>
+#include <cstdint>
+#include <cstring>
+#include "../Matching_Engine/OrderBook/order.hpp"
 
 enum class requestType {
     New,
@@ -7,10 +10,16 @@ enum class requestType {
 };
 
 struct OrderRequest {
-    requestType type;
+    Order requestOrder;
+    
     u_int64_t clientId;
-    u_int64_t orderId;
-    char side;
-    double price;
-    u_int32_t quantity;
+    requestType type;
+    
+  
+    OrderRequest(u_int64_t clientId, requestType type, const Order& order)
+        : clientId(clientId), type(type), requestOrder(order) 
+        {
+
+        }
+
 };
