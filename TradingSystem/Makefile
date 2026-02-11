@@ -12,7 +12,7 @@ INCLUDES = -I. \
            -I"Network Servers"
 
 
-LDFLAGS = -lboost_system -lpthread
+LDFLAGS = -lboost_system -lpthread -lsfml-window -lsfml-system
 
 # Directories
 SRC_DIR = .
