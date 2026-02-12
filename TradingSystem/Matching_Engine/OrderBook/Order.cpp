@@ -32,6 +32,20 @@ u_int64_t Order::reduceVolume(u_int64_t volumeReduction){
     return feasableReduction;
 }
 
+    std::string Order::serialize() const {
+        std::string result;
+        result += (BidOrAsk == Bid) ? "BUY" : "SELL";
+        result += ",";
+        result += std::to_string(mVolume);
+        result += ",";
+        result += mName;  // ticker symbol
+        result += ",";
+        result += std::to_string(mOrderID);
+        result += ",";
+        result += std::to_string(mPrice.mPriceValueInCent);  // cents
+        return result;
+    }
+
 // Getters
 int Order::GetVolume() const{return mVolume;}
 Side Order::getBidOrAsk() const{return BidOrAsk;}

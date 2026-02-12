@@ -4,6 +4,7 @@
 #include <iostream>
 #include "TCP_Client.hpp"
 #include "Order_Request.hpp"
+#include "../Matching_Engine/OrderBook/order.hpp"
 
 int main() {
     bool running = true;
@@ -55,12 +56,28 @@ int main() {
                       << " " << qty << " @ " << price << "\n";
             
 
-            // make the order request.
-            // hard coded for testing:
-            std::string order = "BUY AAPL 100 101 150.25";
+            // Making price object:
+            Price orderPrice(950);
+            // Make Order Object
+            Order order(
+                (side == "Buy") ? Bid : Ask,
+                std::stoull(qty),
+                tickerSymbol,
+                1,
+                orderPrice
+            );
+            // Make Order request.
+            static uint64_t nextClientId = 1000; // for order id generation
 
-            socket.write_some(boost::asio::buffer(order));
+            OrderRequest request(nextClientId++, requestType::New, order);
 
+            socket.write_some(boost::asio::buffer(request.serialize()));
+
+            // server response    
+            char response[1024];
+            size_t bytes = socket.read_some(boost::asio::buffer(response));
+            std::cout << std::string(response, bytes) << std::endl;
+            
 
             std::cout << "\nPress Enter...";
             std::cin.ignore();

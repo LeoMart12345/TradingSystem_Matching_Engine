@@ -27,6 +27,10 @@ public:
 
     u_int64_t reduceVolume(u_int64_t volume);
 
+    std::string serialize() const;
+    static Order deserialize(const std::string& data);
+
+    
 private:
 	
 };
