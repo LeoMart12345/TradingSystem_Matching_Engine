@@ -2,6 +2,8 @@
 #include <iostream>
 #include <cstdint>
 #include <cstring>
+#include <sstream>
+
 #include "../Matching_Engine/OrderBook/order.hpp"
 
 enum class requestType {
@@ -57,5 +59,5 @@ struct OrderRequest {
         
         return OrderRequest(clientId, type, order);
     }
-    
+
 };

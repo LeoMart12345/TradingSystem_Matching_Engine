@@ -9,6 +9,7 @@
 #include <mutex>
 #include <sstream>
 
+
 // Constructor
 MatchingEngine::MatchingEngine(OrderBook& orderBook)
     : orderBook(orderBook)
@@ -16,47 +17,30 @@ MatchingEngine::MatchingEngine(OrderBook& orderBook)
     std::cout << "matchingEngine was constructed!" << std::endl;
 }
 
-void MatchingEngine::processOrder(std::string orderstring){
-    // parse the string and form an order then pass that order to the addorder or the orderbook.
-    std::string orderSide;
-    std::string ticker;
-    int volume;
-    int price;
-    int orderId;
-
-    std::stringstream ss(orderstring);
-
-    ss >> orderSide;
-    ss >> ticker;
-    ss >> volume;
-    ss >> price;
-    ss >> orderId;
-
-    std::cout << "Parsed messges" << orderSide << ticker << volume << price << std::endl;
-    Side orderSideProperType;
-
-    if(orderSide == "Bid"){
-        orderSideProperType = Bid;
-    }else{
-        orderSideProperType = Ask;
-    }
+// void MatchingEngine::processOrder(OrderRequest orderRequest){
     
+//     std::cout << "TESTING" << std::endl;
+//     orderRequest.requestOrder.PrintOrder();
 
-    Order order(orderSideProperType, volume, ticker, orderId, price);
-    
-    std::cout << "TESTING!!!!!!!!!!!!!!!!!!!!!!!" << std::endl;
-    order.PrintOrder();
+// }
 
-}
+u_int64_t MatchingEngine::addOrder(Order order){
 
-bool MatchingEngine::addOrder(const Order& order){
+    order.mOrderID = ++nextOrderId;
+
+    std::cout << "SERVER: Assigned Order ID: " << order.mOrderID << std::endl;
+    std::cout << "SERVER: Order details - " 
+              << (order.BidOrAsk == Side::Bid ? "BUY" : "SELL")
+              << " " << order.mVolume << " " << order.mName 
+              << " @ " << order.mPrice.getPriceInTicks() << std::endl;
 
     if(order.BidOrAsk == Side::Bid){
         orderBook.addBid(order);
     }else{
         orderBook.addAsk(order);
     }
-    return 0;
+
+    return order.mOrderID;
 }
 
 std::optional<Trade> MatchingEngine::matchLimitOrders(){ 

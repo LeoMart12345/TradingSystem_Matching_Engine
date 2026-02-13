@@ -63,7 +63,7 @@ int main() {
                 (side == "Buy") ? Bid : Ask,
                 std::stoull(qty),
                 tickerSymbol,
-                1,
+                0,
                 orderPrice
             );
             // Make Order request.
@@ -76,8 +76,9 @@ int main() {
             // server response    
             char response[1024];
             size_t bytes = socket.read_some(boost::asio::buffer(response));
-            std::cout << std::string(response, bytes) << std::endl;
-            
+            std::string realOrderId(response, bytes);
+            std::cout << "Order accepted with ID: " << realOrderId << std::endl;
+
 
             std::cout << "\nPress Enter...";
             std::cin.ignore();

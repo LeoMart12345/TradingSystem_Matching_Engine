@@ -2,6 +2,7 @@
 #include <iostream>
 #include <boost/asio.hpp>
 #include "../Matching_Engine/MatchingEngine.hpp"
+#include "Order_Request.hpp"
 
 class TCPServer{
 
@@ -32,31 +33,28 @@ class TCPServer{
             
             char order[1024];
             size_t bytes = socket.read_some(buffer(order));
-            std::string order_str(order, bytes);
+            std::string receivedData(order, bytes);
 
             // TODO: check if the order is valid
-            std::string orderSide;
-            std::string ticker;
-            int volume;
-            int price;
 
-            std::stringstream ss(order_str);
-
-            ss >> orderSide;
-            ss >> ticker;
-            ss >> volume;
-            ss >> price;
-
-            std::cout << "Parsed messges" << orderSide << ticker << volume << price << std::endl;
-
-        
-            matchingEngine.processOrder(order_str);
-            std::cout << "Order sent to the matching engine" << std::endl;
+            OrderRequest request = OrderRequest::deserialize(receivedData);
             
-            std::string confirm = "ORDER_ACCEPTED: " + order_str;
-            std::cout << confirm << std::endl;
+            if(request.type == requestType::New){
+                Order newOrder = request.requestOrder;
 
-            socket.write_some(boost::asio::buffer(confirm));
+                // check if there is a need for a process order or if
+                //send it to the matching engine
+                
+                u_int64_t assignedId = matchingEngine.addOrder(newOrder);
+
+                // std::cout << "Adding the order to the matching engine" << std::endl;
+                
+                std::string response = std::to_string(assignedId);
+                socket.write_some(boost::asio::buffer(response));
+            }
+            else if (request.type == requestType::Cancel) {
+                // Handle the cancel orderType 
+            }
         }
         
     }
