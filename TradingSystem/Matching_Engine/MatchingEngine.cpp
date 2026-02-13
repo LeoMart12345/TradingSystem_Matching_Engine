@@ -8,36 +8,30 @@
 #include <thread>
 #include <mutex>
 #include <sstream>
-
+#include "../Debug/Debug.hpp"
 
 // Constructor
 MatchingEngine::MatchingEngine(OrderBook& orderBook)
     : orderBook(orderBook)
 {
-    std::cout << "matchingEngine was constructed!" << std::endl;
+    DEBUG_PRINT("matchingEngine was constructed!");
 }
-
-// void MatchingEngine::processOrder(OrderRequest orderRequest){
-    
-//     std::cout << "TESTING" << std::endl;
-//     orderRequest.requestOrder.PrintOrder();
-
-// }
 
 u_int64_t MatchingEngine::addOrder(Order order){
 
     order.mOrderID = ++nextOrderId;
-
-    std::cout << "SERVER: Assigned Order ID: " << order.mOrderID << std::endl;
-    std::cout << "SERVER: Order details - " 
-              << (order.BidOrAsk == Side::Bid ? "BUY" : "SELL")
-              << " " << order.mVolume << " " << order.mName 
-              << " @ " << order.mPrice.getPriceInTicks() << std::endl;
+    
+    DEBUG_PRINT("Server Assigned Order ID " << order.mOrderID);
+    
+    DEBUG_PRINT("SERVER: Order details - " 
+        << (order.BidOrAsk == Side::Bid ? "BUY" : "SELL")
+        << " " << order.mVolume << " " << order.mName 
+        << " @ " << order.mPrice.getPriceInTicks());
 
     if(order.BidOrAsk == Side::Bid){
         orderBook.addBid(order);
     }else{
-        orderBook.addAsk(order); /// THIS IS WHERE ITS PRINTING OUT
+        orderBook.addAsk(order);
     }
 
     return order.mOrderID;
@@ -52,19 +46,19 @@ std::optional<Trade> MatchingEngine::matchLimitOrders(){
     u_int64_t askPrice = bestAsk.getPrice().getPriceInTicks();
 
     if(bidPrice >= askPrice){
-        std::cout << "Match found! Bid(" << bidPrice << ") >= Ask(" << askPrice << ")" << std::endl;
+        DEBUG_PRINT("Match found! Bid(" << bidPrice << ") >= Ask(" << askPrice << ")");
         
         u_int64_t tradeVolume = std::min(bestAsk.GetVolume(), bestBid.GetVolume());
 
         
         u_int64_t tradePrice; 
 
-         if (bidPrice > askPrice) {
+        if (bidPrice > askPrice) {
             tradePrice = askPrice;
-            std::cout << "Negative spread! Using ask price: " << tradePrice << std::endl;
+            DEBUG_PRINT("Negative spread! Using ask price: " << tradePrice);
         } else {
             tradePrice = askPrice;
-            std::cout << "Exact match at price: " << tradePrice << std::endl;
+            DEBUG_PRINT("Exact match at price: " << tradePrice);
         }
 
         u_int64_t askReduced = bestAsk.reduceVolume(tradeVolume);
@@ -80,11 +74,11 @@ std::optional<Trade> MatchingEngine::matchLimitOrders(){
             orderBook.removeBid(bestBid.getOrderId());
         }
         
-        std::cout << "Trade executed successfully!" << std::endl;
+        DEBUG_PRINT("Trade executed successfully!");
         return trade;
     
     }else{
-        std::cout << " no trade available spread > 0" << std::endl;
+        DEBUG_PRINT("no trade available spread > 0");
     }
 
     return std::nullopt;

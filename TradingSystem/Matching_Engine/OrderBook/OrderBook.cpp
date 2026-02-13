@@ -5,13 +5,14 @@
 
 #include "OrderBook.hpp"
 #include "order.hpp"
+#include "../Debug/Debug.hpp"
 #include <bit>
 
+std::mt19937 rng(std::random_device{}()); 
+
 static constexpr int CHUNK = 64;
-// this represents the number that will be used to determine the + & - 5% of the prices that can be bid and ask.
-// This will need to be dynamic eventually to have a sliding window approach.
-constexpr int StartOfPrice = 950; // aka stock price is 10 euro so this represents 5% below that price
-constexpr int NumOfLevels = 101;  // allowing for +- 5% of 10
+constexpr int StartOfPrice = 950;
+constexpr int NumOfLevels = 101;
 
 OrderBook::OrderBook(size_t size) 
     : mBidpriceLevel(size),
@@ -19,32 +20,38 @@ OrderBook::OrderBook(size_t size)
       mBidBitmap((size + CHUNK - 1) / CHUNK, 0ULL),
       mAskBitmap((size + CHUNK - 1) / CHUNK, 0ULL)
 {
-    std::cout << "OrderBook created with " << size << " price levels" << std::endl;
-    std::cout << "BitMap create with " << mBidBitmap.size() << " 64 bit elements" << std::endl;
+    DEBUG_PRINT("OrderBook created with " << size << " price levels");
+    DEBUG_PRINT("BitMap create with " << mBidBitmap.size() << " 64 bit elements");
 }
+
+// Functions for benchmarking the OrderBook START
+Order OrderBook::generateRandomOrder(){
+    std::uniform_int_distribution<int> PriceDist(950, 1050);
+    
+    int randPrice = PriceDist(rng);
+    int rand
+}
+
+// END
 
 void OrderBook::addBid(Order order)
 {
-    // debug:
-    std::cout << "OrderBook::addBid - Order ID: " << order.mOrderID << std::endl;
-    // get the price of the bid
+    DEBUG_PRINT("OrderBook::addBid - Order ID: " << order.mOrderID);
     int BidLevel = priceToIndex(order.mPrice);
     mBidpriceLevel[BidLevel].emplace_back(order);
 
-    std::cout << "ORDERBOOK::ADDBID printing price of the order below." << std::endl;
+    DEBUG_PRINT("ORDERBOOK::ADDBID printing price of the order below.");
     setBidBitTo1(order.getPrice());
-    std::cout << "ORDERBOOK::ADDBID after printing price" << std::endl;
+    DEBUG_PRINT("ORDERBOOK::ADDBID after printing price");
 }
 
 void OrderBook::addAsk(Order order)
 {
-    std::cout << "OrderBook::addAsk - Order ID: " << order.mOrderID << std::endl;
+    DEBUG_PRINT("OrderBook::addAsk - Order ID: " << order.mOrderID);
     int AskLevel = priceToIndex(order.mPrice);
     mAskPriceLevel[AskLevel].emplace_back(order);
-    setAskBitTo1(order.getPrice()); // THis is the errors.
+    setAskBitTo1(order.getPrice());
 }
-
-
 
 void OrderBook::removeBid(u_int64_t orderId)
 {
@@ -54,9 +61,8 @@ void OrderBook::removeBid(u_int64_t orderId)
     
     if (deque.empty()) return;
 
-    std::cout << "front of deque Id: " << deque.front().getOrderId() << " OrderId: " << orderId << std::endl; 
+    DEBUG_PRINT("front of deque Id: " << deque.front().getOrderId() << " OrderId: " << orderId);
 
-    // TODO: Fix the error here.
     if(deque.front().getOrderId() != orderId){
         std::__throw_logic_error("orderId does not match the order at the front of that queue level");
     }
@@ -66,7 +72,6 @@ void OrderBook::removeBid(u_int64_t orderId)
         setBidBitTo0(indexToPrice(bestLevel));
     }
 }
-
 
 void OrderBook::removeAsk(u_int64_t orderId)
 {
@@ -101,10 +106,9 @@ int OrderBook::priceToIndex(Price price) const
 {
     int index = price.mPriceValueInCent - StartOfPrice;
 
-    // need to do bounds checking here. // TODO
     if (index < 0 || index >= NumOfLevels)
     {
-        std::cout << "ERROR that price is not a price that this asset can be traded at" << std::endl;
+        DEBUG_PRINT("ERROR that price is not a price that this asset can be traded at");
         throw std::invalid_argument("Invalid price to bid/ask");
     }
     return index;
@@ -112,8 +116,6 @@ int OrderBook::priceToIndex(Price price) const
 
 Price OrderBook::indexToPrice(int levelIndex) const
 {
-    
-    // need to do bounds checking here. // TODO
     if (levelIndex < 0 || levelIndex >= static_cast<int>(mBidpriceLevel.size())) {
         throw std::invalid_argument("Invalid level index: " + std::to_string(levelIndex));
     }
@@ -125,8 +127,6 @@ Price OrderBook::indexToPrice(int levelIndex) const
 
 std::pair<size_t, size_t> OrderBook::priceToBitmapIndex(Price price)
 {
-    // TODO imeplement
-
     int levelIndex = priceToIndex(price);
 
     return indexToBitmapIndex(levelIndex);
@@ -134,87 +134,53 @@ std::pair<size_t, size_t> OrderBook::priceToBitmapIndex(Price price)
 
 std::pair<size_t, size_t> OrderBook::indexToBitmapIndex(int levelIndex)
 {
-    // TODO implement.
-
     size_t wordIndex = levelIndex / CHUNK;
     size_t bitIndex = levelIndex % CHUNK;
 
-    // Printing for testing
-    std::cout << "Word Index" <<  wordIndex << std::endl;
-
-    std::cout << "Bit Index" << bitIndex << std::endl;
+    DEBUG_PRINT("Word Index: " << wordIndex);
+    DEBUG_PRINT("Bit Index: " << bitIndex);
 
     return {wordIndex, bitIndex};
 }
 
-// Doesnt conditionally set the bit it always does, to avoid branches
 void OrderBook::setBidBitTo1(const Price &price)
 {
     auto result = priceToBitmapIndex(price);
-    size_t wordPos = result.first; // the position of the word in the bitmap array
-    size_t bitPos = result.second; // the position of the bit in that word
-
-    // make a bitmask that has all 0s apart from the place where im checking for 1. 0001000000 etc
-    // then OR the original word with this bitmask
-
-    // std::cout << "64-bit: Current: " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
+    size_t wordPos = result.first;
+    size_t bitPos = result.second;
 
     u_int64_t bitmask = (1ULL << bitPos);
 
-    // // TODO take this out: Testing
-    // std::cout << "64-bit: Current: " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
-    // std::cout << "64-bit Mask:     " << std::bitset<64>(bitmask) << std::endl;
-
     mBidBitmap[wordPos] |= bitmask;
-
-    // std::cout << "64-bit: After  : " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
 }
 
 void OrderBook::setBidBitTo0(const Price &price)
 {
-    std::cout << "entering setBidBitTo0" << std::endl;
+    DEBUG_PRINT("entering setBidBitTo0");
     auto result = priceToBitmapIndex(price);
-    size_t wordPos = result.first; // the position of the word in the bitmap array
-    size_t bitPos = result.second; // the position of the bit in that word
-
-    // Before resetting TODO remove these
-    // std::cout << "64-bit: Current: " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
+    size_t wordPos = result.first;
+    size_t bitPos = result.second;
 
     mBidBitmap[wordPos] &= ~(1ULL << bitPos);    
-
-    // After resetting
-    // std::cout << "64-bit: After  : " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
 }
 
 void OrderBook::setAskBitTo1(const Price &price)
 {
     auto result = priceToBitmapIndex(price);
-    size_t wordPos = result.first; // the position of the word in the bitmap array
-    size_t bitPos = result.second; // the position of the bit in that word
-
-    // make a bitmask that has all 0s apart from the place where im checking for 1. 0001000000 etc
-    // then OR the original word with this bitmask
-
-    // std::cout << "64-bit: Current: " << std::bitset<64>(mBidBitmap[wordPos]) << std::endl;
+    size_t wordPos = result.first;
+    size_t bitPos = result.second;
 
     u_int64_t bitmask = (1ULL << bitPos);
 
-    // // TODO take this out: Testing
-    // std::cout << "64-bit: Current: " << std::bitset<64>(mAskBitmap[wordPos]) << std::endl;
-    // std::cout << "64-bit Mask:     " << std::bitset<64>(bitmask) << std::endl;
-
     mAskBitmap[wordPos] |= bitmask;
-
-    // std::cout << "64-bit: After  : " << std::bitset<64>(mAskBitmap[wordPos]) << std::endl;
 }
 
-// Makes bitmask and bitwise AND to set bit in bitmap to 0
 void OrderBook::setAskBitTo0(const Price &price)
 {
-    std::cout << "entering setAskBitTo0" << std::endl;
+    DEBUG_PRINT("entering setAskBitTo0");
     auto result = priceToBitmapIndex(price);
-    size_t wordPos = result.first; // the position of the word in the bitmap array
-    size_t bitPos = result.second; // the position of the bit in that word
+    size_t wordPos = result.first;
+    size_t bitPos = result.second;
 
     mAskBitmap[wordPos] &= ~(1ULL << bitPos);    
 }
@@ -225,11 +191,10 @@ Order& OrderBook::getBestBid(){
     if(bestBidLevel == -1){
         throw std::runtime_error("No bids in the OrderBook!");
     }
-    // deque at that level
     auto& deque = mBidpriceLevel[bestBidLevel];
 
     if(deque.empty()){
-        std::runtime_error("bitmapp shows the level marked but the deque is empty");
+        throw std::runtime_error("bitmapp shows the level marked but the deque is empty");
     }
 
     return deque.front();
@@ -241,11 +206,10 @@ Order& OrderBook::getBestAsk(){
     if(bestAskLevel == -1){
         throw std::runtime_error("No Asks in the OrderBook");
     }
-    // use ref
     auto& deque = mAskPriceLevel[bestAskLevel];
 
     if(deque.empty()){
-        std::runtime_error("bitmapp shows the level marked but the deque is empty");
+        throw std::runtime_error("bitmapp shows the level marked but the deque is empty");
     }
 
     return deque.front();
@@ -257,11 +221,10 @@ Order OrderBook::popBestBid(){
     if(bestBidLevel == -1){
         throw std::runtime_error("No bids in the OrderBook!");
     }
-    // deque at that level
     auto& deque = mBidpriceLevel[bestBidLevel];
 
     if(deque.empty()){
-        std::runtime_error("bitmapp shows the level marked but the deque at that level is empty!");
+        throw std::runtime_error("bitmapp shows the level marked but the deque at that level is empty!");
     }
 
     Order orderCopy = deque.front();
@@ -282,7 +245,7 @@ Order OrderBook::popBestAsk(){
     }
     auto& deque = mAskPriceLevel[bestAskLevel];
     if(deque.empty()){
-        std::runtime_error("bitmap shows the level marked but the deque at that level is empty!");
+        throw std::runtime_error("bitmap shows the level marked but the deque at that level is empty!");
     }
     Order orderCopy = deque.front();
     deque.pop_front();
@@ -294,13 +257,7 @@ Order OrderBook::popBestAsk(){
     return orderCopy;
 }
 
-// void OrderBook::fillBestBid(u_int16_t quantity){
-
-// }
-
-
 int OrderBook::findBestBidLevel() const{
-    // 
     for(int i = static_cast<int>(mBidBitmap.size() - 1); i >= 0; --i){
         u_int64_t word = mBidBitmap[i];
 
@@ -308,10 +265,6 @@ int OrderBook::findBestBidLevel() const{
             int leadingZeros = std::__countl_zero(word);
             
             int bitPositionFromRight = 63 - leadingZeros;
-
-            // std::cout << "word index: " << i << std::endl;
-            // std::cout << "bit Index from LSB: " << bitPositionFromRight << std::endl;
-            // std::cout << "gloval bit position: " << i * CHUNK  + bitPositionFromRight << std::endl;
             
             return i * CHUNK  + bitPositionFromRight; 
         }
@@ -320,21 +273,13 @@ int OrderBook::findBestBidLevel() const{
 }
 
 int OrderBook::findBestAskLevel() const{
-    // TODO double check this logic to make sure its correct.
     for(int i = 0; i < static_cast<int>(mAskBitmap.size()); ++i){
 
         u_int64_t word = mAskBitmap[i];
 
-        // use trailing as opposed to leading zero
-
         if(word != 0){
             
             int trailingZeros = std::__countr_zero(word);
-            // should the bit position not be from the left?
-
-            // std::cout << "word index: " << i << std::endl;
-            // std::cout << "bit Index from LSB: " << trailingZeros << std::endl;
-            // std::cout << "gloval bit position: " << i * CHUNK  + trailingZeros << std::endl;
             
             return i * CHUNK  + trailingZeros; 
         }

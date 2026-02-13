@@ -7,6 +7,7 @@
 #include "Price.hpp"
 #include "order.hpp"
 #include <deque>
+#include <random>
 
 class OrderBook{
 
@@ -22,6 +23,14 @@ private:
 public:
     explicit OrderBook(size_t size);
     
+    // Functions to benchmark the orderBook
+    Order generateRandomOrder(){
+        
+        
+        Order randomOrder();
+
+    }
+
     // Bid
     void addBid(Order order);
     void removeBid(u_int64_t orderID);
