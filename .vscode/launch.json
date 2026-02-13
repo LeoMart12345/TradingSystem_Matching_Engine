@@ -1,3 +1,4 @@
+// DEFINES HOW TO DEBUG
 {
   "version": "0.2.0",
   "configurations": [
@@ -8,8 +9,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "${workspaceFolder}",
-      "program": "${workspaceFolder}/TS",
+      "cwd": "${workspaceFolder}/TradingSystem",  
+      "program": "${workspaceFolder}/TradingSystem/TS",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
