@@ -31,7 +31,7 @@ struct OrderRequest {
         result += requestOrder.serialize();
         return result;
     }
-
+    
     static OrderRequest deserialize(const std::string& data) {
         std::vector<std::string> parts;
         std::stringstream ss(data);

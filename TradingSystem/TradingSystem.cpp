@@ -28,7 +28,7 @@ void TradingSystem::start(){
 
     
 }
-    
+
 void TradingSystem::stop(){
 
 }

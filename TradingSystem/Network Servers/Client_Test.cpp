@@ -55,9 +55,13 @@ int main() {
             std::cout << "\nSending: " << side << " " << tickerSymbol 
                       << " " << qty << " @ " << price << "\n";
             
+            // standardise the inputs
+            std::transform(side.begin(), side.end(), side.begin(), ::toupper);
 
             // Making price object:
-            Price orderPrice(950);
+            u_int64_t priceInCents = std::stoull(price);
+
+            Price orderPrice(priceInCents); 
             // Make Order Object
             Order order(
                 (side == "Buy") ? Bid : Ask,

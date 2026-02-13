@@ -41,7 +41,7 @@ void OrderBook::addAsk(Order order)
     std::cout << "OrderBook::addAsk - Order ID: " << order.mOrderID << std::endl;
     int AskLevel = priceToIndex(order.mPrice);
     mAskPriceLevel[AskLevel].emplace_back(order);
-    setAskBitTo1(order.getPrice());
+    setAskBitTo1(order.getPrice()); // THis is the errors.
 }
 
 
@@ -140,9 +140,9 @@ std::pair<size_t, size_t> OrderBook::indexToBitmapIndex(int levelIndex)
     size_t bitIndex = levelIndex % CHUNK;
 
     // Printing for testing
-    std::cout << wordIndex << std::endl;
+    std::cout << "Word Index" <<  wordIndex << std::endl;
 
-    std::cout << bitIndex << std::endl;
+    std::cout << "Bit Index" << bitIndex << std::endl;
 
     return {wordIndex, bitIndex};
 }
