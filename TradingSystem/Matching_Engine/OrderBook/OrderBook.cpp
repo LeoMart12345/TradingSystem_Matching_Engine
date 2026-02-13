@@ -25,18 +25,26 @@ OrderBook::OrderBook(size_t size)
 
 void OrderBook::addBid(Order order)
 {
+    // debug:
+    std::cout << "OrderBook::addBid - Order ID: " << order.mOrderID << std::endl;
     // get the price of the bid
     int BidLevel = priceToIndex(order.mPrice);
     mBidpriceLevel[BidLevel].emplace_back(order);
+
+    std::cout << "ORDERBOOK::ADDBID printing price of the order below." << std::endl;
     setBidBitTo1(order.getPrice());
+    std::cout << "ORDERBOOK::ADDBID after printing price" << std::endl;
 }
 
 void OrderBook::addAsk(Order order)
 {
+    std::cout << "OrderBook::addAsk - Order ID: " << order.mOrderID << std::endl;
     int AskLevel = priceToIndex(order.mPrice);
     mAskPriceLevel[AskLevel].emplace_back(order);
     setAskBitTo1(order.getPrice());
 }
+
+
 
 void OrderBook::removeBid(u_int64_t orderId)
 {

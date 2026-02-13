@@ -3,7 +3,6 @@
 #include <cstdint>
 #include <cstring>
 #include <sstream>
-
 #include "../Matching_Engine/OrderBook/order.hpp"
 
 enum class requestType {
@@ -17,7 +16,6 @@ struct OrderRequest {
     u_int64_t clientId;
     requestType type;
     
-  
     OrderRequest(u_int64_t clientId, requestType type, const Order& order)
         : clientId(clientId), type(type), requestOrder(order) 
         {

@@ -27,6 +27,7 @@ SOURCES = $(SRC_DIR)/TradingSystem.cpp \
 
 OBJECTS = $(SOURCES:.cpp=.o)
 
+
 # execcutable name
 EXEC = TS
 
