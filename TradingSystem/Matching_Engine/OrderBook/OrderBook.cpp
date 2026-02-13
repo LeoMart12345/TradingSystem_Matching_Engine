@@ -7,12 +7,20 @@
 #include "order.hpp"
 #include "../Debug/Debug.hpp"
 #include <bit>
+#include <atomic>
 
 std::mt19937 rng(std::random_device{}()); 
+
+std::uniform_int_distribution<int> PriceDist(950, 1050);
+std::uniform_int_distribution<int> sideDist(0, 1);
+std::uniform_int_distribution<int> volumeDist(0, 1000);
 
 static constexpr int CHUNK = 64;
 constexpr int StartOfPrice = 950;
 constexpr int NumOfLevels = 101;
+
+//Order Ids that are used for benchmarking
+static std::atomic<u_int64_t> nextBenchmarkOrderId = 10000;
 
 OrderBook::OrderBook(size_t size) 
     : mBidpriceLevel(size),
@@ -25,11 +33,20 @@ OrderBook::OrderBook(size_t size)
 }
 
 // Functions for benchmarking the OrderBook START
+//     Side BidOrAsk; u_int64_t mVolume; std::string mName; u_int64_t mOrderID; Price mPrice;
+
 Order OrderBook::generateRandomOrder(){
-    std::uniform_int_distribution<int> PriceDist(950, 1050);
     
     int randPrice = PriceDist(rng);
-    int rand
+    int randSide = sideDist(rng);
+    u_int64_t randVolume = volumeDist(rng);
+    std::string notsoRandName = "TSLA";
+    Side side = (randSide == 0) ? Bid : Ask;
+    Price randPrice(randPrice);
+
+    //     Order(Side Side, u_int64_t volume, std::string name, u_int64_t orderID, Price Price);
+
+    Order randomOrder(side, randVolume, notsoRandName, ++nextOrderId, randPrice);
 }
 
 // END
