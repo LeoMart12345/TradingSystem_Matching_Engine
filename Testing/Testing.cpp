@@ -1,14 +1,20 @@
 #include <iostream>
 #include <vector>
 #include <array>
+#include <set>
+#include <unordered_set>
+#include <unordered_map>
+#include <queue>
+#include <stack>
+#include <map>
+#include <algorithm>
 
 int main(){
-    std::printf("HELLO PRINTF ");
+    // sorting
+    std::vector<int> v = {3, 5, 1, 5, 6};
+    std::sort(v.begin(), v.end());
 
+    
 
-
-
-    // size of 10 all all values will 0. 
-    std::array<int, 10> nums{4, 3, 1, 3,  1};
 
 }
