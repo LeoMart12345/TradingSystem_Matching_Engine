@@ -15,6 +15,7 @@ std::uniform_int_distribution<int> PriceDist(950, 1050);
 std::uniform_int_distribution<int> sideDist(0, 1);
 std::uniform_int_distribution<int> volumeDist(0, 1000);
 
+
 static constexpr int CHUNK = 64;
 constexpr int StartOfPrice = 950;
 constexpr int NumOfLevels = 101;
@@ -45,8 +46,8 @@ Order OrderBook::generateRandomOrder(){
     Price randPrice(randPrice);
 
     //     Order(Side Side, u_int64_t volume, std::string name, u_int64_t orderID, Price Price);
-
-    Order randomOrder(side, randVolume, notsoRandName, ++nextOrderId, randPrice);
+    
+    Order randomOrder(side, randVolume, notsoRandName, ++nextBenchmarkOrderId, randPrice);
 }
 
 // END
