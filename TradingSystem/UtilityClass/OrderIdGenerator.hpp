@@ -5,7 +5,7 @@
 class OrderIdGenerator{
 
     private:
-    static std::atomic<u_int64_t> atomicOrderID;;
+    static std::atomic<u_int64_t> atomicOrderID;
 
     public:
     static u_int64_t incrementOrder();
