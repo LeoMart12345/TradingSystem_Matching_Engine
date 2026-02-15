@@ -8,13 +8,10 @@
 #include <stack>
 #include <map>
 #include <algorithm>
+#include <utility>
 
 int main(){
-    // sorting
-    std::vector<int> v = {3, 5, 1, 5, 6};
-    std::sort(v.begin(), v.end());
 
     
-
 
 }
