@@ -4,7 +4,7 @@
 #include "../TradingSystem.hpp"
 #include "../Matching_Engine/OrderBook/OrderBook.hpp"
 
-void runBenchmark(size_t numOrders) {
+void runInsertBenchmark(size_t numOrders) {
     auto TS = std::make_unique<TradingSystem>(5555, 12345);
     OrderBook& orderBook = TS->getOrderBook();
     
@@ -23,7 +23,7 @@ void runBenchmark(size_t numOrders) {
 }
 
 int main() {
-    runBenchmark(1000);
-    runBenchmark(10000);
+    runInsertBenchmark(1000);
+    runInsertBenchmark(10000);
     return 0;
 }
