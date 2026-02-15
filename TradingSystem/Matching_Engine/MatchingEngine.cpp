@@ -4,11 +4,11 @@
 
 #include "Trade.hpp"
 #include <optional>
-#include <atomic>
 #include <thread>
 #include <mutex>
 #include <sstream>
 #include "../Debug/Debug.hpp"
+#include "../UtilityClass/OrderIdGenerator.hpp"
 
 // Constructor
 MatchingEngine::MatchingEngine(OrderBook& orderBook)
@@ -19,7 +19,7 @@ MatchingEngine::MatchingEngine(OrderBook& orderBook)
 
 u_int64_t MatchingEngine::addOrder(Order order){
 
-    order.mOrderID = ++nextOrderId;
+    order.mOrderID = OrderIdGenerator::incrementOrder();
     
     DEBUG_PRINT("Server Assigned Order ID " << order.mOrderID);
     
@@ -38,6 +38,8 @@ u_int64_t MatchingEngine::addOrder(Order order){
 }
 
 std::optional<Trade> MatchingEngine::matchLimitOrders(){ 
+
+    DEBUG_PRINT("Starting Matching Orders Cycle");
 
     Order& bestAsk = orderBook.getBestAsk();
     Order& bestBid = orderBook.getBestBid();
@@ -79,50 +81,8 @@ std::optional<Trade> MatchingEngine::matchLimitOrders(){
     
     }else{
         DEBUG_PRINT("no trade available spread > 0");
+        // exit(0);
     }
 
     return std::nullopt;
 }
-
-std::atomic<int> gOrderIdCounter = 0;
-
-int generateUniqueOrderId(){
-    
-    return ++gOrderIdCounter; 
-}
-
-// int main(){
-//     //testing atomic counter logic
-    
-//     std::mutex gLock;
-//     std::lock_guard<std::mutex> gGuard(gLock);
-
-//     OrderBook Book2(101);
-//     Order ask1 = Order(Ask, 100, "apple", generateUniqueOrderId(), Price(960));
-//     Order bid1 = Order(Bid, 100, "apple", generateUniqueOrderId(), Price(1041));
-    
-//     Order ask2 = Order(Ask, 100, "apple", generateUniqueOrderId(), Price(1000));
-//     Order bid2 = Order(Bid, 100, "apple", generateUniqueOrderId(), Price(1000));
-    
-//     Order ask3 = Order(Ask, 100, "apple", generateUniqueOrderId(), Price(1035));
-//     Order bid3 = Order(Bid, 100, "apple", generateUniqueOrderId(), Price(1035));
-     
-//     Book2.addAsk(ask1);
-//     Book2.addBid(bid1);
-    
-//     Book2.addAsk(ask2);
-//     Book2.addBid(bid2);
-    
-//     Book2.addAsk(ask3);
-//     Book2.addBid(bid3);
-
-//     // MatchingEngine APPL_matchingEngine(Book2);
-//     MatchingEngine APPL_matchingEngine(Book2);
-    
-//     int index = 1;
-//     while(1){
-//         std::optional<Trade> testTrade = APPL_matchingEngine.matchLimitOrders();
-//         std::cout << index << "\n";
-//         ++index;
-//     }
-// }

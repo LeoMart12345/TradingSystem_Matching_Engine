@@ -8,6 +8,7 @@
 #include "../Debug/Debug.hpp"
 #include <bit>
 #include <atomic>
+#include "../UtilityClass/OrderIdGenerator.hpp"
 
 std::mt19937 rng(std::random_device{}()); 
 
@@ -21,7 +22,6 @@ constexpr int StartOfPrice = 950;
 constexpr int NumOfLevels = 101;
 
 //Order Ids that are used for benchmarking
-static std::atomic<u_int64_t> nextBenchmarkOrderId = 10000;
 
 OrderBook::OrderBook(size_t size) 
     : mBidpriceLevel(size),
@@ -38,16 +38,18 @@ OrderBook::OrderBook(size_t size)
 
 Order OrderBook::generateRandomOrder(){
     
-    int randPrice = PriceDist(rng);
+    int randPriceint = PriceDist(rng);
     int randSide = sideDist(rng);
     u_int64_t randVolume = volumeDist(rng);
     std::string notsoRandName = "TSLA";
     Side side = (randSide == 0) ? Bid : Ask;
-    Price randPrice(randPrice);
+    Price randPrice(randPriceint);
 
     //     Order(Side Side, u_int64_t volume, std::string name, u_int64_t orderID, Price Price);
+
+    Order randomOrder(side, randVolume, notsoRandName, OrderIdGenerator::incrementOrder(), randPrice);
     
-    Order randomOrder(side, randVolume, notsoRandName, ++nextBenchmarkOrderId, randPrice);
+    return randomOrder;
 }
 
 // END

@@ -24,12 +24,8 @@ public:
     explicit OrderBook(size_t size);
     
     // Functions to benchmark the orderBook
-    Order generateRandomOrder(){
-        
-        
-        Order randomOrder();
-
-    }
+    
+    Order generateRandomOrder();
 
     // Bid
     void addBid(Order order);

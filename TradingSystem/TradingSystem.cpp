@@ -19,13 +19,19 @@ TradingSystem::~TradingSystem(){
 }
 
 void TradingSystem::start(){
-    //start the TCP server for clients to connect.
-    TCPServerI->run(); 
-    //start the UDP server for distributing market data.
+
+    // start the TCP server for clients to connect in a seperate thread.
+    std::thread tcpServerThread([this](){
+        TCPServerI->run();
+    });
+    tcpServerThread.detach(); // so it runs on its own.
+    
+    //start the UDP server for distributing market data in a seperate thread also.
 
     // Match limit orders:    
-    matchingEngine.matchLimitOrders();
-
+    while(1){
+        matchingEngine.matchLimitOrders();
+    }
 }
 
 void TradingSystem::stop(){
@@ -47,7 +53,4 @@ int main(){
     
     // starts the tcp server and then does some benchmarking.
     TS->start();
-
-    
-
 }
