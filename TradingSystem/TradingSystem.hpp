@@ -23,4 +23,14 @@ class TradingSystem{
     void start();
     void stop();
     void process_order(const std::string& order_str);
+    
+    void addOrder(Order order) {
+        matchingEngine.addOrder(order);
+    }
+
+    OrderBook& getOrderBook() { return *orderBook; }
+    MatchingEngine& getMatchingEngine() { return matchingEngine; }
+    
+
+
 };
