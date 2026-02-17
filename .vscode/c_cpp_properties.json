@@ -8,7 +8,7 @@
             ],
             "compilerPath": "gcc",
             "cStandard": "${default}",
-            "cppStandard": "${default}",
+            "cppStandard": "c++23",
             "intelliSenseMode": "windows-gcc-x64",
             "compilerArgs": [
                 ""
