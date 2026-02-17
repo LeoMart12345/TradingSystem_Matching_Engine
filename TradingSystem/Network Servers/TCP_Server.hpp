@@ -34,7 +34,7 @@ class TCPServer{
             char order[1024];
             size_t bytes = socket.read_some(buffer(order));
             std::string receivedData(order, bytes);
-
+            
             // TODO: check if the order is valid
 
             OrderRequest request = OrderRequest::deserialize(receivedData);
