@@ -17,7 +17,6 @@ class TCPServer{
         {
 
         }
-       
 
     void run(){
 
@@ -34,7 +33,7 @@ class TCPServer{
             char order[1024];
             size_t bytes = socket.read_some(buffer(order));
             std::string receivedData(order, bytes);
-            
+
             // TODO: check if the order is valid
 
             OrderRequest request = OrderRequest::deserialize(receivedData);
@@ -47,7 +46,8 @@ class TCPServer{
                 
                 u_int64_t assignedId = matchingEngine.addOrder(newOrder);
 
-                // std::cout << "Adding the order to the matching engine" << std::endl;
+                std::cout << "Adding the order to the matching engine: " << std::endl;
+                newOrder.PrintOrder();
                 
                 std::string response = std::to_string(assignedId);
                 socket.write_some(boost::asio::buffer(response));
@@ -56,7 +56,6 @@ class TCPServer{
                 // Handle the cancel orderType 
             }
         }
-        
     }
 
     void stop(){

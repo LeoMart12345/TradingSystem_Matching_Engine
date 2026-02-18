@@ -50,7 +50,7 @@ $(EXEC): $(MAIN_OBJECTS)
 # Clean up build files
 clean:
 	@echo "Cleaning up build files"
-	rm -f $(MAIN_OBJECTS) $(EXEC) benchmark
+	rm -f $(MAIN_OBJECTS) $(EXEC) benchmark client
 	@echo "Done."
 
 # Run program
@@ -70,5 +70,14 @@ benchmark: clean
 	$(CXX) $(CXXFLAGS) $(INCLUDES) Benchmark/Benchmark.cpp $(LIB_SOURCES) -o benchmark $(LDFLAGS)
 	@echo "Benchmark ready! Run with: ./benchmark"
 
+# Client build
+client:
+	@echo "Building the client..."
+	$(CXX) $(CXXFLAGS) $(INCLUDES) \
+		"Network Servers/Client_Test.cpp" \
+		$(LIB_SOURCES) \
+		-o client $(LDFLAGS)
+	@echo "Client ready! Run with: ./client"
+
 # PHONY TARGETS
-.PHONY: all clean run debug benchmark
+.PHONY: all clean run debug benchmark client

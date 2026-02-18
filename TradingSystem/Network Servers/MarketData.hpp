@@ -1,22 +1,28 @@
 // MarketData.hpp
 #pragma once
 #include <cstdint>
-#include <atomic>
+#include <mutex>
 
 struct MarketDataSnapshot {
-    uint64_t BestBid = 0;
-    uint64_t BestAsk = 0;
-    uint64_t BidVolume = 0;
-    uint64_t AskVolume = 0;
+    uint64_t bestBid = 0;
+    uint64_t bestAsk = 0;
+    uint64_t bidVolume = 0;
+    uint64_t askVolume = 0;
 };
 
-class MarketData{
-    
+class MarketData {
 public:
-    void update(MarketDataSnapshot updatedData){
-        mSnapshot.store(updatedData);
+    void update(MarketDataSnapshot snapshot) {
+        std::lock_guard<std::mutex> lock(mMutex);
+        mSnapshot = snapshot;
+    }
+
+    MarketDataSnapshot get() const {
+        std::lock_guard<std::mutex> lock(mMutex);
+        return mSnapshot;
     }
 
 private:
-    std::atomic<MarketDataSnapshot> mSnapshot{};
+    MarketDataSnapshot mSnapshot{};
+    mutable std::mutex mMutex;
 };
