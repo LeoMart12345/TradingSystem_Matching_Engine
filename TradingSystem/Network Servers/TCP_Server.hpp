@@ -51,7 +51,9 @@ class TCPServer{
                     // NEED TO DO A TYPECAST HERE:FROM UINT TO U_INT_64_T ETC. 
                     snapsshot.bestBid = matchingEngine.getOrderBook().getBestBid().getPrice().getPriceInTicks();
                     snapsshot.bestAsk = matchingEngine.getOrderBook().getBestAsk().getPrice().getPriceInTicks();
-                    
+                    snapsshot.bidVolume = 0;
+                    snapsshot.askVolume = 0;
+
                     std::string data = snapsshot.serialise();
                     
                     //sending the data to the clients.
@@ -76,35 +78,38 @@ class TCPServer{
         ip::tcp::acceptor acceptor(context, ip::tcp::endpoint(ip::tcp::v4(), 5555));
         std::cout << "order entry via tcp on port 5555" << std::endl;
 
+
+        // spawning a thread for each TCP connection. dont close the socket after each connection.
+        // moving the ownership of the socket from the main thread to the detached one.
         while(true){
             ip::tcp::socket socket(context);
             acceptor.accept(socket);
             
-            char order[1024];
-            size_t bytes = socket.read_some(buffer(order));
-            std::string receivedData(order, bytes);
+            // spawn a thread for each client connection
+            std::thread clientThread([this](boost::asio::ip::tcp::socket socket){
+                while(true){
+                    try {
+                        char order[1024];
+                        size_t bytes = socket.read_some(buffer(order));
+                        std::string receivedData(order, bytes);
 
-            // TODO: check if the order is valid
-
-            OrderRequest request = OrderRequest::deserialize(receivedData);
+                        OrderRequest request = OrderRequest::deserialize(receivedData);
+                        
+                        if(request.type == requestType::New){
+                            Order newOrder = request.requestOrder;
+                            u_int64_t assignedId = matchingEngine.addOrder(newOrder);
+                            
+                            std::string response = std::to_string(assignedId);
+                            socket.write_some(boost::asio::buffer(response));
+                        }
+                    } catch(const std::exception& e) {
+                        std::cout << "Client disconnected: " << e.what() << std::endl;
+                        break;
+                    }
+                }
+            }, std::move(socket));
             
-            if(request.type == requestType::New){
-                Order newOrder = request.requestOrder;
-
-                // check if there is a need for a process order or if
-                //send it to the matching engine
-                
-                u_int64_t assignedId = matchingEngine.addOrder(newOrder);
-
-                std::cout << "Adding the order to the matching engine: " << std::endl;
-                newOrder.PrintOrder();
-                
-                std::string response = std::to_string(assignedId);
-                socket.write_some(boost::asio::buffer(response));
-            }
-            else if (request.type == requestType::Cancel) {
-                // Handle the cancel orderType 
-            }
+            clientThread.detach();
         }
     }
 
