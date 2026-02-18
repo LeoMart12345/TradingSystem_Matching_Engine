@@ -23,6 +23,16 @@ class TCPServer{
     void run(){
         using namespace boost::asio;
         
+        //debug: testing to see if the orderbook is populated
+        // in run() before the while loop
+        std::cout << "Server starting, checking order book state" << std::endl;
+        try {
+            std::cout << "Best bid: " << matchingEngine.getOrderBook().getBestBid().getPrice().getPriceInTicks() << std::endl;
+            std::cout << "Best ask: " << matchingEngine.getOrderBook().getBestAsk().getPrice().getPriceInTicks() << std::endl;
+        } catch(...) {
+            std::cout << "Order book is empty" << std::endl;
+        }
+        
         // UDP
         boost::asio::io_context UDPcontext;
         boost::asio::ip::udp::socket UDPsocket(UDPcontext);
@@ -53,6 +63,9 @@ class TCPServer{
                     snapsshot.bestAsk = matchingEngine.getOrderBook().getBestAsk().getPrice().getPriceInTicks();
                     snapsshot.bidVolume = 0;
                     snapsshot.askVolume = 0;
+
+                    // debug
+                    std::cout << "bestBid: " << snapsshot.bestBid << " BestAsk: " << snapsshot.bestAsk << std::endl;  
 
                     std::string data = snapsshot.serialise();
                     

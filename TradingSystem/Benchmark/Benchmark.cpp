@@ -42,6 +42,7 @@ int main() {
     runInsertBenchmark(1000);
     runInsertBenchmark(10000);
     runInsertBenchmark(100000);
+    std::cout<< "Benchmark Code is running" << std::endl;
 
     return 0;
 }
