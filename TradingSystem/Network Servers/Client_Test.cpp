@@ -6,6 +6,7 @@
 #include "Order_Request.hpp"
 #include "../Matching_Engine/OrderBook/order.hpp"
 #include <MarketData.hpp>
+#include "../Debug/Debug.hpp"
 
 int main() {
     using namespace boost::asio;
@@ -26,7 +27,7 @@ int main() {
     UDPsocket.open(boost::asio::ip::udp::v4());
     UDPsocket.set_option(boost::asio::ip::udp::socket::reuse_address(true));
     UDPsocket.bind(boost::asio::ip::udp::endpoint(
-        boost::asio::ip::udp::v4(),
+        boost::asio::ip::address::from_string("239.0.0.1"),
         9999
     ));
 
@@ -42,6 +43,7 @@ int main() {
             char buff[1024];
             size_t bytes = UDPsocket.receive(boost::asio::buffer(buff));
             std::string data(buff, bytes);
+            // std::cout << "UPD received data: " << data << std::endl;
             marketData.deserialise(data);
         }
     });
@@ -118,7 +120,6 @@ int main() {
             size_t bytes = socket.read_some(boost::asio::buffer(response));
             std::string realOrderId(response, bytes);
             std::cout << "Order accepted with ID: " << realOrderId << std::endl;
-
 
             std::cout << "\nPress Enter...";
             std::cin.ignore();

@@ -49,7 +49,8 @@ std::optional<Trade> MatchingEngine::matchLimitOrders(){
 
     if(bidPrice >= askPrice){
         DEBUG_PRINT("Match found! Bid(" << bidPrice << ") >= Ask(" << askPrice << ")");
-        
+        std::cout <<"thanks god" <<std::endl;
+
         u_int64_t tradeVolume = std::min(bestAsk.GetVolume(), bestBid.GetVolume());
 
         

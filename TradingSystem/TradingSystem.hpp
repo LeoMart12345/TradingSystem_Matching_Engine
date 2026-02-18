@@ -5,12 +5,14 @@
 #include "./Network Servers/TCP_Client.hpp"
 #include "./Network Servers/TCP_Server.hpp"
 #include "./Matching_Engine/OrderBook/OrderBook.hpp"
+#include "./Network Servers/UDPServer.hpp"
 
 class TradingSystem{
     private:
         std::unique_ptr<OrderBook> orderBook;
         MatchingEngine matchingEngine;
         std::unique_ptr<TCPServer> TCPServerI;
+        std::unique_ptr<UDPServer> UDPServerI;
     
     //upd multicast server
     // std::unique_ptr<TCPclient> Clients;
@@ -30,7 +32,5 @@ class TradingSystem{
 
     OrderBook& getOrderBook() { return *orderBook; }
     MatchingEngine& getMatchingEngine() { return matchingEngine; }
-    
-
 
 };
