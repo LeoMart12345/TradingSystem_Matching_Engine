@@ -21,9 +21,19 @@ class TCPServer{
         }
 
     void run(){
-
         using namespace boost::asio;
         
+        // UDP
+        boost::asio::io_context UDPcontext;
+        boost::asio::ip::udp::socket UDPsocket(UDPcontext);
+        UDPsocket.open(boost::asio::ip::udp::v4());
+
+        //endpoint that the udp multicast will send to
+        ip::udp::endpoint multicastEndpoint(
+            ip::address::from_string("239.0.0.1"), // multicast address. clients join this group
+            9999
+        );
+
 
         // thread for udp muticast market data dissemination:
         std::thread udpMarketdataDisseminationThread([&](){
@@ -42,15 +52,19 @@ class TCPServer{
                     snapsshot.bestBid = matchingEngine.getOrderBook().getBestBid().getPrice().getPriceInTicks();
                     snapsshot.bestAsk = matchingEngine.getOrderBook().getBestAsk().getPrice().getPriceInTicks();
                     
-                    std::string data = serializedMarketData.serialise();
-
-                    // multicast the data to all the clients.
+                    std::string data = snapsshot.serialise();
                     
+                    //sending the data to the clients.
+                    UDPsocket.send_to(boost::asio::buffer(data), multicastEndpoint);
+                    
+                    // multicast the data to all the clients.
+                }catch(std::exception& e){
+                    std::cout << "UDP error: " << e.what() << std::endl;
                 }catch(...){
-                    std::cout << "some error thrown in disseminating the market data will try again in 100ms" << std::endl;
+                    std::cout << "some other udp error" << std::endl;
                 }
                 // sleep so it doesnt take up resources.
-                std::this_thread::sleep_for(std::chrono::milliseconds(100));
+                std::this_thread::sleep_for(std::chrono::milliseconds(500));
             
             }
         });

@@ -8,11 +8,10 @@
 #include <MarketData.hpp>
 
 int main() {
-    bool running = true;
-    
     using namespace boost::asio;
-    
-        //TCP
+    bool running = true;
+    MarketData marketData;
+    //TCP
     boost::asio::io_context context;
     boost::asio::ip::tcp::socket socket(context);
 
@@ -23,7 +22,7 @@ int main() {
     // UDP
     boost::asio::io_context UDPcontext;
     boost::asio::ip::udp::socket UDPsocket(UDPcontext);
-
+    
     UDPsocket.open(boost::asio::ip::udp::v4());
     UDPsocket.set_option(boost::asio::ip::udp::socket::reuse_address(true));
     UDPsocket.bind(boost::asio::ip::udp::endpoint(
@@ -31,9 +30,24 @@ int main() {
         9999
     ));
 
-    MarketData marketData;
+    std::string multicast_address = "239.0.0.1"; // multicast address.
+    UDPsocket.set_option(
+        boost::asio::ip::multicast::join_group(
+            boost::asio::ip::address::from_string(multicast_address)
+        )
+    );
 
-
+    std::thread MulticastReceive([&](){
+        while(true){
+            char buff[1024];
+            size_t bytes = UDPsocket.receive(boost::asio::buffer(buff));
+            std::string data(buff, bytes);
+            marketData.deserialise(data);
+        }
+    });
+    MulticastReceive.detach();
+    
+    
     while (running) {
         // clearing screen
         system("clear");
@@ -43,13 +57,12 @@ int main() {
         // Market data that will be updated via UDP multicasts
         std::cout << "=== TRADING TERMINAL ===\n\n";
         std::cout << "+-----------+----------+----------+\n";
-        std::cout << "| TSLA      |   BID    |   ASK    |\n";
+        std::cout << "| APPL      |   BID    |   ASK    |\n";
         std::cout << "+-----------+----------+----------+\n";
         std::cout << "| Price     | " << std::setw(8) << snapshot.bestBid << " | " << std::setw(8) << snapshot.bestAsk << " |\n";
         std::cout << "| Volume    | " << std::setw(8) << snapshot.bidVolume << " | " << std::setw(8) << snapshot.askVolume << " |\n";
         std::cout << "+-----------+----------+----------+\n\n";
 
-        std::cout << "=== TRADING TERMINAL ===\n\n";
         std::cout << "1. Place Order\n";
         std::cout << "2. Cancel Order\n";
         std::cout << "3. Exit\n\n";
@@ -88,7 +101,7 @@ int main() {
             Price orderPrice(priceInCents); 
             // Make Order Object
             Order order(
-                (side == "Buy") ? Bid : Ask,
+                (side == "BUY") ? Bid : Ask,
                 std::stoull(qty),
                 tickerSymbol,
                 0,
@@ -96,9 +109,8 @@ int main() {
             );
             // Make Order request.
             static uint64_t nextClientId = 1000; // for order id generation
-
             OrderRequest request(nextClientId++, requestType::New, order);
-
+            
             socket.write_some(boost::asio::buffer(request.serialize()));
 
             // server response    

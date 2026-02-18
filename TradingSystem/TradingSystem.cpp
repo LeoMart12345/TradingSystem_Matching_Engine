@@ -20,6 +20,9 @@ TradingSystem::~TradingSystem(){
 
 void TradingSystem::start(){
 
+    // start making random orders for testing the udp multicast.
+
+
     // start the TCP server for clients to connect in a seperate thread.
     std::thread tcpServerThread([this](){
         TCPServerI->run();
