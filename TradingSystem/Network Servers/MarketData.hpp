@@ -2,6 +2,8 @@
 #pragma once
 #include <cstdint>
 #include <mutex>
+#include <string>
+#include <sstream>    
 
 struct MarketDataSnapshot {
     uint64_t bestBid = 0;
@@ -20,6 +22,24 @@ public:
     MarketDataSnapshot get() const {
         std::lock_guard<std::mutex> lock(mMutex);
         return mSnapshot;
+    }
+
+    // for the server to serialise and send to the client.
+    std::string serialise() const {
+        std::lock_guard<std::mutex> lock(mMutex);
+
+        return std::to_string(mSnapshot.bestBid) + "," 
+        + std::to_string(mSnapshot.bestAsk) + ","
+        + std::to_string(mSnapshot.bidVolume) + ","
+        + std::to_string(mSnapshot.askVolume);
+    }
+
+    MarketDataSnapshot deserialise(std::string marketDataString) const {
+        std::lock_guard<std::mutex> lock(mMutex);
+        std::stringstream ss(marketDataString);
+        std::string token;
+        
+
     }
 
 private:

@@ -5,26 +5,50 @@
 #include "TCP_Client.hpp"
 #include "Order_Request.hpp"
 #include "../Matching_Engine/OrderBook/order.hpp"
+#include <MarketData.hpp>
 
 int main() {
     bool running = true;
     
     using namespace boost::asio;
-        
+    
         //TCP
-        boost::asio::io_context context;
-        boost::asio::ip::tcp::socket socket(context);
+    boost::asio::io_context context;
+    boost::asio::ip::tcp::socket socket(context);
 
-        socket.connect(boost::asio::ip::tcp::endpoint(
-            boost::asio::ip::address::from_string("127.0.0.1"), 
-            5555
-        ));
-        // TCP
+    socket.connect(boost::asio::ip::tcp::endpoint(
+        boost::asio::ip::address::from_string("127.0.0.1"), 
+        5555
+    ));
+    // UDP
+    boost::asio::io_context UDPcontext;
+    boost::asio::ip::udp::socket UDPsocket(UDPcontext);
+
+    UDPsocket.open(boost::asio::ip::udp::v4());
+    UDPsocket.set_option(boost::asio::ip::udp::socket::reuse_address(true));
+    UDPsocket.bind(boost::asio::ip::udp::endpoint(
+        boost::asio::ip::udp::v4(),
+        9999
+    ));
+
+    MarketData marketData;
+
 
     while (running) {
         // clearing screen
         system("clear");
         
+        MarketDataSnapshot snapshot = marketData.get();
+
+        // Market data that will be updated via UDP multicasts
+        std::cout << "=== TRADING TERMINAL ===\n\n";
+        std::cout << "+-----------+----------+----------+\n";
+        std::cout << "| TSLA      |   BID    |   ASK    |\n";
+        std::cout << "+-----------+----------+----------+\n";
+        std::cout << "| Price     | " << std::setw(8) << snapshot.bestBid << " | " << std::setw(8) << snapshot.bestAsk << " |\n";
+        std::cout << "| Volume    | " << std::setw(8) << snapshot.bidVolume << " | " << std::setw(8) << snapshot.askVolume << " |\n";
+        std::cout << "+-----------+----------+----------+\n\n";
+
         std::cout << "=== TRADING TERMINAL ===\n\n";
         std::cout << "1. Place Order\n";
         std::cout << "2. Cancel Order\n";
