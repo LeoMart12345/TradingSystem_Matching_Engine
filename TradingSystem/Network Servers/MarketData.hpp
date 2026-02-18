@@ -34,12 +34,22 @@ public:
         + std::to_string(mSnapshot.askVolume);
     }
 
-    MarketDataSnapshot deserialise(std::string marketDataString) const {
+    void deserialise(const std::string& marketDataString){
         std::lock_guard<std::mutex> lock(mMutex);
         std::stringstream ss(marketDataString);
         std::string token;
-        
 
+        std::getline(ss ,token, ',');
+        mSnapshot.bestBid = std::stoull(token);
+
+        std::getline(ss, token, ',');
+        mSnapshot.bestAsk = std::stoull(token);
+
+        std::getline(ss, token, ',');
+        mSnapshot.bidVolume = std::stoull(token);
+
+        std::getline(ss, token, ',');
+        mSnapshot.askVolume = std::stoull(token);
     }
 
 private:
