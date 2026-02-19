@@ -7,8 +7,8 @@
 void runInsertBenchmark(size_t numOrders, size_t warmupOrders = 500) {
     auto TS = std::make_unique<TradingSystem>(5555, 12345);
     OrderBook& orderBook = TS->getOrderBook();
-
-    // Warmup phase - not measured
+    
+    // Warmup phase not measured
     for(size_t i = 0; i < warmupOrders; i++){
         Order order = orderBook.generateRandomOrder();
         TS->addOrder(order);
@@ -19,7 +19,7 @@ void runInsertBenchmark(size_t numOrders, size_t warmupOrders = 500) {
     latencies.reserve(numOrders);
 
     for(size_t i = 0; i < numOrders; i++){
-        Order order = orderBook.generateRandomOrder();  // ideally pre-generate these
+        Order order = orderBook.generateRandomOrder();  // I will pre-generate these after
 
         auto start = std::chrono::high_resolution_clock::now();
         TS->addOrder(order);

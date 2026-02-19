@@ -1,0 +1,260 @@
+Checking Benchmark/Benchmark.cpp ...
+Benchmark/Benchmark.cpp:2:0: information: Include file: <iostream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <iostream>
+^
+Benchmark/Benchmark.cpp:3:0: information: Include file: <chrono> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <chrono>
+^
+TradingSystem.hpp:2:0: information: Include file: <iostream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <iostream>
+^
+TradingSystem.hpp:3:0: information: Include file: <vector> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <vector>
+^
+Matching_Engine/OrderBook/order.hpp:2:0: information: Include file: <string> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <string>
+^
+Matching_Engine/OrderBook/Price.hpp:2:0: information: Include file: <iostream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <iostream>
+^
+Matching_Engine/OrderBook/OrderBook.hpp:3:0: information: Include file: <format> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <format>
+^
+Matching_Engine/OrderBook/OrderBook.hpp:4:0: information: Include file: <iostream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <iostream>
+^
+Matching_Engine/OrderBook/OrderBook.hpp:5:0: information: Include file: <array> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <array>
+^
+Matching_Engine/OrderBook/OrderBook.hpp:6:0: information: Include file: <vector> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <vector>
+^
+Matching_Engine/OrderBook/OrderBook.hpp:9:0: information: Include file: <deque> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <deque>
+^
+Matching_Engine/OrderBook/OrderBook.hpp:10:0: information: Include file: <random> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <random>
+^
+Matching_Engine/OrderBook/Trade.hpp:3:0: information: Include file: <iostream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <iostream>
+^
+Matching_Engine/OrderBook/Trade.hpp:4:0: information: Include file: <optional> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <optional>
+^
+Network Servers/Order_Request.hpp:2:0: information: Include file: <iostream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <iostream>
+^
+Network Servers/Order_Request.hpp:3:0: information: Include file: <cstdint> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <cstdint>
+^
+Network Servers/Order_Request.hpp:4:0: information: Include file: <cstring> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <cstring>
+^
+Network Servers/Order_Request.hpp:5:0: information: Include file: <sstream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <sstream>
+^
+Matching_Engine/MatchingEngine.hpp:8:0: information: Include file: <map> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <map>
+^
+Matching_Engine/MatchingEngine.hpp:9:0: information: Include file: <unordered_map> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <unordered_map>
+^
+Matching_Engine/MatchingEngine.hpp:10:0: information: Include file: <deque> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <deque>
+^
+Matching_Engine/MatchingEngine.hpp:11:0: information: Include file: <queue> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <queue>
+^
+Matching_Engine/MatchingEngine.hpp:12:0: information: Include file: <atomic> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <atomic>
+^
+Network Servers/TCP_Client.hpp:2:0: information: Include file: <iostream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <iostream>
+^
+Network Servers/TCP_Client.hpp:3:0: information: Include file: <boost/asio.hpp> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <boost/asio.hpp>
+^
+Network Servers/TCP_Server.hpp:2:0: information: Include file: <iostream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <iostream>
+^
+Network Servers/TCP_Server.hpp:3:0: information: Include file: <boost/asio.hpp> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <boost/asio.hpp>
+^
+Network Servers/TCP_Server.hpp:6:0: information: Include file: <string> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <string>
+^
+Network Servers/TCP_Server.hpp:7:0: information: Include file: <MarketData.hpp> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <MarketData.hpp>
+^
+Network Servers/UDPServer.hpp:2:0: information: Include file: <boost/asio.hpp> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <boost/asio.hpp>
+^
+Network Servers/UDPServer.hpp:4:0: information: Include file: <MarketData.hpp> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <MarketData.hpp>
+^
+Network Servers/UDPServer.hpp:5:0: information: Include file: <thread> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <thread>
+^
+Network Servers/UDPServer.hpp:6:0: information: Include file: <chrono> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <chrono>
+^
+Matching_Engine/OrderBook/Price.hpp:13:5: style: Class 'Price' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+    Price(long long value): mPriceValueInCent(value) {};
+    ^
+Network Servers/UDPServer.hpp:16:5: style: Class 'UDPServer' has a constructor with 1 argument that is not explicit. [noExplicitConstructor]
+    UDPServer(MatchingEngine& engine)
+    ^
+TradingSystem.hpp:29:25: performance: Function parameter 'order' should be passed by const reference. [passedByValue]
+    void addOrder(Order order) {
+                        ^
+1/9 files checked 6% done
+Checking Matching_Engine/MatchingEngine.cpp ...
+Matching_Engine/MatchingEngine.cpp:3:0: information: Include file: "./Matching_Engine/MatchingEngine.hpp" not found. [missingInclude]
+#include "./Matching_Engine/MatchingEngine.hpp"
+^
+Matching_Engine/MatchingEngine.cpp:5:0: information: Include file: "Trade.hpp" not found. [missingInclude]
+#include "Trade.hpp"
+^
+Matching_Engine/MatchingEngine.cpp:6:0: information: Include file: <optional> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <optional>
+^
+Matching_Engine/MatchingEngine.cpp:7:0: information: Include file: <thread> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <thread>
+^
+Matching_Engine/MatchingEngine.cpp:8:0: information: Include file: <mutex> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <mutex>
+^
+Matching_Engine/MatchingEngine.cpp:9:0: information: Include file: <sstream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <sstream>
+^
+Matching_Engine/MatchingEngine.cpp:10:0: information: Include file: "../Debug/Debug.hpp" not found. [missingInclude]
+#include "../Debug/Debug.hpp"
+^
+UtilityClass/OrderIdGenerator.hpp:2:0: information: Include file: <iostream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <iostream>
+^
+UtilityClass/OrderIdGenerator.hpp:3:0: information: Include file: <atomic> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <atomic>
+^
+2/9 files checked 17% done
+Checking Matching_Engine/OrderBook/Order.cpp ...
+Matching_Engine/OrderBook/Order.cpp:4:0: information: Include file: <string> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <string>
+^
+Matching_Engine/OrderBook/Order.cpp:5:0: information: Include file: <iostream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <iostream>
+^
+Matching_Engine/OrderBook/Order.cpp:6:0: information: Include file: <array> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <array>
+^
+Matching_Engine/OrderBook/Order.cpp:7:0: information: Include file: <algorithm> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <algorithm>
+^
+Matching_Engine/OrderBook/Order.cpp:8:0: information: Include file: <vector> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <vector>
+^
+Matching_Engine/OrderBook/Order.cpp:9:0: information: Include file: <sstream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <sstream>
+^
+3/9 files checked 28% done
+Checking Matching_Engine/OrderBook/OrderBook.cpp ...
+Matching_Engine/OrderBook/OrderBook.cpp:1:0: information: Include file: <iostream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <iostream>
+^
+Matching_Engine/OrderBook/OrderBook.cpp:2:0: information: Include file: <array> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <array>
+^
+Matching_Engine/OrderBook/OrderBook.cpp:3:0: information: Include file: <vector> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <vector>
+^
+Matching_Engine/OrderBook/OrderBook.cpp:4:0: information: Include file: <bitset> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <bitset>
+^
+Matching_Engine/OrderBook/OrderBook.cpp:8:0: information: Include file: "../Debug/Debug.hpp" not found. [missingInclude]
+#include "../Debug/Debug.hpp"
+^
+Matching_Engine/OrderBook/OrderBook.cpp:9:0: information: Include file: <bit> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <bit>
+^
+Matching_Engine/OrderBook/OrderBook.cpp:10:0: information: Include file: <atomic> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <atomic>
+^
+Matching_Engine/OrderBook/OrderBook.cpp:11:0: information: Include file: "../UtilityClass/OrderIdGenerator.hpp" not found. [missingInclude]
+#include "../UtilityClass/OrderIdGenerator.hpp"
+^
+4/9 files checked 69% done
+Checking Matching_Engine/OrderBook/Price.cpp ...
+5/9 files checked 70% done
+Checking Network Servers/Client_Test.cpp ...
+Network Servers/Client_Test.cpp:1:0: information: Include file: <string> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <string>
+^
+Network Servers/Client_Test.cpp:2:0: information: Include file: <SFML/Graphics.hpp> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <SFML/Graphics.hpp>
+^
+Network Servers/Client_Test.cpp:3:0: information: Include file: <SFML/Window.hpp> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <SFML/Window.hpp>
+^
+Network Servers/Client_Test.cpp:4:0: information: Include file: <iostream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <iostream>
+^
+Network Servers/Client_Test.cpp:8:0: information: Include file: <MarketData.hpp> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <MarketData.hpp>
+^
+Network Servers/Client_Test.cpp:9:0: information: Include file: "../Debug/Debug.hpp" not found. [missingInclude]
+#include "../Debug/Debug.hpp"
+^
+6/9 files checked 92% done
+Checking TradingSystem.cpp ...
+TradingSystem.cpp:1:0: information: Include file: <iostream> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <iostream>
+^
+TradingSystem.cpp:2:0: information: Include file: <vector> not found. Please note: Cppcheck does not need standard library headers to get proper results. [missingIncludeSystem]
+#include <vector>
+^
+7/9 files checked 96% done
+Checking UtilityClass/OrderIdGenerator.cpp ...
+8/9 files checked 97% done
+Checking main.cpp ...
+9/9 files checked 100% done
+Matching_Engine/OrderBook/Order.cpp:15:0: style: The function 'PrintOrder' is never used. [unusedFunction]
+void Order::PrintOrder() const{
+^
+Matching_Engine/OrderBook/Order.cpp:75:0: style: The function 'getBidOrAsk' is never used. [unusedFunction]
+Side Order::getBidOrAsk() const{return BidOrAsk;}
+^
+Matching_Engine/OrderBook/Order.cpp:76:0: style: The function 'getName' is never used. [unusedFunction]
+std::string Order::getName() const {return mName;}
+^
+Matching_Engine/OrderBook/OrderBook.cpp:114:0: style: The function 'getVolumeAtLevel' is never used. [unusedFunction]
+void OrderBook::getVolumeAtLevel(Price price)
+^
+Matching_Engine/OrderBook/OrderBook.cpp:119:0: style: The function 'getTotalVolume' is never used. [unusedFunction]
+void OrderBook::getTotalVolume()
+^
+Matching_Engine/OrderBook/OrderBook.cpp:238:0: style: The function 'popBestBid' is never used. [unusedFunction]
+Order OrderBook::popBestBid(){
+^
+Matching_Engine/OrderBook/OrderBook.cpp:260:0: style: The function 'popBestAsk' is never used. [unusedFunction]
+Order OrderBook::popBestAsk(){
+^
+Matching_Engine/OrderBook/OrderBook.cpp:310:0: style: The function 'printOrderBook' is never used. [unusedFunction]
+void OrderBook::printOrderBook() const
+^
+Matching_Engine/OrderBook/Price.hpp:35:0: style: The function 'Print' is never used. [unusedFunction]
+    void Print(){ std::cout << "€" << mPriceValueInCent/100.00 << std::endl; }
+^
+Matching_Engine/OrderBook/Trade.hpp:27:0: style: The function 'printTrade' is never used. [unusedFunction]
+    void printTrade() const {
+^
+Network Servers/TCP_Server.hpp:68:0: style: The function 'stop' is never used. [unusedFunction]
+    void stop(){
+^
+TradingSystem.hpp:34:0: style: The function 'getMatchingEngine' is never used. [unusedFunction]
+    MatchingEngine& getMatchingEngine() { return matchingEngine; }
+^
+UtilityClass/OrderIdGenerator.cpp:9:0: style: The function 'reset' is never used. [unusedFunction]
+void OrderIdGenerator::reset(){
+^
+nofile:0:0: information: Active checkers: 161/592 (use --checkers-report=<filename> to see details) [checkersReport]
+

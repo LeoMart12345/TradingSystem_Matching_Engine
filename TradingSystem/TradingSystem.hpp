@@ -26,7 +26,7 @@ class TradingSystem{
     void stop();
     void process_order(const std::string& order_str);
     
-    void addOrder(Order order) {
+    void addOrder(const Order& order) {
         matchingEngine.addOrder(order);
     }
 

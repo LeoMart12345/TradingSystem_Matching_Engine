@@ -65,10 +65,10 @@ int main() {
         std::cout << "| Volume    | " << std::setw(8) << snapshot.bidVolume << " | " << std::setw(8) << snapshot.askVolume << " |\n";
         std::cout << "+-----------+----------+----------+\n\n";
 
-   std::cout << "1. Place Order\n";
-    std::cout << "2. Cancel Order\n";
-    std::cout << "3. Refresh\n";
-    std::cout << "4. Exit\n\n";
+        std::cout << "1. Place Order\n";
+        std::cout << "2. Cancel Order\n";
+        std::cout << "3. Refresh\n";
+        std::cout << "4. Exit\n\n";
         
         int choice;
         std::cin >> choice;
