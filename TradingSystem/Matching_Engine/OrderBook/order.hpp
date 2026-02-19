@@ -14,7 +14,7 @@ public:
     std::string mName;
     u_int64_t mOrderID;
     Price mPrice;
-
+    
     Order(Side Side, u_int64_t volume, std::string name, u_int64_t orderID, Price Price);
 
 	void PrintOrder() const;
