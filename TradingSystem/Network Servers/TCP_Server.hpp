@@ -53,6 +53,11 @@ void run(){
 
                         std::string response = std::to_string(assignedId);
                         socket.write_some(boost::asio::buffer(response));
+                    }else if(request.type == requestType::Cancel){
+                        // Handle when the client cancels an order based on orderId
+                        OrderRequest request = OrderRequest::deserialize(receivedData);
+                        u_int64_t orderId = request.requestOrder.mOrderID;
+                        matchingEngine.getOrderBook().removeOrderFromOrderId(orderId);
                     }
                 } catch(const std::exception& e) {
                     std::cout << "Client disconnected: " << e.what() << std::endl;

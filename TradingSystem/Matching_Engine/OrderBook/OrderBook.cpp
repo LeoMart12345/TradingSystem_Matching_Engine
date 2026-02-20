@@ -358,7 +358,6 @@ void OrderBook::removeOrderFromOrderId(u_int64_t orderId){
     orderIdtoPriceMapping.erase(orderId);
 }
 
-
 void OrderBook::printOrderBook() const
 {
     std::cout << "--------  OrderBook  ---------------------------------------------" << std::endl;
@@ -382,7 +381,7 @@ void OrderBook::printOrderBook() const
         }
         std::cout << "\n";
     }
-
+    
     std::cout << "\nASKS (low -> high)\n";
     for (int i = 0; i < static_cast<int>(mAskPriceLevel.size()); ++i)
     {
