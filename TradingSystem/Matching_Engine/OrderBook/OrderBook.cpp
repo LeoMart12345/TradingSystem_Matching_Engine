@@ -330,10 +330,20 @@ void OrderBook::removeOrderFromOrderId(u_int64_t orderId){
     if(orderPair.second == Side::Bid){
         // logic for the bid side:
         std::deque<Order>& orderDeQue = mBidpriceLevel[orderIndex];
+        // for loop looping over the deque.
+        for(auto it = orderDeQue.begin(); it != orderDeQue.end(); it++){
+            if(it->mOrderID == orderId){
+                orderDeQue.erase(it);
+                if(orderDeQue.empty()){
+                    setBidBitTo0(orderPair.first);
+                }
+                break;
+            }
+        }
     }
-    else{
+    else{// TODO implement this side
         std::deque<Order>& orderDeQue = mAskPriceLevel[orderIndex];
-        
+
     }
  
 }
