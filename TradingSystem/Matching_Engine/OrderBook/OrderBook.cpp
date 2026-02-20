@@ -16,7 +16,6 @@ std::uniform_int_distribution<int> PriceDist(950, 1050);
 std::uniform_int_distribution<int> sideDist(0, 1);
 std::uniform_int_distribution<int> volumeDist(0, 1000);
 
-
 static constexpr int CHUNK = 64;
 constexpr int StartOfPrice = 950;
 constexpr int NumOfLevels = 101;
@@ -52,16 +51,16 @@ Order OrderBook::generateRandomOrder(){
     return randomOrder;
 }
 
-// END
-
+// need to add tracking for orderid for cancelOrder
 void OrderBook::addBid(Order order)
 {
     DEBUG_PRINT("OrderBook::addBid - Order ID: " << order.mOrderID);
     int BidLevel = priceToIndex(order.mPrice);
     mBidpriceLevel[BidLevel].emplace_back(order);
-
     DEBUG_PRINT("ORDERBOOK::ADDBID printing price of the order below.");
     setBidBitTo1(order.getPrice());
+    // add the orderid to the map
+    orderIdtoPriceMapping[order.mOrderID] = { order.mPrice, Bid};
     DEBUG_PRINT("ORDERBOOK::ADDBID after printing price");
 }
 
@@ -71,6 +70,8 @@ void OrderBook::addAsk(Order order)
     int AskLevel = priceToIndex(order.mPrice);
     mAskPriceLevel[AskLevel].emplace_back(order);
     setAskBitTo1(order.getPrice());
+    orderIdtoPriceMapping[order.mOrderID] = { order.mPrice, Ask};
+    DEBUG_PRINT("ORDERBOOK::ADDASK after printing price");
 }
 
 void OrderBook::removeBid(u_int64_t orderId)
@@ -306,6 +307,37 @@ int OrderBook::findBestAskLevel() const{
     }
     return -1;
 }
+
+std::pair<Price, Side> OrderBook::orderIdToPrice(const u_int64_t orderId) const {
+    auto it = orderIdtoPriceMapping.find(orderId);
+    
+    if(it != orderIdtoPriceMapping.end()){
+        Price price = it->second.price;
+        Side side = it->second.side;
+        
+        return std::make_pair(price, side);
+    }
+    throw std::runtime_error("there was no orderID with this number:" + std::to_string(orderId));
+}
+
+void OrderBook::removeOrderFromOrderId(u_int64_t orderId){
+    // use the orderIdToPrice to find the level
+    std::pair<Price, Side>orderPair = orderIdToPrice(orderId);   
+    // Translate the price to the index
+    int orderIndex = priceToIndex(orderPair.first);
+    // Search through to find the order.
+
+    if(orderPair.second == Side::Bid){
+        // logic for the bid side:
+        std::deque<Order>& orderDeQue = mBidpriceLevel[orderIndex];
+    }
+    else{
+        std::deque<Order>& orderDeQue = mAskPriceLevel[orderIndex];
+        
+    }
+ 
+}
+
 
 void OrderBook::printOrderBook() const
 {

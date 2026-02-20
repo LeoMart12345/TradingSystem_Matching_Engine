@@ -8,6 +8,8 @@
 #include "order.hpp"
 #include <deque>
 #include <random>
+#include <map>
+#include <unordered_map>
 
 class OrderBook{
 
@@ -16,9 +18,17 @@ private:
     std::vector<u_int64_t> mBidBitmap;
     std::vector<u_int64_t> mAskBitmap;
 
-    // each of these levels will hold a queue of orders
+    // These levels hold a deque of orders for both sides.
     std::vector<std::deque<Order>> mBidpriceLevel;
     std::vector<std::deque<Order>> mAskPriceLevel;
+
+    // Hashmap for keeping track of orderId (useful for cancelling orders by orderId)
+    struct OrderLocation{
+        Price price;
+        Side side;
+    };
+    // maps a unique orderID to a location
+    std::unordered_map<u_int64_t, OrderLocation> orderIdtoPriceMapping;
 
 public:
     explicit OrderBook(size_t size);
@@ -56,7 +66,8 @@ public:
     //helper functions
     int priceToIndex(Price price) const;
     Price indexToPrice(int levelIndex) const;
-    
+    std::pair<Price, Side> orderIdToPrice(const u_int64_t orderId)const;
+    void removeOrderFromOrderId(u_int64_t orderId);
     std::pair<size_t, size_t> priceToBitmapIndex(Price price);
     std::pair<size_t, size_t> indexToBitmapIndex(int priceIndex);
 

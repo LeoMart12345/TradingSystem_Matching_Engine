@@ -1,3 +1,4 @@
+// Price.hpp
 #pragma once
 #include <iostream>
 
@@ -5,12 +6,11 @@ class Price{
 
     public:
 
-    uint mPriceValueInCent;
+    u_int64_t mPriceValueInCent;
     
-    // Default constructor
+    // Constructors
     Price(): mPriceValueInCent(0) {};
-    // parameterised constructor
-    Price(long long value): mPriceValueInCent(value) {};
+    explicit Price(long long value): mPriceValueInCent(value) {};
     
     // copy constructor
     Price(const Price& other) : mPriceValueInCent(other.mPriceValueInCent){};
@@ -25,13 +25,13 @@ class Price{
     int getPriceInTicks() const {return mPriceValueInCent; } 
 
     //operator overloading
-    Price operator<(const Price& rhs){ return mPriceValueInCent < rhs.mPriceValueInCent; };
-    Price operator>(const Price& rhs){ return mPriceValueInCent > rhs.mPriceValueInCent; };
-    Price operator==(const Price& rhs){ return mPriceValueInCent == rhs.mPriceValueInCent; };
-    Price operator<=(const Price& rhs){ return mPriceValueInCent <= rhs.mPriceValueInCent; };
-    Price operator>=(const Price& rhs){ return mPriceValueInCent >= rhs.mPriceValueInCent; }; 
-    Price operator!=(const Price& rhs){ return mPriceValueInCent != rhs.mPriceValueInCent; };
-
+    bool operator<(const Price& rhs){ return mPriceValueInCent < rhs.mPriceValueInCent; };
+    bool operator>(const Price& rhs){ return mPriceValueInCent > rhs.mPriceValueInCent; };
+    bool operator==(const Price& rhs){ return mPriceValueInCent == rhs.mPriceValueInCent; };
+    bool operator<=(const Price& rhs){ return mPriceValueInCent <= rhs.mPriceValueInCent; };
+    bool operator>=(const Price& rhs){ return mPriceValueInCent >= rhs.mPriceValueInCent; }; 
+    bool operator!=(const Price& rhs){ return mPriceValueInCent != rhs.mPriceValueInCent; };
+    
     void Print(){ std::cout << "€" << mPriceValueInCent/100.00 << std::endl; }
 
 };
