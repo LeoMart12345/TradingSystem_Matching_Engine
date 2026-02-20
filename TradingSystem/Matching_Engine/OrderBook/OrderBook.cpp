@@ -343,9 +343,18 @@ void OrderBook::removeOrderFromOrderId(u_int64_t orderId){
     }
     else{// TODO implement this side
         std::deque<Order>& orderDeQue = mAskPriceLevel[orderIndex];
-
+         
+        for(auto it = orderDeQue.begin(); it != orderDeQue.end(); it++){
+            if(it->mOrderID == orderId){
+                orderDeQue.erase(it);
+                if(orderDeQue.empty()){
+                    setAskBitTo0(orderPair.first);
+                }
+                break;
+            }
+        }
     }
-    
+
     orderIdtoPriceMapping.erase(orderId);
 }
 
