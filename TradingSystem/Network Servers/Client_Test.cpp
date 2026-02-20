@@ -49,7 +49,8 @@ int main() {
     });
     MulticastReceive.detach();
     
-    
+    static uint64_t nextClientId = 1000;
+
     while (running) {
         // clearing screen
         system("clear");
@@ -99,7 +100,6 @@ int main() {
 
             // Making price object:
             u_int64_t priceInCents = std::stoull(price);
-
             Price orderPrice(priceInCents); 
             // Make Order Object
             Order order(
@@ -110,7 +110,6 @@ int main() {
                 orderPrice
             );
             // Make Order request.
-            static uint64_t nextClientId = 1000; // for order id generation
             OrderRequest request(nextClientId++, requestType::New, order);
             
             socket.write_some(boost::asio::buffer(request.serialize()));
@@ -132,9 +131,19 @@ int main() {
             std::string orderId;
             std::cout << "Order ID: ";
             std::cin >> orderId;
+         
+            Price dummyPrice(0);
+            Order dummyOrder(Bid, 0, "", std::stoull(orderId), dummyPrice);
+            OrderRequest cancelOrderRequest(nextClientId++, requestType::Cancel, dummyOrder);
             
-            std::cout << "\nCancelling order: " << orderId << "\n";
+            socket.write_some(boost::asio::buffer(cancelOrderRequest.serialize()));
             
+            // Server response
+            char response[1024];
+            size_t bytes = socket.read_some(boost::asio::buffer(response));
+            std::cout << "Server Response: " << std::string(response, bytes) << std::endl;
+            
+            // std::cout << "\nCancelling order: " << orderId << "\n";
             std::cout << "\nPress Enter...";
             std::cin.ignore();
             std::cin.get();
