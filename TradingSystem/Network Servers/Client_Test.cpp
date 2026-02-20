@@ -2,61 +2,29 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
-#include "TCP_Client.hpp"
 #include "Order_Request.hpp"
 #include "../Matching_Engine/OrderBook/order.hpp"
 #include <MarketData.hpp>
 #include "../Debug/Debug.hpp"
+#include <boost/asio.hpp>
+#include "UDPMarketDataReceiver.hpp"
+#include "TCPOrderSession.hpp"
 
-int main() {
-    using namespace boost::asio;
-    bool running = true;
+int main() {    
+    //UDP handler
     MarketData marketData;
-    //TCP
-    boost::asio::io_context context;
-    boost::asio::ip::tcp::socket socket(context);
+    UDPMarketDataReceiver udpReceiver(marketData);
+    udpReceiver.start();
+    //TCP handler
+    TCPOrderSession TCPOrderEntry;
+    TCPOrderEntry.connect("127.0.0.1", 5555);
 
-    socket.connect(boost::asio::ip::tcp::endpoint(
-        boost::asio::ip::address::from_string("127.0.0.1"), 
-        5555
-    ));
-    // UDP
-    boost::asio::io_context UDPcontext;
-    boost::asio::ip::udp::socket UDPsocket(UDPcontext);
-    
-    UDPsocket.open(boost::asio::ip::udp::v4());
-    UDPsocket.set_option(boost::asio::ip::udp::socket::reuse_address(true));
-    UDPsocket.bind(boost::asio::ip::udp::endpoint(
-        boost::asio::ip::address::from_string("239.0.0.1"),
-        9999
-    ));
-
-    std::string multicast_address = "239.0.0.1"; // multicast address.
-    UDPsocket.set_option(
-        boost::asio::ip::multicast::join_group(
-            boost::asio::ip::address::from_string(multicast_address)
-        )
-    );
-
-    std::thread MulticastReceive([&](){
-        while(true){
-            char buff[1024];
-            size_t bytes = UDPsocket.receive(boost::asio::buffer(buff));
-            std::string data(buff, bytes);
-            // std::cout << "UPD received data: " << data << std::endl;
-            marketData.deserialise(data);
-        }
-    });
-    MulticastReceive.detach();
-    
     static uint64_t nextClientId = 1000;
 
+    bool running = true;
     while (running) {
-        // clearing screen
         system("clear");
-        
         MarketDataSnapshot snapshot = marketData.get();
-
         // Market data that will be updated via UDP multicasts
         std::cout << "=== TRADING TERMINAL ===\n\n";
         std::cout << "+-----------+----------+----------+\n";
@@ -70,31 +38,23 @@ int main() {
         std::cout << "2. Cancel Order\n";
         std::cout << "3. Refresh\n";
         std::cout << "4. Exit\n\n";
-        
         int choice;
         std::cin >> choice;
         
         if (choice == 1) {
             system("clear");
             std::cout << "=== PLACE ORDER ===\n\n";
-            
             std::string tickerSymbol, side, qty, price;
-            
             std::cout << "Ticker Symbol: ";
             std::cin >> tickerSymbol;
-            
             std::cout << "Side (BUY/SELL): ";
             std::cin >> side;
-            
             std::cout << "Quantity: ";
             std::cin >> qty;
-            
             std::cout << "Price: ";
             std::cin >> price;
-            
             std::cout << "\nSending: " << side << " " << tickerSymbol 
                       << " " << qty << " @ " << price << "\n";
-            
             // standardise the inputs
             std::transform(side.begin(), side.end(), side.begin(), ::toupper);
 
@@ -109,41 +69,24 @@ int main() {
                 0,
                 orderPrice
             );
-            // Make Order request.
-            OrderRequest request(nextClientId++, requestType::New, order);
-            
-            socket.write_some(boost::asio::buffer(request.serialize()));
 
-            // server response    
-            char response[1024];
-            size_t bytes = socket.read_some(boost::asio::buffer(response));
-            std::string realOrderId(response, bytes);
-            std::cout << "Order accepted with ID: " << realOrderId << std::endl;
-
+            // use TCPOrderSession instead of socket directly
+            uint64_t assignedId = TCPOrderEntry.placeOrder(order);
+            std::cout << "Order accepted with ID: " << assignedId << std::endl;
             std::cout << "\nPress Enter...";
             std::cin.ignore();
             std::cin.get();
         }
         else if (choice == 2) {
             system("clear");
-            std::cout << "=== CANCEL ORDER ===\n\n";
-            
             std::string orderId;
             std::cout << "Order ID: ";
             std::cin >> orderId;
-         
-            Price dummyPrice(0);
-            Order dummyOrder(Bid, 0, "", std::stoull(orderId), dummyPrice);
-            OrderRequest cancelOrderRequest(nextClientId++, requestType::Cancel, dummyOrder);
-            
-            socket.write_some(boost::asio::buffer(cancelOrderRequest.serialize()));
-            
-            // Server response
-            char response[1024];
-            size_t bytes = socket.read_some(boost::asio::buffer(response));
-            std::cout << "Server Response: " << std::string(response, bytes) << std::endl;
-            
-            // std::cout << "\nCancelling order: " << orderId << "\n";
+
+            // use TCPOrderSession instead of socket directly
+            std::string response = TCPOrderEntry.cancelOrder(std::stoull(orderId));
+            std::cout << "Server Response: " << response << std::endl;
+
             std::cout << "\nPress Enter...";
             std::cin.ignore();
             std::cin.get();

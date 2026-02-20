@@ -11,7 +11,6 @@ private:
     boost::asio::io_context UDPcontext;
     boost::asio::ip::udp::socket UDPsocket;
     boost::asio::ip::udp::endpoint multicastEndpoint;
-// has an error that its constructed with a non explicit parameter.
 public:
     explicit UDPServer(MatchingEngine& engine) 
         : matchingEngine(engine),

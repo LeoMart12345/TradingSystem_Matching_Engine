@@ -2,10 +2,10 @@
 #include <iostream>
 #include <vector>
 #include "./Matching_Engine/MatchingEngine.hpp"
-#include "./Network Servers/TCP_Client.hpp"
+#include "./Network Servers/TCPOrderSession.hpp"
 #include "./Network Servers/TCP_Server.hpp"
 #include "./Matching_Engine/OrderBook/OrderBook.hpp"
-#include "./Network Servers/UDPServer.hpp"
+#include "./Network Servers/UDPMarketDataReceiver.hpp"
 
 class TradingSystem{
     private:
@@ -14,8 +14,6 @@ class TradingSystem{
         std::unique_ptr<TCPServer> TCPServerI;
         std::unique_ptr<UDPServer> UDPServerI;
     
-    //upd multicast server
-    // std::unique_ptr<TCPclient> Clients;
     public:
     
         TradingSystem(int tcp_port, int udp_port);
