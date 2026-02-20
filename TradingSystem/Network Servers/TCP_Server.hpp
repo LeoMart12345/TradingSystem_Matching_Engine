@@ -61,7 +61,8 @@ void run(){
                             std::string response = "Order cancelled: " + std::to_string(orderId);
                             socket.write_some(boost::asio::buffer(response));
                         }catch(...){
-                            std::cout << "Cancel Order failed: order not found" << std::endl;
+                            std::string response = "Cancel failed: order not found";
+                            socket.write_some(boost::asio::buffer(response));
                         }
                     }
                 } catch(const std::exception& e) {

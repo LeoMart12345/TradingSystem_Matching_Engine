@@ -360,6 +360,7 @@ void OrderBook::removeOrderFromOrderId(u_int64_t orderId){
 
     }catch(const std::runtime_error& e){
         std::cout << "Error: " << e.what() << std::endl;
+        throw;
     }
 }
 
