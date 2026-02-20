@@ -53,14 +53,16 @@ void run(){
 
                         std::string response = std::to_string(assignedId);
                         socket.write_some(boost::asio::buffer(response));
+
                     }else if(request.type == requestType::Cancel){
-                        // Handle when the client cancels an order based on orderId
                         u_int64_t orderId = request.requestOrder.mOrderID;
-                        matchingEngine.getOrderBook().removeOrderFromOrderId(orderId);
-                        // writing respose to the client.
-                        std::string response = "Order with this ID was cancelled: " + std::to_string(orderId);
-                        //TODO
-                        socket.write_some(boost::asio::buffer(response));
+                        try{
+                            matchingEngine.getOrderBook().removeOrderFromOrderId(orderId);
+                            std::string response = "Order cancelled: " + std::to_string(orderId);
+                            socket.write_some(boost::asio::buffer(response));
+                        }catch(...){
+                            std::cout << "Cancel Order failed: order not found" << std::endl;
+                        }
                     }
                 } catch(const std::exception& e) {
                     std::cout << "Client disconnected: " << e.what() << std::endl;

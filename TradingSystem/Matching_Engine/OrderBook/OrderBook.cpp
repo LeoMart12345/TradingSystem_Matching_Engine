@@ -321,41 +321,46 @@ std::pair<Price, Side> OrderBook::orderIdToPrice(const u_int64_t orderId) const 
 }
 
 void OrderBook::removeOrderFromOrderId(u_int64_t orderId){
-    // use the orderIdToPrice to find the level
-    std::pair<Price, Side>orderPair = orderIdToPrice(orderId);   
-    // Translate the price to the index
-    int orderIndex = priceToIndex(orderPair.first);
-    // Search through to find the order.
+    try{
+        std::cout << "ENTERED REMOVE ORDER BY ORDER ID" << std::endl;
+        // use the orderIdToPrice to find the level
+        std::pair<Price, Side>orderPair = orderIdToPrice(orderId);   
+        // Translate the price to the index
+        int orderIndex = priceToIndex(orderPair.first);
+        // Search through to find the order.
 
-    if(orderPair.second == Side::Bid){
-        // logic for the bid side:
-        std::deque<Order>& orderDeQue = mBidpriceLevel[orderIndex];
-        // for loop looping over the deque.
-        for(auto it = orderDeQue.begin(); it != orderDeQue.end(); it++){
-            if(it->mOrderID == orderId){
-                orderDeQue.erase(it);
-                if(orderDeQue.empty()){
-                    setBidBitTo0(orderPair.first);
+        if(orderPair.second == Side::Bid){
+            // logic for the bid side:
+            std::deque<Order>& orderDeQue = mBidpriceLevel[orderIndex];
+            // for loop looping over the deque.
+            for(auto it = orderDeQue.begin(); it != orderDeQue.end(); it++){
+                if(it->mOrderID == orderId){
+                    orderDeQue.erase(it);
+                    if(orderDeQue.empty()){
+                        setBidBitTo0(orderPair.first);
+                    }
+                    break;
                 }
-                break;
             }
         }
-    }
-    else{// TODO implement this side
-        std::deque<Order>& orderDeQue = mAskPriceLevel[orderIndex];
-         
-        for(auto it = orderDeQue.begin(); it != orderDeQue.end(); it++){
-            if(it->mOrderID == orderId){
-                orderDeQue.erase(it);
-                if(orderDeQue.empty()){
-                    setAskBitTo0(orderPair.first);
+        else{// TODO implement this side
+            std::deque<Order>& orderDeQue = mAskPriceLevel[orderIndex];
+            
+            for(auto it = orderDeQue.begin(); it != orderDeQue.end(); it++){
+                if(it->mOrderID == orderId){
+                    orderDeQue.erase(it);
+                    if(orderDeQue.empty()){
+                        setAskBitTo0(orderPair.first);
+                    }
+                    break;
                 }
-                break;
             }
         }
-    }
+        orderIdtoPriceMapping.erase(orderId);
 
-    orderIdtoPriceMapping.erase(orderId);
+    }catch(const std::runtime_error& e){
+        std::cout << "Error: " << e.what() << std::endl;
+    }
 }
 
 void OrderBook::printOrderBook() const
