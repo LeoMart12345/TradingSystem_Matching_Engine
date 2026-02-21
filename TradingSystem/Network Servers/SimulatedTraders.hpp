@@ -14,7 +14,7 @@
 
 class SimulatedTraders{
 private:
-    std::vector<TraderClient> Clients;
+    std::vector<std::unique_ptr<TraderClient>> Clients;
     std::string mHost;
     int mTcpServerPort;
     std::vector<std::thread> clientThreads;
@@ -24,16 +24,15 @@ public:
     : mHost(host), mTcpServerPort(tcpServerPort)  
     {
         std::cout << "sumulated Traders constructed";
-
     }
 
     // Spawns the clients on individual threads and they start trading.
     void run(int numClients){
         for(int i = 0; i < numClients; i++){
-            Clients.emplace_back(mHost, mTcpServerPort, "client" + std::to_string(i));
+            Clients.emplace_back(std::make_unique<TraderClient>(mHost, mTcpServerPort));
         
             clientThreads.emplace_back([this, i](){
-                TraderClient::startRandomClientThread(Clients[i]);
+                TraderClient::startRandomClientThread(*Clients[i]);
             });
         }
     }

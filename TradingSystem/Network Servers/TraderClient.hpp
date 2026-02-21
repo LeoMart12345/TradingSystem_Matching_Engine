@@ -13,13 +13,8 @@
 #include <boost/asio.hpp>
 #include "UDPMarketDataReceiver.hpp"
 #include "TCPOrderSession.hpp"
-#include "./Network Servers/MarketData.hpp"
 
 // random seed and distributions for autotrading clients.
-std::mt19937 rng(std::random_device{}()); 
-std::uniform_int_distribution<int> priceDist(950, 1050);
-std::uniform_int_distribution<int> volumeDist(1, 100);
-std::uniform_int_distribution<int> sideDist(0, 1);
 
 class TraderClient{
     private: 
@@ -27,6 +22,11 @@ class TraderClient{
     UDPMarketDataReceiver udpReceiver;
     TCPOrderSession TCPsession;
     u_int64_t nextClientId;
+    
+    inline static std::mt19937 rng{std::random_device{}()};
+    inline static std::uniform_int_distribution<int> priceDist{950, 1050};
+    inline static std::uniform_int_distribution<int> volumeDist{1, 100};
+    inline static std::uniform_int_distribution<int> sideDist{0, 1};
 
     public:
     TraderClient(const std::string& host, int tcpPort) : 
@@ -39,6 +39,7 @@ class TraderClient{
     u_int64_t placeOrder(const std::string& ticker, const std::string& side, uint64_t qty, uint64_t priceInCents) {
         Price orderPrice(priceInCents);
         Order order((side == "BUY") ? Bid : Ask, qty, ticker, 0, orderPrice);
+        std::cout << std::this_thread::get_id() << std::endl;
         return TCPsession.placeOrder(order);
     }
 
@@ -63,7 +64,7 @@ class TraderClient{
         t.detach();
     }
 
-    void runTerminal() {
+    void runTerminal(){
         bool running = true;
         while (running) {
             system("clear");

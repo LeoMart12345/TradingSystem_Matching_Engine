@@ -103,7 +103,7 @@ void OrderBook::removeAsk(u_int64_t orderId)
     if(deque.empty()) return;
 
     if(deque.front().getOrderId() != orderId){
-        std::__throw_logic_error("orderId does not matche the order at thr front of that queue level");
+        std::__throw_logic_error("orderId does not match the order at thr front of that queue level");
     }
     deque.pop_front();
 

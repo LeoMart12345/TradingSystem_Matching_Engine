@@ -6,6 +6,7 @@
 #include "./Network Servers/TCP_Server.hpp"
 #include "./Matching_Engine/OrderBook/OrderBook.hpp"
 #include "./Network Servers/UDPMarketDataReceiver.hpp"
+#include "./Network Servers/TraderClient.hpp"
 
 class TradingSystem{
     private:
