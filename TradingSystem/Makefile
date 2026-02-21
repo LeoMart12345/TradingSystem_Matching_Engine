@@ -74,7 +74,7 @@ benchmark: clean
 client:
 	@echo "Building the client..."
 	$(CXX) $(CXXFLAGS) $(INCLUDES) \
-		"Network Servers/Client_Test.cpp" \
+		"Network Servers/TraderClient.cpp" \
 		$(LIB_SOURCES) \
 		-o client $(LDFLAGS)
 	@echo "Client ready! Run with: ./client"

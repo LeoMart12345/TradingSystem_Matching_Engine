@@ -1,15 +1,25 @@
+// TraderClient.hpp
+#pragma once
 #include <string>
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include <iostream>
+#include <random>
+
 #include "Order_Request.hpp"
 #include "../Matching_Engine/OrderBook/order.hpp"
-#include <MarketData.hpp>
+#include "MarketData.hpp"
 #include "../Debug/Debug.hpp"
 #include <boost/asio.hpp>
 #include "UDPMarketDataReceiver.hpp"
 #include "TCPOrderSession.hpp"
 #include "./Network Servers/MarketData.hpp"
+
+// random seed and distributions for autotrading clients.
+std::mt19937 rng(std::random_device{}()); 
+std::uniform_int_distribution<int> priceDist(950, 1050);
+std::uniform_int_distribution<int> volumeDist(1, 100);
+std::uniform_int_distribution<int> sideDist(0, 1);
 
 class TraderClient{
     private: 
@@ -26,7 +36,6 @@ class TraderClient{
         udpReceiver.start();
     }
 
-
     u_int64_t placeOrder(const std::string& ticker, const std::string& side, uint64_t qty, uint64_t priceInCents) {
         Price orderPrice(priceInCents);
         Order order((side == "BUY") ? Bid : Ask, qty, ticker, 0, orderPrice);
@@ -41,6 +50,19 @@ class TraderClient{
         return marketData.get();
     }
     
+    static void startRandomClientThread(TraderClient& client){
+        std::thread t([&client](){
+            while(true){
+                client.placeOrder("TSLA", (sideDist(rng) == 1 ? "BUY" : "SELL"), volumeDist(rng), priceDist(rng));
+                std::this_thread::sleep_for(std::chrono::milliseconds(200));
+                // for testing
+                std::cout << std::this_thread::get_id() << std::endl;
+
+            }
+        });
+        t.detach();
+    }
+
     void runTerminal() {
         bool running = true;
         while (running) {
@@ -111,12 +133,6 @@ class TraderClient{
                 std::cin.get();
             }
         }
-}
+    }
 
 };
-
-int main() {
-    std::string host = "127.0.0.1";
-    TraderClient trader(host, 5555);
-    trader.runTerminal();
-}
