@@ -1,0 +1,1557 @@
+desc: (none)
+cmd: ./benchmark
+time_unit: i
+#-----------
+snapshot=0
+#-----------
+time=0
+mem_heap_B=0
+mem_heap_extra_B=0
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=1
+#-----------
+time=2100686
+mem_heap_B=73728
+mem_heap_extra_B=8
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=2
+#-----------
+time=5087134
+mem_heap_B=330368
+mem_heap_extra_B=10240
+mem_stacks_B=0
+heap_tree=detailed
+n12: 330368 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 80000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 80000 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n1: 51712 0x128965: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 51712 0x128A28: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n2: 26848 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 13760 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 13760 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 8000 0x112EDD: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 8000 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+    n2: 5760 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 5760 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 13088 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 13088 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 8000 0x112EDD: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 8000 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+    n2: 5088 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 5088 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 8872 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 8872 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 8872 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 8872 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n1: 8872 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 8872 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 8080 0x1288F5: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 8080 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 8080 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 8080 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 8080 0x1289C0: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 8080 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 8080 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 8080 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 6464 0x128940: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 6464 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 6464 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 6464 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 6464 0x128A07: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 6464 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 6464 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 6464 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n2: 6144 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 4096 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 4096 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 4096 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 4096 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+  n0: 2048 in 1 place, below massif's threshold (1.00%)
+ n0: 2264 in 12 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=3
+#-----------
+time=7947688
+mem_heap_B=665456
+mem_heap_extra_B=38432
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=4
+#-----------
+time=10418700
+mem_heap_B=957520
+mem_heap_extra_B=61984
+mem_stacks_B=0
+heap_tree=detailed
+n8: 957520 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 374272 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 190976 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 190976 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 190976 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 190976 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+  n1: 183296 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 183296 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 183296 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 183296 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 210656 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 107008 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 107008 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 99008 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 99008 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+    n0: 8000 in 1 place, below massif's threshold (1.00%)
+  n1: 103648 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 103648 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 95648 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 95648 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+    n0: 8000 in 1 place, below massif's threshold (1.00%)
+ n1: 82184 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 82184 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 82184 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 82184 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n1: 82184 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 82184 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 80000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 80000 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n1: 51712 0x128965: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 51712 0x128A28: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n0: 33256 in 17 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=5
+#-----------
+time=12943073
+mem_heap_B=1248224
+mem_heap_extra_B=87760
+mem_stacks_B=0
+heap_tree=detailed
+n9: 1248224 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 561152 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 284672 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 284672 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 284672 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 284672 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+  n1: 276480 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 276480 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 276480 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 276480 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 302080 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 153248 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 153248 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 145248 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 145248 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+    n0: 8000 in 1 place, below massif's threshold (1.00%)
+  n1: 148832 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 148832 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 140832 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 140832 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+    n0: 8000 in 1 place, below massif's threshold (1.00%)
+ n1: 82184 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 82184 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 82184 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 82184 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n1: 82184 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 82184 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 80000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 80000 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n1: 51712 0x128965: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n1: 51712 0x128A28: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n2: 25632 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 13392 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 13392 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n1: 13392 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 13392 0x11240D: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 12240 in 1 place, below massif's threshold (1.00%)
+ n0: 20024 in 16 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=6
+#-----------
+time=15150049
+mem_heap_B=1351200
+mem_heap_extra_B=97224
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=7
+#-----------
+time=17206579
+mem_heap_B=1093984
+mem_heap_extra_B=13864
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=8
+#-----------
+time=18891133
+mem_heap_B=1297072
+mem_heap_extra_B=30408
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=9
+#-----------
+time=20835080
+mem_heap_B=1573832
+mem_heap_extra_B=48568
+mem_stacks_B=0
+heap_tree=detailed
+n8: 1573832 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 279552 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 142336 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 142336 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 142336 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 142336 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 137216 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 137216 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 137216 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 137216 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 162816 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 82080 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 82080 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 73952 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 73952 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 80736 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 80736 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 72864 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 72864 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n1: 122880 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 122880 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 82184 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 82184 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 82184 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 82184 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n1: 40696 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 40696 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 40696 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 40696 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 1 place, below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n1: 51712 0x128965: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 51712 0x128A28: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n0: 31432 in 17 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=10
+#-----------
+time=23421091
+mem_heap_B=1824544
+mem_heap_extra_B=75016
+mem_stacks_B=0
+heap_tree=detailed
+n8: 1824544 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 468480 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 235008 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 235008 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 235008 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 235008 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 233472 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 233472 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 233472 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 233472 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 256832 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 128416 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 128416 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 120544 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 120544 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+  n1: 128416 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 128416 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 120288 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 120288 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+ n1: 82184 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 82184 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 82184 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 82184 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 82184 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 82184 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n1: 51712 0x128965: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 51712 0x128A28: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n0: 39896 in 17 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=11
+#-----------
+time=25156251
+mem_heap_B=2017424
+mem_heap_extra_B=92736
+mem_stacks_B=0
+heap_tree=detailed
+n9: 2017424 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 591872 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 297472 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 297472 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 297472 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 297472 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 294400 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 294400 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 294400 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 294400 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 320000 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 160448 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 160448 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 152320 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 152320 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 159552 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 159552 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 151680 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 151680 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n1: 82184 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 82184 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 82184 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 82184 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 82184 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 82184 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n1: 51712 0x128965: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 51712 0x128A28: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 26640 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 26640 in 2 places, all below massif's threshold (1.00%)
+ n0: 19576 in 16 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=12
+#-----------
+time=27783956
+mem_heap_B=2355152
+mem_heap_extra_B=116048
+mem_stacks_B=0
+heap_tree=detailed
+n9: 2355152 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 761856 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 383488 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 383488 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 383488 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 383488 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+  n1: 378368 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 378368 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 378368 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 378368 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+ n2: 402624 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 201504 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 201504 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 193632 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 193632 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+  n1: 201120 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 201120 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 192992 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 192992 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+ n1: 166024 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 166024 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 166024 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 166024 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 166024 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 166024 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n1: 51712 0x128965: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 51712 0x128A28: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 28944 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 28944 in 2 places, all below massif's threshold (1.00%)
+ n0: 18552 in 16 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=13
+#-----------
+time=30875462
+mem_heap_B=2691040
+mem_heap_extra_B=147768
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=14
+#-----------
+time=33258439
+mem_heap_B=2965840
+mem_heap_extra_B=172200
+mem_stacks_B=0
+heap_tree=detailed
+n9: 2965840 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 1159680 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 581632 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 581632 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 581632 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 581632 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 578048 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 578048 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 578048 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 578048 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 602368 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 301312 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 301312 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 293184 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 293184 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 301056 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 301056 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 293184 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 293184 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n1: 166024 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 166024 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 166024 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 166024 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 166024 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 166024 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n1: 51712 0x128965: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 51712 0x128A28: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 42192 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 42192 in 2 places, all below massif's threshold (1.00%)
+ n0: 18424 in 16 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=15
+#-----------
+time=35688508
+mem_heap_B=3502904
+mem_heap_extra_B=189624
+mem_stacks_B=0
+heap_tree=detailed
+n9: 3502904 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 1286144 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 644096 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 644096 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 644096 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 644096 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 642048 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 642048 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 642048 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 642048 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 664128 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 332416 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 332416 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 324288 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 324288 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 331712 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 331712 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 323840 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 323840 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n1: 502368 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 502368 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 502368 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 502368 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 502368 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 502368 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n1: 54688 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 54688 in 2 places, all below massif's threshold (1.00%)
+ n1: 51712 0x128965: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 51712 0x128A28: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n0: 18424 in 16 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=16
+#-----------
+time=38443063
+mem_heap_B=3638528
+mem_heap_extra_B=217808
+mem_stacks_B=0
+heap_tree=detailed
+n9: 3638528 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 1480704 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 743424 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 743424 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 743424 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 743424 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 737280 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 737280 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 737280 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 737280 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n2: 764672 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 384032 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 384032 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 375904 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 375904 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 380640 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 380640 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 372768 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 372768 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n1: 336344 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 336344 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 336344 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 336344 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 336344 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 336344 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n1: 61232 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 61232 in 2 places, all below massif's threshold (1.00%)
+ n1: 51712 0x128965: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 51712 0x128A28: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n0: 18424 in 16 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=17
+#-----------
+time=40557661
+mem_heap_B=3871600
+mem_heap_extra_B=239544
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=18
+#-----------
+time=43460181
+mem_heap_B=4195792
+mem_heap_extra_B=269472
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=19
+#-----------
+time=45643997
+mem_heap_B=4432848
+mem_heap_extra_B=291896
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=20
+#-----------
+time=47923803
+mem_heap_B=4682816
+mem_heap_extra_B=315360
+mem_stacks_B=0
+heap_tree=detailed
+n9: 4682816 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 2177536 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 1091072 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 1091072 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1091072 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1091072 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 1086464 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1086464 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1086464 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1086464 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 1111328 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 556736 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 556736 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 548608 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 548608 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 554592 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 554592 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 546720 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 546720 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 336344 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 336344 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 336344 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 336344 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 336344 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 336344 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n1: 62032 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 62032 in 2 places, all below massif's threshold (1.00%)
+ n1: 51712 0x128965: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 51712 0x128A28: OrderBook::OrderBook(unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 51712 0x114F44: TradingSystem::TradingSystem(int, int) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 51712 0x112E23: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 51712 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n0: 18424 in 16 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=21
+#-----------
+time=49428623
+mem_heap_B=4848416
+mem_heap_extra_B=330888
+mem_stacks_B=0
+heap_tree=detailed
+n7: 4848416 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 2287104 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 1146368 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 1146368 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1146368 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1146368 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 1140736 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1140736 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1140736 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1140736 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 1166400 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 584544 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 584544 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 576416 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 576416 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 581856 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 581856 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 573984 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 573984 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 336344 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 336344 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 336344 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 336344 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 336344 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 336344 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 121848 in 18 places, all below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n1: 62992 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 62992 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=22
+#-----------
+time=51841270
+mem_heap_B=5123104
+mem_heap_extra_B=356072
+mem_stacks_B=0
+heap_tree=detailed
+n7: 5123104 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 2465280 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 1241088 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 1241088 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1241088 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1241088 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 1224192 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1224192 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1224192 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1224192 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 1254272 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 631072 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 631072 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 622944 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 622944 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 623200 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 623200 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 615328 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 615328 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 336344 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 336344 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 336344 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 336344 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 336344 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 336344 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 121848 in 18 places, all below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+ n1: 71632 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 71632 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=23
+#-----------
+time=54189105
+mem_heap_B=5398080
+mem_heap_extra_B=381216
+mem_stacks_B=0
+heap_tree=detailed
+n7: 5398080 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 2632192 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 1326592 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 1326592 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1326592 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1326592 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 1305600 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1305600 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1305600 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1305600 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 1339936 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 674816 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 674816 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 666688 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 666688 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 665120 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 665120 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 657248 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 657248 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 336344 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 336344 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 336344 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 336344 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 336344 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 336344 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 121848 in 18 places, all below massif's threshold (1.00%)
+ n1: 94032 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 94032 in 2 places, all below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+#-----------
+snapshot=24
+#-----------
+time=55820483
+mem_heap_B=6096088
+mem_heap_extra_B=382824
+mem_stacks_B=0
+heap_tree=detailed
+n7: 6096088 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 2641920 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 1332224 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 1332224 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1332224 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1332224 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 1309696 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1309696 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1309696 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1309696 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 1345408 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 677536 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 677536 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 669408 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 669408 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 667872 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 667872 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 660000 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 660000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n1: 1018176 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 1018176 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 1018176 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1018176 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 1018176 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 1018176 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n0: 121848 in 18 places, all below massif's threshold (1.00%)
+ n1: 95008 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 95008 in 2 places, all below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+#-----------
+snapshot=25
+#-----------
+time=58578646
+mem_heap_B=6087776
+mem_heap_extra_B=412224
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=26
+#-----------
+time=61764333
+mem_heap_B=6444544
+mem_heap_extra_B=445344
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=27
+#-----------
+time=63560543
+mem_heap_B=6643216
+mem_heap_extra_B=463840
+mem_stacks_B=0
+heap_tree=detailed
+n7: 6643216 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 3211776 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 1617920 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 1617920 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1617920 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1617920 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 1593856 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1593856 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1593856 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1593856 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 1627680 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 819136 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 819136 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 811008 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 811008 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 808544 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 808544 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 800672 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 800672 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 681832 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 681832 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 681832 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 681832 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 681832 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 681832 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n1: 126352 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 126352 in 2 places, all below massif's threshold (1.00%)
+ n0: 121848 in 18 places, all below massif's threshold (1.00%)
+ n1: 73728 0x491338E: ??? (in /usr/lib/x86_64-linux-gnu/libstdc++.so.6.0.33)
+  n1: 73728 0x400571E: call_init.part.0 (dl-init.c:74)
+   n1: 73728 0x4005823: call_init (dl-init.c:120)
+    n1: 73728 0x4005823: _dl_init (dl-init.c:121)
+     n0: 73728 0x401F59F: ??? (in /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2)
+#-----------
+snapshot=28
+#-----------
+time=65624681
+mem_heap_B=6869536
+mem_heap_extra_B=485104
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=29
+#-----------
+time=67689195
+mem_heap_B=7094112
+mem_heap_extra_B=506328
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=30
+#-----------
+time=69065612
+mem_heap_B=7243680
+mem_heap_extra_B=520440
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=31
+#-----------
+time=71130093
+mem_heap_B=7472832
+mem_heap_extra_B=541728
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=32
+#-----------
+time=73195043
+mem_heap_B=7699232
+mem_heap_extra_B=562928
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=33
+#-----------
+time=75260670
+mem_heap_B=7925376
+mem_heap_extra_B=584184
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=34
+#-----------
+time=77325416
+mem_heap_B=8146912
+mem_heap_extra_B=605368
+mem_stacks_B=0
+heap_tree=detailed
+n6: 8146912 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 4212224 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 2113536 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 2113536 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 2113536 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 2113536 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 2098688 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 2098688 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 2098688 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 2098688 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 2131232 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 1068928 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1068928 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1060800 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1060800 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 1062304 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1062304 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1054432 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1054432 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 681832 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 681832 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 681832 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 681832 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 681832 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 681832 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 195576 in 19 places, all below massif's threshold (1.00%)
+ n1: 126048 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 126048 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=35
+#-----------
+time=78701679
+mem_heap_B=8301024
+mem_heap_extra_B=619536
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=36
+#-----------
+time=81411881
+mem_heap_B=8598992
+mem_heap_extra_B=647400
+mem_stacks_B=0
+heap_tree=detailed
+n6: 8598992 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 4513792 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 2263552 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 2263552 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 2263552 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 2263552 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 2250240 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 2250240 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 2250240 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 2250240 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 2280480 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 1142592 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1142592 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1134464 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1134464 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 1137888 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1137888 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1130016 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1130016 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 681832 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 681832 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 681832 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 681832 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 681832 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 681832 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 195576 in 19 places, all below massif's threshold (1.00%)
+ n1: 127312 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 127312 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=37
+#-----------
+time=84331435
+mem_heap_B=8920192
+mem_heap_extra_B=677448
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=38
+#-----------
+time=86720505
+mem_heap_B=9181488
+mem_heap_extra_B=701984
+mem_stacks_B=0
+heap_tree=detailed
+n6: 9181488 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 4900864 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 2464256 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 2464256 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 2464256 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 2464256 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 2436608 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 2436608 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 2436608 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 2436608 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 2474624 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 1243392 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1243392 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1235264 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1235264 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 1231232 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1231232 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1223360 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1223360 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 681832 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 681832 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 681832 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 681832 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 681832 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 681832 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 195576 in 19 places, all below massif's threshold (1.00%)
+ n1: 128592 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 128592 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=39
+#-----------
+time=88305729
+mem_heap_B=9358176
+mem_heap_extra_B=718264
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=40
+#-----------
+time=90134782
+mem_heap_B=9570464
+mem_heap_extra_B=737056
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=41
+#-----------
+time=91893764
+mem_heap_B=9781024
+mem_heap_extra_B=755136
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=42
+#-----------
+time=93534873
+mem_heap_B=9991536
+mem_heap_extra_B=771936
+mem_stacks_B=0
+heap_tree=detailed
+n6: 9991536 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 5401600 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 2712576 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 2712576 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 2712576 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 2712576 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 2689024 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 2689024 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 2689024 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 2689024 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 2723136 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 1366720 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1366720 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1358592 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1358592 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 1356416 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1356416 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1348544 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1348544 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 681832 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 681832 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 681832 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 681832 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 681832 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 681832 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n0: 195576 in 19 places, all below massif's threshold (1.00%)
+ n1: 189392 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 189392 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=43
+#-----------
+time=96654766
+mem_heap_B=11385384
+mem_heap_extra_B=773096
+mem_stacks_B=0
+heap_tree=detailed
+n6: 11385384 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 5407744 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 2715136 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 2715136 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 2715136 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 2715136 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 2692608 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 2692608 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 2692608 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 2692608 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 2727360 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 1368736 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1368736 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1360608 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1360608 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 1358624 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1358624 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1350752 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1350752 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n1: 2065296 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 2065296 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 1383464 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1383464 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 1383464 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 1383464 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 1 place, below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n1: 681832 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 681832 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 681832 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 681832 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 2 places, all below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n0: 195576 in 19 places, all below massif's threshold (1.00%)
+ n1: 189408 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 189408 in 2 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=44
+#-----------
+time=98114542
+mem_heap_B=10883168
+mem_heap_extra_B=788064
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=45
+#-----------
+time=101032695
+mem_heap_B=11234592
+mem_heap_extra_B=818000
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=46
+#-----------
+time=104194279
+mem_heap_B=11590048
+mem_heap_extra_B=850424
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=47
+#-----------
+time=107488531
+mem_heap_B=11962080
+mem_heap_extra_B=884392
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=48
+#-----------
+time=109677814
+mem_heap_B=12197312
+mem_heap_extra_B=906840
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=49
+#-----------
+time=121201051
+mem_heap_B=12238080
+mem_heap_extra_B=910552
+mem_stacks_B=0
+heap_tree=peak
+n6: 12238080 (heap allocation functions) malloc/new/new[], --alloc-fns, etc.
+ n2: 6387712 0x129674: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 3206144 0x1287CF: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 3206144 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 3206144 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 3206144 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 2 places, all below massif's threshold (1.00%)
+  n1: 3181568 0x12860F: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 3181568 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 3181568 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 3181568 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 3216000 0x129B49: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n1: 1614496 0x128765: OrderBook::addAsk(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1614496 0x1265FA: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1606368 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1606368 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 8128 in 1 place, below massif's threshold (1.00%)
+  n1: 1601504 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n2: 1601504 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1593632 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 1593632 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n0: 0 in 3 places, all below massif's threshold (1.00%)
+    n0: 7872 in 1 place, below massif's threshold (1.00%)
+ n1: 1383464 0x12998D: std::_Hashtable<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true> >::_M_rehash(unsigned long, unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n2: 1383464 0x129BCA: std::__detail::_Map_base<unsigned long, std::pair<unsigned long const, OrderBook::OrderLocation>, std::allocator<std::pair<unsigned long const, OrderBook::OrderLocation> >, std::__detail::_Select1st, std::equal_to<unsigned long>, std::hash<unsigned long>, std::__detail::_Mod_range_hashing, std::__detail::_Default_ranged_hash, std::__detail::_Prime_rehash_policy, std::__detail::_Hashtable_traits<false, false, true>, true>::operator[](unsigned long const&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+   n1: 1383464 0x1285A4: OrderBook::addBid(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+    n2: 1383464 0x126561: MatchingEngine::addOrder(Order) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+     n2: 1383464 0x11326F: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 1383464 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+      n0: 0 in 1 place, below massif's threshold (1.00%)
+     n0: 0 in 1 place, below massif's threshold (1.00%)
+   n0: 0 in 1 place, below massif's threshold (1.00%)
+ n2: 800000 0x1131A4: runInsertBenchmark(unsigned long, unsigned long) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 800000 0x11241C: main (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 0 in 3 places, all below massif's threshold (1.00%)
+ n1: 255328 0x12975F: void std::deque<Order, std::allocator<Order> >::_M_push_back_aux<Order&>(Order&) (in /home/leomart12345/.vscode-server/TradingSystem_Matching_Engine/TradingSystem/benchmark)
+  n0: 255328 in 2 places, all below massif's threshold (1.00%)
+ n0: 195576 in 19 places, all below massif's threshold (1.00%)
+#-----------
+snapshot=50
+#-----------
+time=122577344
+mem_heap_B=10622488
+mem_heap_extra_B=705120
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=51
+#-----------
+time=123953642
+mem_heap_B=9806904
+mem_heap_extra_B=501144
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=52
+#-----------
+time=125329940
+mem_heap_B=8991320
+mem_heap_extra_B=295680
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=53
+#-----------
+time=128013162
+mem_heap_B=6837680
+mem_heap_extra_B=103120
+mem_stacks_B=0
+heap_tree=empty
+#-----------
+snapshot=54
+#-----------
+time=129389444
+mem_heap_B=615600
+mem_heap_extra_B=8176
+mem_stacks_B=0
+heap_tree=empty

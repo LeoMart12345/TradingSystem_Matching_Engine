@@ -46,11 +46,12 @@ void run(){
                         Order newOrder = request.requestOrder;
                         u_int64_t assignedId = matchingEngine.addOrder(newOrder);
                         
-                        std::cout << "Order received - "
-                                  << (newOrder.BidOrAsk == Bid ? "BUY" : "SELL")
-                                  << " " << newOrder.mVolume
-                                  << " @ " << newOrder.mPrice.getPriceInTicks()
-                                  << " ID: " << assignedId << std::endl;
+                        // For Testing
+                        // std::cout << "Order received - "
+                        //           << (newOrder.BidOrAsk == Bid ? "BUY" : "SELL")
+                        //           << " " << newOrder.mVolume
+                        //           << " @ " << newOrder.mPrice.getPriceInTicks()
+                        //           << " ID: " << assignedId << std::endl;
 
                         std::string response = std::to_string(assignedId);
                         socket.write_some(boost::asio::buffer(response));

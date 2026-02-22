@@ -29,7 +29,7 @@ void runInsertBenchmark(size_t numOrders, size_t warmupOrders = 500) {
             std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count()
         );
     }
-
+    
     // Percentiles
     std::sort(latencies.begin(), latencies.end());
     std::cout << "p50: " << latencies[numOrders * 0.50] << " ns\n";
