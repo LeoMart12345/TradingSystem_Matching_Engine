@@ -18,7 +18,7 @@ MatchingEngine::MatchingEngine(OrderBook& orderBook)
 }
 
 u_int64_t MatchingEngine::addOrder(Order order){
-
+    std::lock_guard<std::mutex> lock(mtx);
     order.mOrderID = OrderIdGenerator::incrementOrder();
     
     DEBUG_PRINT("Server Assigned Order ID " << order.mOrderID);
@@ -38,7 +38,7 @@ u_int64_t MatchingEngine::addOrder(Order order){
 }
 
 std::optional<Trade> MatchingEngine::matchLimitOrders(){ 
-
+    std::lock_guard<std::mutex> lock(mtx);
     DEBUG_PRINT("Starting Matching Orders Cycle");
 
     Order& bestAsk = orderBook.getBestAsk();

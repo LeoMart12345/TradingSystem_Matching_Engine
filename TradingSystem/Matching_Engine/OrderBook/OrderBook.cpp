@@ -95,7 +95,7 @@ void OrderBook::removeBid(u_int64_t orderId)
 }
 
 void OrderBook::removeAsk(u_int64_t orderId)
-{
+{   
     int bestLevel = findBestAskLevel();
     if(bestLevel == -1) return;
     auto& deque = mAskPriceLevel[bestLevel];

@@ -10,6 +10,7 @@
 #include <random>
 #include <map>
 #include <unordered_map>
+#include <mutex>
 
 class OrderBook{
 
@@ -29,6 +30,9 @@ private:
     };
     // maps a unique orderID to a location
     std::unordered_map<u_int64_t, OrderLocation> orderIdtoPriceMapping;
+
+    // Mutex for locking the orderbook.
+    std::mutex mtx;
 
 public:
     explicit OrderBook(size_t size);
