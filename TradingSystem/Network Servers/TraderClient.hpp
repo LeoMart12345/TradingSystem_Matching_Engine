@@ -5,6 +5,7 @@
 #include <SFML/Window.hpp>
 #include <iostream>
 #include <random>
+#include <thread>
 
 #include "Order_Request.hpp"
 #include "../Matching_Engine/OrderBook/order.hpp"
@@ -15,7 +16,7 @@
 #include "TCPOrderSession.hpp"
 
 // random seed and distributions for autotrading clients.
-
+//  top -b -d 1 -p $(pgrep TS) > performance_log.txt
 class TraderClient{
     private: 
     MarketData marketData;
@@ -39,7 +40,7 @@ class TraderClient{
     u_int64_t placeOrder(const std::string& ticker, const std::string& side, uint64_t qty, uint64_t priceInCents) {
         Price orderPrice(priceInCents);
         Order order((side == "BUY") ? Bid : Ask, qty, ticker, 0, orderPrice);
-        std::cout << std::this_thread::get_id() << std::endl;
+        // std::cout << std::this_thread::get_id() << std::endl;
         return TCPsession.placeOrder(order);
     }
 
@@ -57,7 +58,7 @@ class TraderClient{
                 client.placeOrder("TSLA", (sideDist(rng) == 1 ? "BUY" : "SELL"), volumeDist(rng), priceDist(rng));
                 std::this_thread::sleep_for(std::chrono::milliseconds(200));
                 // for testing
-                std::cout << std::this_thread::get_id() << std::endl;
+                // std::cout << std::this_thread::get_id() << std::endl;
 
             }
         });

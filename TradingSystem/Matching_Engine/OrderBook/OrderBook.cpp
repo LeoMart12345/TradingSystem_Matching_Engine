@@ -322,7 +322,7 @@ std::pair<Price, Side> OrderBook::orderIdToPrice(const u_int64_t orderId) const 
 
 void OrderBook::removeOrderFromOrderId(u_int64_t orderId){
     try{
-        std::cout << "ENTERED REMOVE ORDER BY ORDER ID" << std::endl;
+        // std::cout << "ENTERED REMOVE ORDER BY ORDER ID" << std::endl;
         // use the orderIdToPrice to find the level
         std::pair<Price, Side>orderPair = orderIdToPrice(orderId);   
         // Translate the price to the index
