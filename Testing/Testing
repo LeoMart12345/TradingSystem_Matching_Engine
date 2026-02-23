@@ -1,0 +1,126 @@
+	.file	"Testing.cpp"
+	.text
+#APP
+	.globl _ZSt21ios_base_library_initv
+	.section	.rodata
+.LC0:
+	.string	"max of 3 and 6 is: "
+.LC1:
+	.string	"max of 3.4 and 4.1 is: "
+#NO_APP
+	.text
+	.globl	main
+	.type	main, @function
+main:
+.LFB2626:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	pushq	%rbx
+	subq	$8, %rsp
+	.cfi_offset 3, -24
+	movl	$.LC0, %esi
+	movl	$_ZSt4cout, %edi
+	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+	movq	%rax, %rbx
+	movl	$6, %esi
+	movl	$3, %edi
+	call	_Z5myMaxIiET_S0_S0_
+	movl	%eax, %esi
+	movq	%rbx, %rdi
+	call	_ZNSolsEi
+	movl	$_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, %esi
+	movq	%rax, %rdi
+	call	_ZNSolsEPFRSoS_E
+	movl	$.LC1, %esi
+	movl	$_ZSt4cout, %edi
+	call	_ZStlsISt11char_traitsIcEERSt13basic_ostreamIcT_ES5_PKc
+	movq	%rax, %rbx
+	movsd	.LC2(%rip), %xmm0
+	movq	.LC3(%rip), %rax
+	movapd	%xmm0, %xmm1
+	movq	%rax, %xmm0
+	call	_Z5myMaxIdET_S0_S0_
+	movq	%xmm0, %rax
+	movq	%rax, %xmm0
+	movq	%rbx, %rdi
+	call	_ZNSolsEd
+	movl	$_ZSt4endlIcSt11char_traitsIcEERSt13basic_ostreamIT_T0_ES6_, %esi
+	movq	%rax, %rdi
+	call	_ZNSolsEPFRSoS_E
+	movl	$0, %eax
+	movq	-8(%rbp), %rbx
+	leave
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2626:
+	.size	main, .-main
+	.section	.text._Z5myMaxIiET_S0_S0_,"axG",@progbits,_Z5myMaxIiET_S0_S0_,comdat
+	.weak	_Z5myMaxIiET_S0_S0_
+	.type	_Z5myMaxIiET_S0_S0_, @function
+_Z5myMaxIiET_S0_S0_:
+.LFB2909:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movl	%edi, -4(%rbp)
+	movl	%esi, -8(%rbp)
+	movl	-4(%rbp), %eax
+	cmpl	-8(%rbp), %eax
+	jle	.L4
+	movl	-4(%rbp), %eax
+	jmp	.L6
+.L4:
+	movl	-8(%rbp), %eax
+.L6:
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2909:
+	.size	_Z5myMaxIiET_S0_S0_, .-_Z5myMaxIiET_S0_S0_
+	.section	.text._Z5myMaxIdET_S0_S0_,"axG",@progbits,_Z5myMaxIdET_S0_S0_,comdat
+	.weak	_Z5myMaxIdET_S0_S0_
+	.type	_Z5myMaxIdET_S0_S0_, @function
+_Z5myMaxIdET_S0_S0_:
+.LFB2912:
+	.cfi_startproc
+	pushq	%rbp
+	.cfi_def_cfa_offset 16
+	.cfi_offset 6, -16
+	movq	%rsp, %rbp
+	.cfi_def_cfa_register 6
+	movsd	%xmm0, -8(%rbp)
+	movsd	%xmm1, -16(%rbp)
+	movsd	-8(%rbp), %xmm0
+	comisd	-16(%rbp), %xmm0
+	jbe	.L13
+	movsd	-8(%rbp), %xmm0
+	jmp	.L11
+.L13:
+	movsd	-16(%rbp), %xmm0
+.L11:
+	popq	%rbp
+	.cfi_def_cfa 7, 8
+	ret
+	.cfi_endproc
+.LFE2912:
+	.size	_Z5myMaxIdET_S0_S0_, .-_Z5myMaxIdET_S0_S0_
+	.section	.rodata
+	.align 8
+.LC2:
+	.long	1717986918
+	.long	1074816614
+	.align 8
+.LC3:
+	.long	858993459
+	.long	1074475827
+	.ident	"GCC: (GNU) 15.2.1 20260123 (Red Hat 15.2.1-7)"
+	.section	.note.GNU-stack,"",@progbits
