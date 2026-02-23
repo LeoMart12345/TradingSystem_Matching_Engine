@@ -1,18 +1,21 @@
 #pragma once
 #include <iostream>
 #include <boost/asio.hpp>
-#include "../Matching_Engine/MatchingEngine.hpp"
-#include "Order_Request.hpp"
 #include <string>
 #include <MarketData.hpp>
+
+#include "../Matching_Engine/MatchingEngine.hpp"
+#include "Order_Request.hpp"
 #include "./Network Servers/UDPServer.hpp"
+#include "./Matching_Engine/OrderBook/ObjectPool.hpp"
 
 class TCPServer{
 
     private:
         int port;
         MatchingEngine& matchingEngine;
-    
+        ObjectPool<Order, 100000> orderPool; // pool of objects that will be acquired and released to as opposed to a syscall.
+
     public:
         TCPServer(int p, MatchingEngine& engine) : 
         port(p),
@@ -43,7 +46,11 @@ void run(){
                     OrderRequest request = OrderRequest::deserialize(receivedData);
                     
                     if(request.type == requestType::New){
-                        Order newOrder = request.requestOrder;
+                        //Order newOrder = request.requestOrder;
+                        // get the order from the OrderPool;    
+                        Order* newOrder = orderPool.acquire();
+                        *newOrder = request.requestOrder;
+                        // Passes the pointer to the Matching engine: no copies
                         u_int64_t assignedId = matchingEngine.addOrder(newOrder);
                         std::string response = std::to_string(assignedId);
                         socket.write_some(boost::asio::buffer(response));

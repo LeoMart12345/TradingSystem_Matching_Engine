@@ -17,24 +17,24 @@ MatchingEngine::MatchingEngine(OrderBook& orderBook)
     DEBUG_PRINT("matchingEngine was constructed!");
 }
 
-u_int64_t MatchingEngine::addOrder(Order order){
+u_int64_t MatchingEngine::addOrder(Order* order){
     std::lock_guard<std::mutex> lock(mtx);
-    order.mOrderID = OrderIdGenerator::incrementOrder();
+    order->mOrderID = OrderIdGenerator::incrementOrder();
     
-    DEBUG_PRINT("Server Assigned Order ID " << order.mOrderID);
-    
+    DEBUG_PRINT("Server Assigned Order ID " << order->mOrderID);
     DEBUG_PRINT("SERVER: Order details - " 
-        << (order.BidOrAsk == Side::Bid ? "BUY" : "SELL")
-        << " " << order.mVolume << " " << order.mName 
-        << " @ " << order.mPrice.getPriceInTicks());
+        << (order->BidOrAsk == Side::Bid ? "BUY" : "SELL")
+        << " " << order->mVolume << " " << order->mName 
+        << " @ " << order->mPrice.getPriceInTicks();
+    );
 
-    if(order.BidOrAsk == Side::Bid){
-        orderBook.addBid(order);
+    if(order->BidOrAsk == Side::Bid){
+        orderBook.addBid(*order);
     }else{
-        orderBook.addAsk(order);
+        orderBook.addAsk(*order);
     }
 
-    return order.mOrderID;
+    return order->mOrderID;
 }
 
 std::optional<Trade> MatchingEngine::matchLimitOrders(){ 

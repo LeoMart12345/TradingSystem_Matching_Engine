@@ -10,7 +10,7 @@ int main(){
     // Benchmarking START
     for(int i = 0; i < 1000; i++){
         Order order = orderBook.generateRandomOrder();
-        TS->addOrder(order);       
+        TS->addOrder(&order);       
     }
     // Benchmarking END
     

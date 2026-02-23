@@ -31,6 +31,9 @@ void TradingSystem::start(){
     //UDP
     UDPServerI->run();
 
+    // give time for the servers to acquire their resources. for TCP will get a boost error if I try to then connect when its not finished construction
+    std::this_thread::sleep_for(std::chrono::milliseconds(400));
+
     // simulated traders in the background using client interface
     //TESTING!
     std::string host = "127.0.0.1";

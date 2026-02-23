@@ -23,7 +23,7 @@ class MatchingEngine {
         explicit MatchingEngine(OrderBook& orderBook);
         
         std::optional<Trade> matchLimitOrders();
-        u_int64_t addOrder(Order order);
+        u_int64_t addOrder(Order* order);
         void processOrder(OrderRequest orderRequest);
         OrderBook& getOrderBook() { return orderBook; }
 };
