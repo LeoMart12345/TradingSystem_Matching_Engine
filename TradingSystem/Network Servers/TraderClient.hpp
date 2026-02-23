@@ -1,8 +1,6 @@
 // TraderClient.hpp
 #pragma once
 #include <string>
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
 #include <iostream>
 #include <random>
 #include <thread>
@@ -10,7 +8,7 @@
 #include "Order_Request.hpp"
 #include "../Matching_Engine/OrderBook/order.hpp"
 #include "MarketData.hpp"
-#include "../Debug/Debug.hpp"
+#include "./Debug/Debug.hpp"
 #include <boost/asio.hpp>
 #include "UDPMarketDataReceiver.hpp"
 #include "TCPOrderSession.hpp"

@@ -1,0 +1,24 @@
+[
+  {
+    "arguments": [
+      "/usr/bin/g++",
+      "-std=c++23",
+      "-Wall",
+      "-Wextra",
+      "-O2",
+      "-I.",
+      "-IMatching_Engine",
+      "-IMatching_Engine/OrderBook",
+      "-INetwork Servers",
+      "-IUtilityClass",
+      "-IBenchmark",
+      "-c",
+      "-o",
+      "main.o",
+      "main.cpp"
+    ],
+    "directory": "/home/leomartinez12345/Documents/CodingProjects/TradingSystem_Matching_Engine/TradingSystem",
+    "file": "/home/leomartinez12345/Documents/CodingProjects/TradingSystem_Matching_Engine/TradingSystem/main.cpp",
+    "output": "/home/leomartinez12345/Documents/CodingProjects/TradingSystem_Matching_Engine/TradingSystem/main.o"
+  }
+]

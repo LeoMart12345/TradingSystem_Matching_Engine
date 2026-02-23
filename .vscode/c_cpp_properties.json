@@ -1,18 +1,19 @@
 {
     "configurations": [
         {
-            "name": "windows-gcc-x64",
+            "name": "Linux-gcc-x64",
             "includePath": [
                 "${workspaceFolder}/**",
-                "${workspaceFolder}/TradingSystem/Matching_Engine/OrderBook"
+                "/usr/include",
+                "/usr/include/c++/15",
+                "/usr/lib/gcc/x86_64-redhat-linux/15/include",
+                "/usr/include/boost"
             ],
-            "compilerPath": "gcc",
-            "cStandard": "${default}",
+            "defines": [],
+            "cStandard": "c17",
             "cppStandard": "c++23",
-            "intelliSenseMode": "windows-gcc-x64",
-            "compilerArgs": [
-                ""
-            ]
+            "intelliSenseMode": "linux-gcc-x64",
+            "compilerPath": "/usr/bin/g++"
         }
     ],
     "version": 4
