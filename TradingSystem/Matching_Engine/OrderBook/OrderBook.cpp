@@ -235,52 +235,49 @@ Order* OrderBook::getBestAsk()
     return deque.front();
 }
 
-Order OrderBook::popBestBid()
-{
+Order* OrderBook::popBestBid(){
     int bestBidLevel = findBestBidLevel();
 
     if (bestBidLevel == -1){
         throw std::runtime_error("No bids in the OrderBook!");
     }
-    auto &deque = mBidpriceLevel[bestBidLevel];
+    auto& deque = mBidpriceLevel[bestBidLevel];
 
     if (deque.empty()){
         throw std::runtime_error("bitmapp shows the level marked but the deque at that level is empty!");
     }
 
-    Order orderCopy = deque.front();
+    Order* order = deque.front();
     deque.pop_front();
 
     if (deque.empty()){
         setBidBitTo0(indexToPrice(bestBidLevel));
     }
 
-    return orderCopy;
+    return order;
 }
 
-Order OrderBook::popBestAsk()
-{
+Order* OrderBook::popBestAsk(){
     int bestAskLevel = findBestAskLevel();
 
     if (bestAskLevel == -1){
         throw std::runtime_error("no asks in the OrderBook!");
     }
-    auto &deque = mAskPriceLevel[bestAskLevel];
+    auto& deque = mAskPriceLevel[bestAskLevel];
     if (deque.empty()){
         throw std::runtime_error("bitmap shows the level marked but the deque at that level is empty!");
     }
-    Order orderCopy = deque.front();
+    Order* order = deque.front();
     deque.pop_front();
 
     if (deque.empty()){
         setAskBitTo0(indexToPrice(bestAskLevel));
     }
 
-    return orderCopy;
+    return order;
 }
 
-int OrderBook::findBestBidLevel() const
-{
+int OrderBook::findBestBidLevel() const{
     for (int i = static_cast<int>(mBidBitmap.size() - 1); i >= 0; --i){
         u_int64_t word = mBidBitmap[i];
 
@@ -295,8 +292,7 @@ int OrderBook::findBestBidLevel() const
     return -1;
 }
 
-int OrderBook::findBestAskLevel() const
-{
+int OrderBook::findBestAskLevel() const{
     for (int i = 0; i < static_cast<int>(mAskBitmap.size()); ++i){
 
         u_int64_t word = mAskBitmap[i];
@@ -330,29 +326,25 @@ void OrderBook::removeOrderFromOrderId(u_int64_t orderId){
         std::pair<Price, Side> orderPair = orderIdToPrice(orderId);
         int orderIndex = priceToIndex(orderPair.first);
         
-        if (orderPair.second == Side::Bid){
-            std::deque<Order> &orderDeQue = mBidpriceLevel[orderIndex];
-            // For loop looping over the deque.
-            for (auto it = orderDeQue.begin(); it != orderDeQue.end(); it++){
-                if (it->mOrderID == orderId){
-                    // release the order Back to the OrderPool
-                    Order* orderToRelease = &(*it); // dereference the iterator to get order & take address of that
-                    mOrderPool.release(orderToRelease);
-                    orderDeQue.erase(it);
-                    if (orderDeQue.empty()){
+        if(orderPair.second == Side::Bid){
+            std::deque<Order*>& pOrderDeQue = mBidpriceLevel[orderIndex];
+            for(auto it = pOrderDeQue.begin(); it != pOrderDeQue.end(); it++){
+                if((*it)->mOrderID == orderId){
+                    mOrderPool.release(*it);
+                    pOrderDeQue.erase(it);
+                    if(pOrderDeQue.empty()){
                         setBidBitTo0(orderPair.first);
                     }
                     break;
                 }
             }
-        }
-        else
-        {
-            std::deque<Order> &orderDeQue = mAskPriceLevel[orderIndex];
-            for (auto it = orderDeQue.begin(); it != orderDeQue.end(); it++){
-                if (it->mOrderID == orderId){
-                    orderDeQue.erase(it);
-                    if (orderDeQue.empty()){
+        } else {
+            std::deque<Order*>& pOrderDeQue = mAskPriceLevel[orderIndex];
+            for(auto it = pOrderDeQue.begin(); it != pOrderDeQue.end(); it++){
+                if((*it)->mOrderID == orderId){
+                    mOrderPool.release(*it);
+                    pOrderDeQue.erase(it);
+                    if(pOrderDeQue.empty()){
                         setAskBitTo0(orderPair.first);
                     }
                     break;
@@ -361,7 +353,7 @@ void OrderBook::removeOrderFromOrderId(u_int64_t orderId){
         }
         orderIdtoPriceMapping.erase(orderId);
     }
-    catch (const std::runtime_error &e){
+    catch(const std::runtime_error& e){
         std::cout << "Error: " << e.what() << std::endl;
         throw;
     }
@@ -380,9 +372,9 @@ void OrderBook::printOrderBook() const
         std::cout << "Level " << i << " (Price €" << TicksToPrice << "): ";
 
         for (const auto &o : mBidpriceLevel[i]){
-            std::cout << "[id=" << o.mOrderID
-                      << ", qty=" << o.mVolume
-                      << ", user=" << o.mName
+            std::cout << "[id=" << o->mOrderID
+                      << ", qty=" << o->mVolume
+                      << ", user=" << o->mName
                       << "] ";
         }
         std::cout << "\n";
@@ -398,9 +390,9 @@ void OrderBook::printOrderBook() const
 
         for (const auto &o : mAskPriceLevel[i])
         {
-            std::cout << "[id=" << o.mOrderID
-                      << ", qty=" << o.mVolume
-                      << ", Asset=" << o.mName
+            std::cout << "[id=" << o->mOrderID
+                      << ", qty=" << o->mVolume
+                      << ", Asset=" << o->mName
                       << "] ";
         }
         std::cout << "\n";

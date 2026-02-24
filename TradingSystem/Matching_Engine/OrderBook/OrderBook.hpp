@@ -53,12 +53,12 @@ public:
     // updated API that takes into account quantity and the posibility of a partial fill
     Order* getBestBid();
     //todo peek best bid
-    Order popBestBid();
+    Order* popBestBid();
     
     // void fillBestBid(u_int16_t quantity); // todo decide if this needs to be matching engine logic
     Order* getBestAsk();
     //todo peek best ask
-    Order popBestAsk();
+    Order* popBestAsk();
     
     ObjectPool<Order, 100000>& getOrderPool() { return mOrderPool; }
     
