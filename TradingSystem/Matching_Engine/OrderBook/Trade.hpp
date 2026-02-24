@@ -23,12 +23,11 @@ public:
     {
     
     }
-    
+    // these can be dangling pointers if the trade orders are released to the orderPool
     void printTrade() const {
         std::cout << "Trade Details:" << std::endl;
         std::cout << "Ask Price: " << mAskOrder->getPrice().mPriceValueInCent << std::endl;
         std::cout << "Bid Price: " << mBidOrder->getPrice().mPriceValueInCent << std::endl;
         std::cout << "Volume: " << mTradeVolume << std::endl;
     }
-    
 };

@@ -28,12 +28,11 @@ public:
             while(true) {
                 try {
                     MarketDataSnapshot snapshot;
-                    snapshot.bestBid = matchingEngine.getOrderBook().getBestBid().getPrice().getPriceInTicks();
-                    snapshot.bestAsk = matchingEngine.getOrderBook().getBestAsk().getPrice().getPriceInTicks();
+                    snapshot.bestBid = matchingEngine.getOrderBook().getBestBid()->getPrice().getPriceInTicks();
+                    snapshot.bestAsk = matchingEngine.getOrderBook().getBestAsk()->getPrice().getPriceInTicks();
                     snapshot.bidVolume = 0;
                     snapshot.askVolume = 0;
                     
-                    // Debug:
                     std::string data = snapshot.serialise();
                     // std::cout << "UDP Sending serlialised data: " << data << std::endl;
                     UDPsocket.send_to(boost::asio::buffer(data), multicastEndpoint);
