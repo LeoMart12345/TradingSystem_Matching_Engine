@@ -75,8 +75,6 @@ std::optional<Trade> MatchingEngine::matchLimitOrders(){
         if(bestAsk.GetVolume() == 0){
             Order& order = bestAsk;
             orderBook.removeAsk(bestAsk.getOrderId());
-            // Release to the ordePool:
-            orderBook.
         }
         if(bestBid.GetVolume() == 0){
             orderBook.removeBid(bestBid.getOrderId());

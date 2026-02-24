@@ -78,23 +78,24 @@ void OrderBook::addAsk(const Order& order)
 void OrderBook::removeBid(u_int64_t orderId)
 {
     int bestLevel = findBestBidLevel();
-    if (bestLevel == -1)
-        return;
+    if (bestLevel == -1) return;
+    
     auto &deque = mBidpriceLevel[bestLevel];
 
-    if (deque.empty())
-        return;
+    if (deque.empty()) return;
 
     DEBUG_PRINT("front of deque Id: " << deque.front().getOrderId() << " OrderId: " << orderId);
 
-    if (deque.front().getOrderId() != orderId)
-    {
+    if (deque.front().getOrderId() != orderId){
         std::__throw_logic_error("orderId does not match the order at the front of that queue level");
     }
+    // Release the orderPool here:
+    Order* orderTop = &deque.front();
+    mOrderPool.release(orderTop);
+    // pop from the deque.
     deque.pop_front();
 
-    if (deque.empty())
-    {
+    if (deque.empty()){
         setBidBitTo0(indexToPrice(bestLevel));
     }
 }
@@ -113,6 +114,10 @@ void OrderBook::removeAsk(u_int64_t orderId)
     {
         std::__throw_logic_error("orderId does not match the order at thr front of that queue level");
     }
+    // release order to the orderPool again!
+    Order* orderTop = &deque.front();
+    mOrderPool.release(orderTop);
+    // Then pop
     deque.pop_front();
 
     if (deque.empty())
@@ -121,8 +126,9 @@ void OrderBook::removeAsk(u_int64_t orderId)
     }
 }
 
-void OrderBook::getVolumeAtLevel(Price price)
+void OrderBook::getVolumeAtLevel(const Price& price)
 {
+    // TODO: IMPLEMENT
 }
 
 void OrderBook::getTotalVolume()
@@ -350,29 +356,23 @@ std::pair<Price, Side> OrderBook::orderIdToPrice(const u_int64_t orderId) const
     throw std::runtime_error("there was no orderID with this number:" + std::to_string(orderId));
 }
 
-void OrderBook::removeOrderFromOrderId(u_int64_t orderId)
-{
-    try
-    {
-        // std::cout << "ENTERED REMOVE ORDER BY ORDER ID" << std::endl;
-        // use the orderIdToPrice to find the level
+// TODO: add the objectPool release to this:
+void OrderBook::removeOrderFromOrderId(u_int64_t orderId){
+    try{
         std::pair<Price, Side> orderPair = orderIdToPrice(orderId);
-        // Translate the price to the index
         int orderIndex = priceToIndex(orderPair.first);
-        // Search through to find the order.
-
+        
         if (orderPair.second == Side::Bid)
         {
-            // logic for the bid side:
             std::deque<Order> &orderDeQue = mBidpriceLevel[orderIndex];
-            // for loop looping over the deque.
-            for (auto it = orderDeQue.begin(); it != orderDeQue.end(); it++)
-            {
-                if (it->mOrderID == orderId)
-                {
+            // For loop looping over the deque.
+            for (auto it = orderDeQue.begin(); it != orderDeQue.end(); it++){
+                if (it->mOrderID == orderId){
+                    // release the order Back to the OrderPool
+                    Order* orderToRelease = &(*it); // dereference the iterator to get order & take address of that
+                    mOrderPool.release(orderToRelease);
                     orderDeQue.erase(it);
-                    if (orderDeQue.empty())
-                    {
+                    if (orderDeQue.empty()){
                         setBidBitTo0(orderPair.first);
                     }
                     break;
@@ -380,16 +380,12 @@ void OrderBook::removeOrderFromOrderId(u_int64_t orderId)
             }
         }
         else
-        { // TODO implement this side
+        {
             std::deque<Order> &orderDeQue = mAskPriceLevel[orderIndex];
-
-            for (auto it = orderDeQue.begin(); it != orderDeQue.end(); it++)
-            {
-                if (it->mOrderID == orderId)
-                {
+            for (auto it = orderDeQue.begin(); it != orderDeQue.end(); it++){
+                if (it->mOrderID == orderId){
                     orderDeQue.erase(it);
-                    if (orderDeQue.empty())
-                    {
+                    if (orderDeQue.empty()){
                         setAskBitTo0(orderPair.first);
                     }
                     break;

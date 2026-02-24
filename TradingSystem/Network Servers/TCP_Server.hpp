@@ -14,7 +14,7 @@ class TCPServer{
     private:
         int port;
         MatchingEngine& matchingEngine;
-        ObjectPool<Order, 100000> orderPool; // pool of objects that will be acquired and released to as opposed to a syscall.
+        // ObjectPool<Order, 100000> orderPool; // pool of objects that will be acquired and released to as opposed to a syscall.
 
     public:
         TCPServer(int p, MatchingEngine& engine) : 
@@ -47,14 +47,14 @@ void run(){
                     
                     if(request.type == requestType::New){
                         //Order newOrder = request.requestOrder;
-                        // get the order from the OrderPool;    
-                        Order* newOrder = orderPool.acquire();
+                        // acquire the memory from the orderPool:
+                        Order* newOrder = matchingEngine.getOrderBook().getOrderPool().acquire();
                         *newOrder = request.requestOrder;
                         // Passes the pointer to the Matching engine: no copies
                         u_int64_t assignedId = matchingEngine.addOrder(newOrder);
                         std::string response = std::to_string(assignedId);
                         socket.write_some(boost::asio::buffer(response));
-
+                        
                     }else if(request.type == requestType::Cancel){
                         u_int64_t orderId = request.requestOrder.mOrderID;
                         try{

@@ -11,10 +11,13 @@
 #include <map>
 #include <unordered_map>
 #include <mutex>
+#include "./ObjectPool.hpp"
 
 class OrderBook{
 
 private:
+    ObjectPool<Order, 100000> mOrderPool; // pool of objects that will be acquired and released to as opposed to a syscall.
+
     // each of these holds 64 bits each bit represents a level, if bit = 1 the level is active, if bit is 0 level is inactive
     std::vector<u_int64_t> mBidBitmap;
     std::vector<u_int64_t> mAskBitmap;
@@ -57,6 +60,8 @@ public:
     //todo peek best ask
     Order popBestAsk();
     
+    ObjectPool<Order, 100000>& getOrderPool() { return mOrderPool; }
+    
     // void fillBestAsk(u_int16_t quantity);
     // Ask
     void addAsk(const Order& order);
@@ -64,7 +69,7 @@ public:
     void setAskBitTo1(const Price& price);
     void setAskBitTo0(const Price& price);
 
-    void getVolumeAtLevel(Price price);
+    void getVolumeAtLevel(const Price& price);
     void getTotalVolume();
     
     //helper functions
