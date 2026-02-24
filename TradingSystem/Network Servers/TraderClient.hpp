@@ -54,10 +54,7 @@ class TraderClient{
         std::thread t([&client](){
             while(true){
                 client.placeOrder("TSLA", (sideDist(rng) == 1 ? "BUY" : "SELL"), volumeDist(rng), priceDist(rng));
-                std::this_thread::sleep_for(std::chrono::milliseconds(200));
-                // for testing
-                // std::cout << std::this_thread::get_id() << std::endl;
-
+                std::this_thread::sleep_for(std::chrono::milliseconds(500));
             }
         });
         t.detach();

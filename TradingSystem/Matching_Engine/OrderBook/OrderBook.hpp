@@ -16,7 +16,7 @@
 class OrderBook{
 
 private:
-    ObjectPool<Order, 100000> mOrderPool; // pool of objects that will be acquired and released to as opposed to a syscall.
+    ObjectPool<Order, 10000> mOrderPool; // pool of objects that will be acquired and released to as opposed to a syscall.
 
     // each of these holds 64 bits each bit represents a level, if bit = 1 the level is active, if bit is 0 level is inactive
     std::vector<u_int64_t> mBidBitmap;
@@ -60,7 +60,7 @@ public:
     //todo peek best ask
     Order* popBestAsk();
     
-    ObjectPool<Order, 100000>& getOrderPool() { return mOrderPool; }
+    ObjectPool<Order, 10000>& getOrderPool() { return mOrderPool; }
     
     // void fillBestAsk(u_int16_t quantity);
     // Ask

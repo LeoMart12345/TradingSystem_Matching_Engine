@@ -1,6 +1,6 @@
 # Variables
 CXX = g++
-CXXFLAGS = -std=c++23 -Wall -Wextra -O2
+CXXFLAGS = -std=c++23 -Wall -Wextra -g -O0
 
 # Include directories
 INCLUDES = -I. \

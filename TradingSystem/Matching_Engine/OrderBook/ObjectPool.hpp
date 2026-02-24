@@ -22,9 +22,12 @@ public:
         freeStack.pop();
         return &pool[slot]; // get the memory address of the pool object that is next in the "freeStack" freeList
     }
-
-    void release(T* Object){
-        size_t slot = Object - &pool[0]; // pointer arithemetic to get the right slot.
+    
+    void release(T* obj){
+        size_t slot = obj - &pool[0];
+        if(slot >= Size){
+            throw std::runtime_error("ObjectPool::release received pointer outside pool bounds");
+        }
         freeStack.push(slot);
     }
 
