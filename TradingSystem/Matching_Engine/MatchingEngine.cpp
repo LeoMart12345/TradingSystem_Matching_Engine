@@ -22,11 +22,13 @@ u_int64_t MatchingEngine::addOrder(Order* order){
     order->mOrderID = OrderIdGenerator::incrementOrder();
     
     DEBUG_PRINT("Server Assigned Order ID " << order->mOrderID);
-    DEBUG_PRINT("SERVER: Order details - " 
-        << (order->BidOrAsk == Side::Bid ? "BUY" : "SELL")
-        << " " << order->mVolume << " " << order->mName 
-        << " @ " << order->mPrice.getPriceInTicks();
-    );
+    //need backslash for multi-line debug
+    DEBUG_PRINT("SERVER: Order details - " \
+    << (order->BidOrAsk == Side::Bid ? "BUY" : "SELL") \
+    << " " << order->mVolume \
+    << " " << order->mName \
+    << " @ " << order->mPrice.getPriceInTicks());
+
 
     if(order->BidOrAsk == Side::Bid){
         orderBook.addBid(*order);
@@ -71,7 +73,10 @@ std::optional<Trade> MatchingEngine::matchLimitOrders(){
 
         // remove the filled orders from the orderBook.
         if(bestAsk.GetVolume() == 0){
+            Order& order = bestAsk;
             orderBook.removeAsk(bestAsk.getOrderId());
+            // Release to the ordePool:
+            orderBook.
         }
         if(bestBid.GetVolume() == 0){
             orderBook.removeBid(bestBid.getOrderId());

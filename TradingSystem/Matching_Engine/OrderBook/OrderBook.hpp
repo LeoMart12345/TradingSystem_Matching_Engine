@@ -42,7 +42,7 @@ public:
     Order generateRandomOrder();
 
     // Bid
-    void addBid(Order order);
+    void addBid(const Order& order);
     void removeBid(u_int64_t orderID);
     void setBidBitTo1(const Price& price); // takes in the price, uses helpers to set bitmap bit to 1 to indicate active price level.
     void setBidBitTo0(const Price& price);
@@ -59,7 +59,7 @@ public:
     
     // void fillBestAsk(u_int16_t quantity);
     // Ask
-    void addAsk(Order order);
+    void addAsk(const Order& order);
     void removeAsk(u_int64_t orderId);
     void setAskBitTo1(const Price& price);
     void setAskBitTo0(const Price& price);
