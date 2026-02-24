@@ -31,9 +31,9 @@ u_int64_t MatchingEngine::addOrder(Order* order){
 
 
     if(order->BidOrAsk == Side::Bid){
-        orderBook.addBid(*order);
+        orderBook.addBid(order);
     }else{
-        orderBook.addAsk(*order);
+        orderBook.addAsk(order);
     }
 
     return order->mOrderID;

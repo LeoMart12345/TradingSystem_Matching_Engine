@@ -23,9 +23,9 @@ private:
     std::vector<u_int64_t> mAskBitmap;
 
     // These levels hold a deque of orders for both sides.
-    std::vector<std::deque<Order>> mBidpriceLevel;
-    std::vector<std::deque<Order>> mAskPriceLevel;
-
+    std::vector<std::deque<Order*>> mBidpriceLevel;
+    std::vector<std::deque<Order*>> mAskPriceLevel;
+    
     // Hashmap for keeping track of orderId (useful for cancelling orders by orderId)
     struct OrderLocation{
         Price price;
@@ -45,18 +45,18 @@ public:
     Order generateRandomOrder();
 
     // Bid
-    void addBid(const Order& order);
+    void addBid(Order* order);
     void removeBid(u_int64_t orderID);
     void setBidBitTo1(const Price& price); // takes in the price, uses helpers to set bitmap bit to 1 to indicate active price level.
     void setBidBitTo0(const Price& price);
     
     // updated API that takes into account quantity and the posibility of a partial fill
-    Order& getBestBid();
+    Order* getBestBid();
     //todo peek best bid
     Order popBestBid();
     
     // void fillBestBid(u_int16_t quantity); // todo decide if this needs to be matching engine logic
-    Order& getBestAsk();
+    Order* getBestAsk();
     //todo peek best ask
     Order popBestAsk();
     
@@ -64,7 +64,7 @@ public:
     
     // void fillBestAsk(u_int16_t quantity);
     // Ask
-    void addAsk(const Order& order);
+    void addAsk(Order* order);
     void removeAsk(u_int64_t orderId);
     void setAskBitTo1(const Price& price);
     void setAskBitTo0(const Price& price);

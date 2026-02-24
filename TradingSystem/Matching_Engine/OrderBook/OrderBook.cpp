@@ -32,65 +32,57 @@ OrderBook::OrderBook(size_t size)
     DEBUG_PRINT("BitMap create with " << mBidBitmap.size() << " 64 bit elements");
 }
 
-// Functions for benchmarking the OrderBook START
-//     Side BidOrAsk; u_int64_t mVolume; std::string mName; u_int64_t mOrderID; Price mPrice;
-
-Order OrderBook::generateRandomOrder()
-{
-
+//TODO: remove this to test
+Order OrderBook::generateRandomOrder(){
     int randPriceint = PriceDist(rng);
     int randSide = sideDist(rng);
     u_int64_t randVolume = volumeDist(rng);
     std::string notsoRandName = "TSLA";
     Side side = (randSide == 0) ? Bid : Ask;
     Price randPrice(randPriceint);
-
-    //     Order(Side Side, u_int64_t volume, std::string name, u_int64_t orderID, Price Price);
-
+    
     Order randomOrder(side, randVolume, notsoRandName, OrderIdGenerator::incrementOrder(), randPrice);
 
     return randomOrder;
 }
 
 // need to add tracking for orderid for cancelOrder
-void OrderBook::addBid(const Order& order)
-{
-    DEBUG_PRINT("OrderBook::addBid - Order ID: " << order.mOrderID);
-    int BidLevel = priceToIndex(order.mPrice);
+void OrderBook::addBid(Order* order){
+    DEBUG_PRINT("OrderBook::addBid - Order ID: " << order->mOrderID);
+    int BidLevel = priceToIndex(order->mPrice);
     mBidpriceLevel[BidLevel].emplace_back(order);
     DEBUG_PRINT("ORDERBOOK::ADDBID printing price of the order below.");
-    setBidBitTo1(order.getPrice());
+    setBidBitTo1(order->getPrice());
     // add the orderid to the map
-    orderIdtoPriceMapping[order.mOrderID] = {order.mPrice, Bid};
+    orderIdtoPriceMapping[order->mOrderID] = {order->mPrice, Bid};
     DEBUG_PRINT("ORDERBOOK::ADDBID after printing price");
 }
 
-void OrderBook::addAsk(const Order& order)
-{
-    DEBUG_PRINT("OrderBook::addAsk - Order ID: " << order.mOrderID);
-    int AskLevel = priceToIndex(order.mPrice);
+void OrderBook::addAsk(Order* order){
+    DEBUG_PRINT("OrderBook::addAsk - Order ID: " << order->mOrderID);
+    int AskLevel = priceToIndex(order->mPrice);
     mAskPriceLevel[AskLevel].emplace_back(order);
-    setAskBitTo1(order.getPrice());
-    orderIdtoPriceMapping[order.mOrderID] = {order.mPrice, Ask};
+    setAskBitTo1(order->getPrice());
+    orderIdtoPriceMapping[order->mOrderID] = {order->mPrice, Ask};
     DEBUG_PRINT("ORDERBOOK::ADDASK after printing price");
 }
 
-void OrderBook::removeBid(u_int64_t orderId)
-{
+// fixe to use deque with pointers.
+void OrderBook::removeBid(u_int64_t orderId){
     int bestLevel = findBestBidLevel();
     if (bestLevel == -1) return;
     
-    auto &deque = mBidpriceLevel[bestLevel];
+    auto& deque = mBidpriceLevel[bestLevel];
 
     if (deque.empty()) return;
 
-    DEBUG_PRINT("front of deque Id: " << deque.front().getOrderId() << " OrderId: " << orderId);
+    DEBUG_PRINT("front of deque Id: " << deque.front()->getOrderId() << " OrderId: " << orderId);
 
-    if (deque.front().getOrderId() != orderId){
+    if (deque.front()->getOrderId() != orderId){
         std::__throw_logic_error("orderId does not match the order at the front of that queue level");
     }
     // Release the orderPool here:
-    Order* orderTop = &deque.front();
+    Order* orderTop = deque.front();
     mOrderPool.release(orderTop);
     // pop from the deque.
     deque.pop_front();
@@ -100,39 +92,32 @@ void OrderBook::removeBid(u_int64_t orderId)
     }
 }
 
-void OrderBook::removeAsk(u_int64_t orderId)
-{
+void OrderBook::removeAsk(u_int64_t orderId){
     int bestLevel = findBestAskLevel();
-    if (bestLevel == -1)
-        return;
-    auto &deque = mAskPriceLevel[bestLevel];
+    if (bestLevel == -1) return;
+    auto& deque = mAskPriceLevel[bestLevel];
 
-    if (deque.empty())
-        return;
+    if (deque.empty()) return;
 
-    if (deque.front().getOrderId() != orderId)
-    {
+    if (deque.front()->getOrderId() != orderId){
         std::__throw_logic_error("orderId does not match the order at thr front of that queue level");
     }
     // release order to the orderPool again!
-    Order* orderTop = &deque.front();
+    Order* orderTop = deque.front();
     mOrderPool.release(orderTop);
     // Then pop
     deque.pop_front();
 
-    if (deque.empty())
-    {
+    if (deque.empty()){
         setAskBitTo0(indexToPrice(bestLevel));
     }
 }
 
-void OrderBook::getVolumeAtLevel(const Price& price)
-{
+void OrderBook::getVolumeAtLevel(const Price& price){
     // TODO: IMPLEMENT
 }
 
-void OrderBook::getTotalVolume()
-{
+void OrderBook::getTotalVolume(){
 }
 
 // Helper functions
@@ -140,8 +125,7 @@ int OrderBook::priceToIndex(Price price) const
 {
     int index = price.mPriceValueInCent - StartOfPrice;
 
-    if (index < 0 || index >= NumOfLevels)
-    {
+    if (index < 0 || index >= NumOfLevels){
         DEBUG_PRINT("ERROR that price is not a price that this asset can be traded at");
         throw std::invalid_argument("Invalid price to bid/ask");
     }
@@ -150,8 +134,7 @@ int OrderBook::priceToIndex(Price price) const
 
 Price OrderBook::indexToPrice(int levelIndex) const
 {
-    if (levelIndex < 0 || levelIndex >= static_cast<int>(mBidpriceLevel.size()))
-    {
+    if (levelIndex < 0 || levelIndex >= static_cast<int>(mBidpriceLevel.size())){
         throw std::invalid_argument("Invalid level index: " + std::to_string(levelIndex));
     }
 
@@ -220,36 +203,32 @@ void OrderBook::setAskBitTo0(const Price &price)
     mAskBitmap[wordPos] &= ~(1ULL << bitPos);
 }
 
-Order &OrderBook::getBestBid()
+Order* OrderBook::getBestBid()
 {
     int bestBidLevel = findBestBidLevel();
 
-    if (bestBidLevel == -1)
-    {
+    if (bestBidLevel == -1){
         throw std::runtime_error("No bids in the OrderBook!");
     }
-    auto &deque = mBidpriceLevel[bestBidLevel];
+    auto& deque = mBidpriceLevel[bestBidLevel];
 
-    if (deque.empty())
-    {
+    if (deque.empty()){
         throw std::runtime_error("bitmapp shows the level marked but the deque is empty");
     }
 
     return deque.front();
 }
 
-Order &OrderBook::getBestAsk()
+Order* OrderBook::getBestAsk()
 {
     int bestAskLevel = findBestAskLevel();
 
-    if (bestAskLevel == -1)
-    {
+    if (bestAskLevel == -1){
         throw std::runtime_error("No Asks in the OrderBook");
     }
-    auto &deque = mAskPriceLevel[bestAskLevel];
+    auto& deque = mAskPriceLevel[bestAskLevel];
 
-    if (deque.empty())
-    {
+    if (deque.empty()){
         throw std::runtime_error("bitmapp shows the level marked but the deque is empty");
     }
 
@@ -260,22 +239,19 @@ Order OrderBook::popBestBid()
 {
     int bestBidLevel = findBestBidLevel();
 
-    if (bestBidLevel == -1)
-    {
+    if (bestBidLevel == -1){
         throw std::runtime_error("No bids in the OrderBook!");
     }
     auto &deque = mBidpriceLevel[bestBidLevel];
 
-    if (deque.empty())
-    {
+    if (deque.empty()){
         throw std::runtime_error("bitmapp shows the level marked but the deque at that level is empty!");
     }
 
     Order orderCopy = deque.front();
     deque.pop_front();
 
-    if (deque.empty())
-    {
+    if (deque.empty()){
         setBidBitTo0(indexToPrice(bestBidLevel));
     }
 
@@ -286,20 +262,17 @@ Order OrderBook::popBestAsk()
 {
     int bestAskLevel = findBestAskLevel();
 
-    if (bestAskLevel == -1)
-    {
+    if (bestAskLevel == -1){
         throw std::runtime_error("no asks in the OrderBook!");
     }
     auto &deque = mAskPriceLevel[bestAskLevel];
-    if (deque.empty())
-    {
+    if (deque.empty()){
         throw std::runtime_error("bitmap shows the level marked but the deque at that level is empty!");
     }
     Order orderCopy = deque.front();
     deque.pop_front();
 
-    if (deque.empty())
-    {
+    if (deque.empty()){
         setAskBitTo0(indexToPrice(bestAskLevel));
     }
 
@@ -308,12 +281,10 @@ Order OrderBook::popBestAsk()
 
 int OrderBook::findBestBidLevel() const
 {
-    for (int i = static_cast<int>(mBidBitmap.size() - 1); i >= 0; --i)
-    {
+    for (int i = static_cast<int>(mBidBitmap.size() - 1); i >= 0; --i){
         u_int64_t word = mBidBitmap[i];
 
-        if (word != 0)
-        {
+        if (word != 0){
             int leadingZeros = std::__countl_zero(word);
 
             int bitPositionFromRight = 63 - leadingZeros;
@@ -326,13 +297,11 @@ int OrderBook::findBestBidLevel() const
 
 int OrderBook::findBestAskLevel() const
 {
-    for (int i = 0; i < static_cast<int>(mAskBitmap.size()); ++i)
-    {
+    for (int i = 0; i < static_cast<int>(mAskBitmap.size()); ++i){
 
         u_int64_t word = mAskBitmap[i];
 
-        if (word != 0)
-        {
+        if (word != 0){
 
             int trailingZeros = std::__countr_zero(word);
 
@@ -346,8 +315,7 @@ std::pair<Price, Side> OrderBook::orderIdToPrice(const u_int64_t orderId) const
 {
     auto it = orderIdtoPriceMapping.find(orderId);
 
-    if (it != orderIdtoPriceMapping.end())
-    {
+    if (it != orderIdtoPriceMapping.end()){
         Price price = it->second.price;
         Side side = it->second.side;
 
@@ -362,8 +330,7 @@ void OrderBook::removeOrderFromOrderId(u_int64_t orderId){
         std::pair<Price, Side> orderPair = orderIdToPrice(orderId);
         int orderIndex = priceToIndex(orderPair.first);
         
-        if (orderPair.second == Side::Bid)
-        {
+        if (orderPair.second == Side::Bid){
             std::deque<Order> &orderDeQue = mBidpriceLevel[orderIndex];
             // For loop looping over the deque.
             for (auto it = orderDeQue.begin(); it != orderDeQue.end(); it++){
@@ -394,8 +361,7 @@ void OrderBook::removeOrderFromOrderId(u_int64_t orderId){
         }
         orderIdtoPriceMapping.erase(orderId);
     }
-    catch (const std::runtime_error &e)
-    {
+    catch (const std::runtime_error &e){
         std::cout << "Error: " << e.what() << std::endl;
         throw;
     }
@@ -405,18 +371,15 @@ void OrderBook::printOrderBook() const
 {
     std::cout << "--------  OrderBook  ---------------------------------------------" << std::endl;
     std::cout << "\nBIDS (high -> low)\n";
-    for (int i = static_cast<int>(mBidpriceLevel.size()) - 1; i >= 0; --i)
-    {
-        if (mBidpriceLevel[i].empty())
-            continue;
+    for (int i = static_cast<int>(mBidpriceLevel.size()) - 1; i >= 0; --i){
+        if (mBidpriceLevel[i].empty()) continue;
 
         int priceTicks = StartOfPrice + i;
         float TicksToPrice = static_cast<float>(priceTicks / 100.0f);
 
         std::cout << "Level " << i << " (Price €" << TicksToPrice << "): ";
 
-        for (const auto &o : mBidpriceLevel[i])
-        {
+        for (const auto &o : mBidpriceLevel[i]){
             std::cout << "[id=" << o.mOrderID
                       << ", qty=" << o.mVolume
                       << ", user=" << o.mName
@@ -426,8 +389,7 @@ void OrderBook::printOrderBook() const
     }
 
     std::cout << "\nASKS (low -> high)\n";
-    for (int i = 0; i < static_cast<int>(mAskPriceLevel.size()); ++i)
-    {
+    for (int i = 0; i < static_cast<int>(mAskPriceLevel.size()); ++i){
         if (mAskPriceLevel[i].empty())
             continue;
 
