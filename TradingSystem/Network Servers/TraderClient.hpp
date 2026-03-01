@@ -14,7 +14,6 @@
 #include "TCPOrderSession.hpp"
 
 // random seed and distributions for autotrading clients.
-//  top -b -d 1 -p $(pgrep TS) > performance_log.txt
 class TraderClient{
     private: 
     MarketData marketData;
