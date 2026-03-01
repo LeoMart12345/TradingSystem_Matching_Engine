@@ -36,10 +36,9 @@ public:
                 char buff[1024];
                 size_t bytes = UDPsocket.receive(boost::asio::buffer(buff));
                 std::string data(buff, bytes);
-                std::cout << "UDPReceiver: got packet: " << data << std::endl;
+                // std::cout << "UDPReceiver: got packet: " << data << std::endl;
                 marketData.deserialise(data);
-                std::cout << "UDPReceiver: updated bid=" << marketData.get().bestBid 
-                        << " ask=" << marketData.get().bestAsk << std::endl;
+                // std::cout << "UDPReceiver: updated bid=" << marketData.get().bestBid  << " ask=" << marketData.get().bestAsk << std::endl;
             }
         }).detach();
     }

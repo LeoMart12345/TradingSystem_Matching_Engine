@@ -119,9 +119,24 @@ void OrderBook::removeAsk(u_int64_t orderId){
     }
 }
 
-void OrderBook::getVolumeAtLevel(const Price& price){
+std::pair<u_int64_t, u_int64_t> OrderBook::getVolumeAtLevelFromPrice(const Price& price){
     // TODO: IMPLEMENT
+    int level = priceToIndex(price);
+
+    uint64_t totalBidVolume = 0; 
+    uint64_t totalAskVolume = 0;
+
+    for(const auto& order : mBidpriceLevel[level]){
+        totalBidVolume += order->mVolume;
+    }
+
+    for(const auto& order : mAskPriceLevel[level]){
+        totalAskVolume += order->mVolume;
+    }
+
+    return {totalBidVolume, totalAskVolume};
 }
+
 
 void OrderBook::getTotalVolume(){
 }

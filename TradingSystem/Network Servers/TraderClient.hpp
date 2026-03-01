@@ -55,9 +55,17 @@ class TraderClient{
     static void startRandomClientThread(TraderClient& client){
         std::thread t([&client](){
             while(true){
-                client.placeOrder("TSLA", (sideDist(rng) == 1 ? "BUY" : "SELL"), volumeDist(rng), priceDist(rng));
+                u_int64_t orderId = client.placeOrder(
+                    "TSLA", 
+                    (sideDist(rng) == 1 ? "BUY" : "SELL"), 
+                    volumeDist(rng), 
+                    priceDist(rng)
+                ); 
+                std::this_thread::sleep_for(std::chrono::milliseconds(500));
+                client.cancelOrder(orderId);
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
             }
+            
         });
         t.detach();
     }
@@ -75,7 +83,7 @@ class TraderClient{
             std::cout << "| APPL      |   BID    |   ASK    |\n";
             std::cout << "+-----------+----------+----------+\n";
             std::cout << "| Price     | " << std::setw(8) << snapshot.bestBid << " | " << std::setw(8) << snapshot.bestAsk << " |\n";
-            std::cout << "| Volume    | " << std::setw(8) << snapshot.bidVolume << " | " << std::setw(8) << snapshot.askVolume << " |\n";
+            std::cout << "|LevelVolume| " << std::setw(8) << snapshot.bidVolume << " | " << std::setw(8) << snapshot.askVolume << " |\n";
             std::cout << "+-----------+----------+----------+\n\n";
 
             std::cout << "1. Place Order\n";

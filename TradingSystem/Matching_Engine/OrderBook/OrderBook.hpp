@@ -69,7 +69,7 @@ public:
     void setAskBitTo1(const Price& price);
     void setAskBitTo0(const Price& price);
 
-    void getVolumeAtLevel(const Price& price);
+    std::pair<u_int64_t, u_int64_t> getVolumeAtLevelFromPrice(const Price& price);
     void getTotalVolume();
     
     //helper functions

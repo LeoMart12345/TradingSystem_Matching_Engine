@@ -30,17 +30,24 @@ public:
             while(true) {
                 try {
                     MarketDataSnapshot snapshot;
-                    snapshot.bestBid = matchingEngine.getOrderBook().getBestBid()->getPrice().getPriceInTicks();
-                    snapshot.bestAsk = matchingEngine.getOrderBook().getBestAsk()->getPrice().getPriceInTicks();
-                    snapshot.bidVolume = matchingEngine.getOrderBook().getBestBid()->GetVolume();
-                    snapshot.askVolume = matchingEngine.getOrderBook().getBestAsk()->GetVolume();
+                    Order* bestBid = matchingEngine.getOrderBook().getBestBid();
+                    Order* bestAsk = matchingEngine.getOrderBook().getBestAsk();
+
+                    snapshot.bestBid = bestBid->getPrice().getPriceInTicks();
+                    snapshot.bestAsk = bestAsk->getPrice().getPriceInTicks();
+
+                    auto [bidVol, ignore1] = matchingEngine.getOrderBook().getVolumeAtLevelFromPrice(bestBid->getPrice());
+                    auto [ignore2, askVol] = matchingEngine.getOrderBook().getVolumeAtLevelFromPrice(bestAsk->getPrice());
                     
+                    snapshot.bidVolume = bidVol;
+                    snapshot.askVolume = askVol;
+
                     std::string data = snapshot.serialise();
-                    // std::cout << "UDP Sending serlialised data: " << data << std::endl;
                     UDPsocket.send_to(boost::asio::buffer(data), multicastEndpoint);
 
                 } catch(const std::exception& e){
-                    std::cout << "UDP snapshot error: " << e.what() << std::endl;
+                    MarketDataSnapshot empty;
+                    UDPsocket.send_to(boost::asio::buffer(empty.serialise()), multicastEndpoint);
                 }
 
                 std::this_thread::sleep_for(std::chrono::milliseconds(1000));
