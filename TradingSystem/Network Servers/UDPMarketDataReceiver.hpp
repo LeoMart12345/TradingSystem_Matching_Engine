@@ -28,14 +28,18 @@ public:
             boost::asio::ip::address::from_string("239.0.0.1")
         ));
     }
-    
+        
     void start() {
         std::thread([this](){
+            std::cout << "UDPReceiver: thread started, listening for packets" << std::endl;
             while(true){
                 char buff[1024];
                 size_t bytes = UDPsocket.receive(boost::asio::buffer(buff));
                 std::string data(buff, bytes);
+                std::cout << "UDPReceiver: got packet: " << data << std::endl;
                 marketData.deserialise(data);
+                std::cout << "UDPReceiver: updated bid=" << marketData.get().bestBid 
+                        << " ask=" << marketData.get().bestAsk << std::endl;
             }
         }).detach();
     }

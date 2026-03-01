@@ -14,7 +14,7 @@ std::mt19937 rng(std::random_device{}());
 
 std::uniform_int_distribution<int> PriceDist(950, 1050);
 std::uniform_int_distribution<int> sideDist(0, 1);
-std::uniform_int_distribution<int> volumeDist(0, 1000);
+std::uniform_int_distribution<int> volumeDist(1, 1000);
 
 static constexpr int CHUNK = 64;
 constexpr int StartOfPrice = 950;
@@ -74,7 +74,10 @@ void OrderBook::removeBid(u_int64_t orderId){
     
     auto& deque = mBidpriceLevel[bestLevel];
 
-    if (deque.empty()) return;
+    if(deque.empty()){
+        setBidBitTo0(indexToPrice(bestLevel));  // clear stale bit
+        return;
+    }
 
     DEBUG_PRINT("front of deque Id: " << deque.front()->getOrderId() << " OrderId: " << orderId);
 
@@ -97,7 +100,10 @@ void OrderBook::removeAsk(u_int64_t orderId){
     if (bestLevel == -1) return;
     auto& deque = mAskPriceLevel[bestLevel];
 
-    if (deque.empty()) return;
+    if(deque.empty()){
+        setAskBitTo0(indexToPrice(bestLevel));  // clear stale bit
+        return;
+    }
 
     if (deque.front()->getOrderId() != orderId){
         std::__throw_logic_error("orderId does not match the order at thr front of that queue level");

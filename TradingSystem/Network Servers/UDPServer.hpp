@@ -25,19 +25,23 @@ public:
     void run() {
         std::cout << "UDP server started" << std::endl;
         std::thread udpThread([this](){
+        std::cout << "UDP thread started" << std::endl;  // add this
+        
             while(true) {
                 try {
                     MarketDataSnapshot snapshot;
                     snapshot.bestBid = matchingEngine.getOrderBook().getBestBid()->getPrice().getPriceInTicks();
                     snapshot.bestAsk = matchingEngine.getOrderBook().getBestAsk()->getPrice().getPriceInTicks();
-                    snapshot.bidVolume = 0;
-                    snapshot.askVolume = 0;
+                    snapshot.bidVolume = matchingEngine.getOrderBook().getBestBid()->GetVolume();
+                    snapshot.askVolume = matchingEngine.getOrderBook().getBestAsk()->GetVolume();
                     
                     std::string data = snapshot.serialise();
                     // std::cout << "UDP Sending serlialised data: " << data << std::endl;
                     UDPsocket.send_to(boost::asio::buffer(data), multicastEndpoint);
 
-                } catch(...) {}
+                } catch(const std::exception& e){
+                    std::cout << "UDP snapshot error: " << e.what() << std::endl;
+                }
 
                 std::this_thread::sleep_for(std::chrono::milliseconds(1000));
             }

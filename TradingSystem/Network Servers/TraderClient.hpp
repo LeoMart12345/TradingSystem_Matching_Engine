@@ -46,7 +46,10 @@ class TraderClient{
     }
 
     MarketDataSnapshot getMarketData() {
-        return marketData.get();
+        MarketDataSnapshot snapshot = marketData.get();
+
+        std::cout << "DEBUG: bestBid=" << snapshot.bestBid  << " bestAsk=" << snapshot.bestAsk << std::endl;
+        return snapshot;
     }
     
     static void startRandomClientThread(TraderClient& client){
@@ -64,6 +67,9 @@ class TraderClient{
         while (running) {
             system("clear");
             MarketDataSnapshot snapshot = getMarketData();
+            //Testing:
+            std::cout << "Terminal snapshot: bid=" << snapshot.bestBid << " ask=" << snapshot.bestAsk << std::endl;
+
             std::cout << "=== TRADING TERMINAL ===\n\n";
             std::cout << "+-----------+----------+----------+\n";
             std::cout << "| APPL      |   BID    |   ASK    |\n";

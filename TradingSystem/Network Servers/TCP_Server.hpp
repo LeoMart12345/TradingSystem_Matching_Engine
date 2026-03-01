@@ -44,10 +44,15 @@ void run(){
                     OrderRequest request = OrderRequest::deserialize(receivedData);
                     
                     if(request.type == requestType::New){
+                        // for debugging:
+                        // std::cout << "TCPServer: New order request - "
+                        //           << (request.requestOrder.BidOrAsk == Side::Bid ? "BUY" : "SELL")
+                        //           << " " << request.requestOrder.mVolume
+                        //           << " @ " << request.requestOrder.mPrice.getPriceInTicks()
+                        //           << std::endl;
+                        
                         //Order newOrder = request.requestOrder;
                         // acquire the memory from the orderPool:
-                        
-                        // SOme bug here with a memcopy:
                         Order* newOrder = matchingEngine.getOrderBook().getOrderPool().acquire();
                         *newOrder = request.requestOrder;
 

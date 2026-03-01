@@ -37,12 +37,18 @@ void TradingSystem::start(){
     // simulated traders in the background using client interface
     //TESTING!
     std::string host = "127.0.0.1";
-    SimulatedTraders simulatedTraders(host, 5555);
+
+    // SimulatedTraders simulatedTraders(host, 5555);
     // spawns 10 clients and lets them randomly trade on their own threads.
-    simulatedTraders.run(10);
+    // simulatedTraders.run(10);
+
     // Match limit orders:    
     while(1){
         matchingEngine.matchLimitOrders();
+
+        //REMOVE IN PROD!
+        std::this_thread::sleep_for(std::chrono::milliseconds(400));
+
     }
 }
 
