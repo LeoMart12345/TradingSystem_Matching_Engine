@@ -26,4 +26,9 @@ class MatchingEngine {
         u_int64_t addOrder(Order* order);
         void processOrder(OrderRequest orderRequest);
         OrderBook& getOrderBook() { return orderBook; }
+        void cancelOrder(u_int64_t orderId){
+            std::lock_guard<std::mutex> lock(mtx);
+            orderBook.removeOrderFromOrderId(orderId);
+        }
+
 };

@@ -375,8 +375,8 @@ void OrderBook::removeOrderFromOrderId(u_int64_t orderId){
         orderIdtoPriceMapping.erase(orderId);
     }
     catch(const std::runtime_error& e){
-        std::cout << "Error: " << e.what() << std::endl;
-        throw;
+        // can ignore if its not found as it migh have been matched already
+        //std::cout << "Error: " << e.what() << std::endl;
     }
 }
 

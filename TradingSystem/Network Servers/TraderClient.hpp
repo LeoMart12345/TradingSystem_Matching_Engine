@@ -62,7 +62,14 @@ class TraderClient{
                     priceDist(rng)
                 ); 
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
-                client.cancelOrder(orderId);
+                // this could fail as the order could get filled
+                try {
+                    client.cancelOrder(orderId);
+                } catch(...) {
+                    // order already matched so can ignore
+                }
+                
+                
                 std::this_thread::sleep_for(std::chrono::milliseconds(500));
             }
             

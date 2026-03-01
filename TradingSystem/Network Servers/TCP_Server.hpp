@@ -64,7 +64,8 @@ void run(){
                     }else if(request.type == requestType::Cancel){
                         u_int64_t orderId = request.requestOrder.mOrderID;
                         try{
-                            matchingEngine.getOrderBook().removeOrderFromOrderId(orderId);
+                            // matchingEngine.getOrderBook().removeOrderFromOrderId(orderId);
+                            matchingEngine.cancelOrder(orderId);
                             std::string response = "Order cancelled: " + std::to_string(orderId);
                             socket.write_some(boost::asio::buffer(response));
                         }catch(...){
