@@ -86,9 +86,11 @@ void OrderBook::removeBid(u_int64_t orderId){
     }
     // Release the orderPool here:
     Order* orderTop = deque.front();
+
     mOrderPool.release(orderTop);
     // pop from the deque.
     deque.pop_front();
+    orderIdtoPriceMapping.erase(orderId);
 
     if (deque.empty()){
         setBidBitTo0(indexToPrice(bestLevel));
@@ -113,7 +115,7 @@ void OrderBook::removeAsk(u_int64_t orderId){
     mOrderPool.release(orderTop);
     // Then pop
     deque.pop_front();
-
+    orderIdtoPriceMapping.erase(orderId);
     if (deque.empty()){
         setAskBitTo0(indexToPrice(bestLevel));
     }
