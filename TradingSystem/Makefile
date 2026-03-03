@@ -1,7 +1,7 @@
 # Variables
 CXX = g++
-CXXFLAGS = -std=c++23 -Wall -Wextra -g -O0
 
+CXXFLAGS = -std=c++23 -Wall -Wextra -g -O0 -fsanitize=address -fno-omit-frame-pointer
 # Include directories
 INCLUDES = -I. \
            -IMatching_Engine \
@@ -10,7 +10,7 @@ INCLUDES = -I. \
            -IUtilityClass \
            -IBenchmark
 
-LDFLAGS = -lboost_system -lpthread -lsfml-window -lsfml-system
+LDFLAGS = -lboost_system -lpthread -lsfml-window -lsfml-system -fsanitize=address
 
 # Directories
 SRC_DIR = .
