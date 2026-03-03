@@ -33,7 +33,7 @@ void run(){
     while(true){
         ip::tcp::socket socket(context);
         acceptor.accept(socket);
-        
+         
         std::thread clientThread([this](ip::tcp::socket socket){
             while(true){
                 try {
@@ -42,26 +42,18 @@ void run(){
                     std::string receivedData(order, bytes);
 
                     OrderRequest request = OrderRequest::deserialize(receivedData);
-                    
                     if(request.type == requestType::New){
-                        // for debugging:
-                        // std::cout << "TCPServer: New order request - "
-                        //           << (request.requestOrder.BidOrAsk == Side::Bid ? "BUY" : "SELL")
-                        //           << " " << request.requestOrder.mVolume
-                        //           << " @ " << request.requestOrder.mPrice.getPriceInTicks()
-                        //           << std::endl;
-                        
-                        //Order newOrder = request.requestOrder;
-                        // acquire the memory from the orderPool:
-                        Order* newOrder = matchingEngine.getOrderBook().getOrderPool().acquire();
-                        *newOrder = request.requestOrder;
-
-                        // Passes the pointer to the Matching engine: no copies
-                        u_int64_t assignedId = matchingEngine.addOrder(newOrder);
-                        std::string response = std::to_string(assignedId);
-                        socket.write_some(boost::asio::buffer(response));
-                        
-                    }else if(request.type == requestType::Cancel){
+                      try {
+                          Order* newOrder = matchingEngine.getOrderBook().getOrderPool().acquire();
+                          *newOrder = request.requestOrder;
+                          u_int64_t assignedId = matchingEngine.addOrder(newOrder);
+                          std::string response = std::to_string(assignedId);
+                          socket.write_some(boost::asio::buffer(response));
+                      } catch(const std::exception& e){
+                          std::string response = "Order rejected: " + std::string(e.what());
+                          socket.write_some(boost::asio::buffer(response));
+                      }
+                  }else if(request.type == requestType::Cancel){
                         u_int64_t orderId = request.requestOrder.mOrderID;
                         try{
                             // matchingEngine.getOrderBook().removeOrderFromOrderId(orderId);
