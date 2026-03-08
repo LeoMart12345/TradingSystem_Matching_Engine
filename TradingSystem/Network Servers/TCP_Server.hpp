@@ -1,3 +1,5 @@
+
+
 #pragma once
 #include <iostream>
 #include <boost/asio.hpp>
@@ -19,9 +21,9 @@ class TCPServer{
         port(p),
         matchingEngine(engine)
         {
-            
+
         }
-        
+
 void run(){
     using namespace boost::asio;
 
@@ -71,7 +73,6 @@ void run(){
                 }
             }
         }, std::move(socket));
-        
         clientThread.detach();
     }
 }
