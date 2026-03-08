@@ -25,6 +25,13 @@ LIB_SOURCES = $(SRC_DIR)/TradingSystem.cpp \
               $(OB_DIR)/Order.cpp \
               $(UTIL_DIR)/OrderIdGenerator.cpp
 
+# OrderBook benchmark sources — no TradingSystem, no networking
+OB_BENCH_SOURCES = Benchmark/OrderBook_Benchmark.cpp \
+                   $(ME_DIR)/MatchingEngine.cpp \
+                   $(OB_DIR)/OrderBook.cpp \
+                   $(OB_DIR)/Order.cpp \
+                   $(UTIL_DIR)/OrderIdGenerator.cpp
+
 # Main program sources (main.cpp + library sources)
 MAIN_SOURCES = $(SRC_DIR)/main.cpp $(LIB_SOURCES)
 
@@ -50,7 +57,7 @@ $(EXEC): $(MAIN_OBJECTS)
 # Clean up build files
 clean:
 	@echo "Cleaning up build files"
-	rm -f $(MAIN_OBJECTS) $(EXEC) benchmark client
+	rm -f $(MAIN_OBJECTS) $(EXEC) benchmark benchmark_ob client
 	@echo "Done."
 
 # Run program
@@ -70,6 +77,13 @@ benchmark: clean
 	$(CXX) $(CXXFLAGS) $(INCLUDES) Benchmark/Benchmark.cpp $(LIB_SOURCES) -o benchmark $(LDFLAGS)
 	@echo "Benchmark ready! Run with: ./benchmark"
 
+# OrderBook microbenchmark — no TradingSystem, no asan, no boost/sfml
+benchmark_ob: CXXFLAGS = -std=c++23 -Wall -Wextra -O3 -DNDEBUG
+benchmark_ob:
+	@echo "Building OrderBook benchmark..."
+	$(CXX) $(CXXFLAGS) $(INCLUDES) Benchmark/OrderBook_Benchmark.cpp $(ME_DIR)/MatchingEngine.cpp $(OB_DIR)/OrderBook.cpp $(OB_DIR)/Order.cpp $(UTIL_DIR)/OrderIdGenerator.cpp -o benchmark_ob -lpthread
+	@echo "Ready! Run with: ./benchmark_ob"
+
 # Client build
 client:
 	@echo "Building the client..."
@@ -80,4 +94,4 @@ client:
 	@echo "Client ready! Run with: ./client"
 
 # PHONY TARGETS
-.PHONY: all clean run debug benchmark client
+.PHONY: all clean run debug benchmark benchmark_ob client
