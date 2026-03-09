@@ -1,7 +1,7 @@
 # Variables
 CXX = g++
 
-CXXFLAGS = -std=c++23 -Wall -Wextra -g -O0 -fsanitize=address -fno-omit-frame-pointer
+CXXFLAGS = -std=c++23 -Wall -Wextra -g -O0 -fsanitize=address
 # Include directories
 INCLUDES = -I. \
            -IMatching_Engine \
@@ -93,5 +93,18 @@ client:
 		-o client $(LDFLAGS)
 	@echo "Client ready! Run with: ./client"
 
+# System benchmark - TCP round-trip latency.
+benchmark_sys: CXXFLAGS = -std=c++23 -Wall -Wextra -O3 -DNDEBUG -g -fno-omit-frame-pointer
+benchmark_sys:
+	@echo "Building system benchmark..."
+	$(CXX) $(CXXFLAGS) $(INCLUDES) \
+		Benchmark/System_Benchmark.cpp \
+		$(ME_DIR)/MatchingEngine.cpp \
+		$(OB_DIR)/OrderBook.cpp \
+		$(OB_DIR)/Order.cpp \
+		$(UTIL_DIR)/OrderIdGenerator.cpp \
+		-o benchmark_sys -lboost_system -lpthread
+	@echo "Ready! Run with: ./benchmark_sys"
+
 # PHONY TARGETS
-.PHONY: all clean run debug benchmark benchmark_ob client
+.PHONY: all clean run debug benchmark benchmark_ob benchmark_sys client
