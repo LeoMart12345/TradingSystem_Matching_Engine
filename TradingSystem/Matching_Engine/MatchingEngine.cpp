@@ -15,8 +15,10 @@ MatchingEngine::MatchingEngine(OrderBook &orderBook) : orderBook(orderBook) {
   DEBUG_PRINT("matchingEngine was constructed!");
 }
 
-u_int64_t MatchingEngine::addOrder(Order *order) {
+u_int64_t MatchingEngine::addOrder(const Order &orderData) {
   std::lock_guard<std::mutex> lock(mtx);
+  Order *order = orderBook.getOrderPool().acquire();
+  *order = orderData;
   order->mOrderID = OrderIdGenerator::incrementOrder();
 
   DEBUG_PRINT("Server Assigned Order ID " << order->mOrderID);
