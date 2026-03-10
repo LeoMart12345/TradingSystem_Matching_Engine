@@ -12,10 +12,12 @@ import plotly.graph_objects as go
 
 # shared state
 market_data = {
-    "bestBid": 0,
-    "bestAsk": 0,
+    "bestBid":   0,
+    "bestAsk":   0,
     "bidVolume": 0,
     "askVolume": 0,
+    "bidDepth":  [],   # list of (price, volume), high to low
+    "askDepth":  [],   # list of (price, volume), low to high
 }
 
 MAX_HISTORY = 200
@@ -29,29 +31,42 @@ def udp_receiver():
     sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
     sock.bind(("", 9999))
 
-    mreq = struct.pack(
-        "4sL",
-        socket.inet_aton("239.0.0.1"),
-        socket.INADDR_ANY,
-    )
+    mreq = struct.pack("4sL", socket.inet_aton("239.0.0.1"), socket.INADDR_ANY)
     sock.setsockopt(socket.IPPROTO_IP, socket.IP_ADD_MEMBERSHIP, mreq)
 
     while True:
         try:
-            data, _ = sock.recvfrom(1024)
-            parts = data.decode().strip().split(",")
-            if len(parts) >= 4:
-                bid = int(parts[0])
-                ask = int(parts[1])
-                market_data["bestBid"]    = bid
-                market_data["bestAsk"]    = ask
-                market_data["bidVolume"]  = int(parts[2])
-                market_data["askVolume"]  = int(parts[3])
+            data, _ = sock.recvfrom(4096)
+            raw = data.decode().strip()
+
+            # Format: bestBid,bestAsk,bidVol,askVol|b1:bv1;b2:bv2;...|a1:av1;...
+            sections = raw.split("|")
+            base = sections[0].split(",")
+            if len(base) >= 4:
+                bid = int(base[0])
+                ask = int(base[1])
+                market_data["bestBid"]   = bid
+                market_data["bestAsk"]   = ask
+                market_data["bidVolume"] = int(base[2])
+                market_data["askVolume"] = int(base[3])
 
                 if bid > 0 and ask > 0:
                     now = datetime.now()
                     price_history.append((now, (bid + ask) / 2))
                     spread_history.append((now, ask - bid))
+
+            def parse_levels(s):
+                if not s:
+                    return []
+                result = []
+                for entry in s.split(";"):
+                    if ":" in entry:
+                        p, v = entry.split(":")
+                        result.append((int(p), int(v)))
+                return result
+
+            market_data["bidDepth"] = parse_levels(sections[1] if len(sections) > 1 else "")
+            market_data["askDepth"] = parse_levels(sections[2] if len(sections) > 2 else "")
         except Exception:
             pass
 
@@ -82,7 +97,6 @@ def card(children, style=None):
     return html.Div(children, style=base)
 
 
-# layout
 app = dash.Dash(
     __name__,
     external_stylesheets=[
@@ -91,45 +105,19 @@ app = dash.Dash(
 )
 
 app.layout = html.Div(
-    style={
-        "background": BG,
-        "minHeight": "100vh",
-        "fontFamily": FONT_UI,
-        "color": TEXT,
-        "padding": "24px",
-        "boxSizing": "border-box",
-    },
+    style={"background": BG, "minHeight": "100vh", "fontFamily": FONT_UI, "color": TEXT, "padding": "24px", "boxSizing": "border-box"},
     children=[
-        #header
+        # header
         html.Div(
-            style={
-                "display": "flex",
-                "alignItems": "baseline",
-                "gap": "16px",
-                "marginBottom": "24px",
-                "borderBottom": f"1px solid {BORDER}",
-                "paddingBottom": "16px",
-            },
+            style={"display": "flex", "alignItems": "baseline", "gap": "16px", "marginBottom": "24px", "borderBottom": f"1px solid {BORDER}", "paddingBottom": "16px"},
             children=[
-                html.Span(
-                    "TSLA",
-                    style={
-                        "fontFamily": FONT_MONO,
-                        "fontSize": "22px",
-                        "fontWeight": "600",
-                        "color": ACCENT,
-                        "letterSpacing": "0.12em",
-                    },
-                ),
-                html.Span(
-                    "Matching Engine — Live Feed",
-                    style={"fontSize": "13px", "color": DIM, "letterSpacing": "0.05em"},
-                ),
+                html.Span("TSLA", style={"fontFamily": FONT_MONO, "fontSize": "22px", "fontWeight": "600", "color": ACCENT, "letterSpacing": "0.12em"}),
+                html.Span("Matching Engine — Live Feed", style={"fontSize": "13px", "color": DIM}),
                 html.Span(id="clock", style={"marginLeft": "auto", "fontFamily": FONT_MONO, "fontSize": "12px", "color": DIM}),
             ],
         ),
 
-        # top row: bid/ask cards + spread
+        # top row: bid / ask / spread cards
         html.Div(
             style={"display": "grid", "gridTemplateColumns": "1fr 1fr 1fr", "gap": "12px", "marginBottom": "12px"},
             children=[
@@ -151,30 +139,31 @@ app.layout = html.Div(
             ],
         ),
 
-        # ── bottom row: mid price chart + spread chart ──
+        # mid price + spread charts
         html.Div(
             style={"display": "grid", "gridTemplateColumns": "2fr 1fr", "gap": "12px"},
             children=[
                 card([
                     html.Div("MID PRICE", style={"fontSize": "10px", "letterSpacing": "0.15em", "color": DIM, "marginBottom": "8px"}),
-                    dcc.Graph(id="price-chart", config={"displayModeBar": False},
-                              style={"height": "260px"}),
+                    dcc.Graph(id="price-chart", config={"displayModeBar": False}, style={"height": "260px"}),
                 ], style={"padding": "20px 20px 8px"}),
-
                 card([
                     html.Div("SPREAD HISTORY", style={"fontSize": "10px", "letterSpacing": "0.15em", "color": DIM, "marginBottom": "8px"}),
-                    dcc.Graph(id="spread-chart", config={"displayModeBar": False},
-                              style={"height": "260px"}),
+                    dcc.Graph(id="spread-chart", config={"displayModeBar": False}, style={"height": "260px"}),
                 ], style={"padding": "20px 20px 8px"}),
             ],
         ),
+
+        # depth chart
+        card([
+            html.Div("ORDER BOOK DEPTH", style={"fontSize": "10px", "letterSpacing": "0.15em", "color": DIM, "marginBottom": "8px"}),
+            dcc.Graph(id="depth-chart", config={"displayModeBar": False}, style={"height": "260px"}),
+        ], style={"padding": "20px 20px 8px", "marginTop": "12px"}),
 
         dcc.Interval(id="tick", interval=500, n_intervals=0),
     ],
 )
 
-
-# chart helpers
 CHART_LAYOUT = dict(
     paper_bgcolor="rgba(0,0,0,0)",
     plot_bgcolor="rgba(0,0,0,0)",
@@ -184,12 +173,10 @@ CHART_LAYOUT = dict(
     font=dict(family=FONT_UI, color=TEXT),
 )
 
-
 def make_line_fig(xs, ys, color, fill=True):
     fig = go.Figure()
     fig.add_trace(go.Scatter(
-        x=xs, y=ys,
-        mode="lines",
+        x=xs, y=ys, mode="lines",
         line=dict(color=color, width=2),
         fill="tozeroy" if fill else "none",
         fillcolor="rgba(77, 159, 255, 0.06)" if fill else "rgba(0,0,0,0)",
@@ -197,7 +184,7 @@ def make_line_fig(xs, ys, color, fill=True):
     fig.update_layout(**CHART_LAYOUT)
     return fig
 
-# callback
+
 @app.callback(
     Output("bid-price",    "children"),
     Output("ask-price",    "children"),
@@ -207,6 +194,7 @@ def make_line_fig(xs, ys, color, fill=True):
     Output("mid-price",    "children"),
     Output("price-chart",  "figure"),
     Output("spread-chart", "figure"),
+    Output("depth-chart",  "figure"),
     Output("clock",        "children"),
     Input("tick",          "n_intervals"),
 )
@@ -220,20 +208,36 @@ def refresh(_):
     mid    = (bid + ask) / 2 if bid and ask else 0
 
     # price chart
-    if price_history:
-        px_times = [p[0] for p in price_history]
-        px_vals  = [p[1] for p in price_history]
-        price_fig = make_line_fig(px_times, px_vals, ACCENT)
-    else:
-        price_fig = make_line_fig([], [], ACCENT)
+    px_times = [p[0] for p in price_history]
+    px_vals  = [p[1] for p in price_history]
+    price_fig = make_line_fig(px_times, px_vals, ACCENT)
 
     # spread chart
-    if spread_history:
-        sp_times = [s[0] for s in spread_history]
-        sp_vals  = [s[1] for s in spread_history]
-        spread_fig = make_line_fig(sp_times, sp_vals, ASK_CLR, fill=False)
-    else:
-        spread_fig = make_line_fig([], [], ASK_CLR, fill=False)
+    sp_times = [s[0] for s in spread_history]
+    sp_vals  = [s[1] for s in spread_history]
+    spread_fig = make_line_fig(sp_times, sp_vals, ASK_CLR, fill=False)
+
+    # depth chart — bids left (negative x), asks right (positive x)
+    depth_fig = go.Figure()
+    bid_depth = market_data["bidDepth"]
+    ask_depth = market_data["askDepth"]
+    if bid_depth:
+        depth_fig.add_trace(go.Bar(
+            x=[-v for _, v in bid_depth],
+            y=[str(p) for p, _ in bid_depth],
+            orientation="h", marker_color=BID_CLR, name="Bid",
+        ))
+    if ask_depth:
+        depth_fig.add_trace(go.Bar(
+            x=[v for _, v in ask_depth],
+            y=[str(p) for p, _ in ask_depth],
+            orientation="h", marker_color=ASK_CLR, name="Ask",
+        ))
+
+    depth_layout = {**CHART_LAYOUT}
+    depth_layout["xaxis"] = dict(showgrid=False, color=DIM, tickfont=dict(family=FONT_MONO, size=10), zeroline=True, zerolinecolor=BORDER)
+    depth_layout["yaxis"] = dict(showgrid=False, color=DIM, tickfont=dict(family=FONT_MONO, size=10), categoryorder="category ascending")
+    depth_fig.update_layout(**depth_layout, barmode="overlay", showlegend=False)
 
     clock = datetime.now().strftime("%H:%M:%S")
 
@@ -244,9 +248,7 @@ def refresh(_):
         f"vol {avol:,}",
         f"{spread:+}" if spread else "—",
         f"mid {mid:.1f}" if mid else "—",
-        price_fig,
-        spread_fig,
-        clock,
+        price_fig, spread_fig, depth_fig, clock,
     )
 
 
