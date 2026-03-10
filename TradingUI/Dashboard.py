@@ -16,13 +16,12 @@ market_data = {
     "bestAsk":   0,
     "bidVolume": 0,
     "askVolume": 0,
-    "bidDepth":  [],   # list of (price, volume), high to low
-    "askDepth":  [],   # list of (price, volume), low to high
 }
 
 MAX_HISTORY = 200
 price_history = deque(maxlen=MAX_HISTORY)   # (timestamp, mid_price)
 spread_history = deque(maxlen=MAX_HISTORY)  # (timestamp, spread)
+trade_history = deque(maxlen=50)            # (timestamp, price, volume)
 
 
 # UDP multicast receiver
@@ -39,7 +38,14 @@ def udp_receiver():
             data, _ = sock.recvfrom(4096)
             raw = data.decode().strip()
 
-            # Format: bestBid,bestAsk,bidVol,askVol|b1:bv1;b2:bv2;...|a1:av1;...
+            # Trade execution packet: TRADE:price:volume
+            if raw.startswith("TRADE:"):
+                parts = raw[6:].split(":")
+                if len(parts) == 2:
+                    trade_history.appendleft((datetime.now(), int(parts[0]), int(parts[1])))
+                continue
+
+            # Market data packet: bestBid,bestAsk,bidVol,askVol
             sections = raw.split("|")
             base = sections[0].split(",")
             if len(base) >= 4:
@@ -54,19 +60,6 @@ def udp_receiver():
                     now = datetime.now()
                     price_history.append((now, (bid + ask) / 2))
                     spread_history.append((now, ask - bid))
-
-            def parse_levels(s):
-                if not s:
-                    return []
-                result = []
-                for entry in s.split(";"):
-                    if ":" in entry:
-                        p, v = entry.split(":")
-                        result.append((int(p), int(v)))
-                return result
-
-            market_data["bidDepth"] = parse_levels(sections[1] if len(sections) > 1 else "")
-            market_data["askDepth"] = parse_levels(sections[2] if len(sections) > 2 else "")
         except Exception:
             pass
 
@@ -154,11 +147,11 @@ app.layout = html.Div(
             ],
         ),
 
-        # depth chart
+        # trade feed
         card([
-            html.Div("ORDER BOOK DEPTH", style={"fontSize": "10px", "letterSpacing": "0.15em", "color": DIM, "marginBottom": "8px"}),
-            dcc.Graph(id="depth-chart", config={"displayModeBar": False}, style={"height": "260px"}),
-        ], style={"padding": "20px 20px 8px", "marginTop": "12px"}),
+            html.Div("RECENT TRADES", style={"fontSize": "10px", "letterSpacing": "0.15em", "color": DIM, "marginBottom": "12px"}),
+            html.Div(id="trade-feed"),
+        ], style={"padding": "20px", "marginTop": "12px"}),
 
         dcc.Interval(id="tick", interval=500, n_intervals=0),
     ],
@@ -194,7 +187,7 @@ def make_line_fig(xs, ys, color, fill=True):
     Output("mid-price",    "children"),
     Output("price-chart",  "figure"),
     Output("spread-chart", "figure"),
-    Output("depth-chart",  "figure"),
+    Output("trade-feed",   "children"),
     Output("clock",        "children"),
     Input("tick",          "n_intervals"),
 )
@@ -217,27 +210,21 @@ def refresh(_):
     sp_vals  = [s[1] for s in spread_history]
     spread_fig = make_line_fig(sp_times, sp_vals, ASK_CLR, fill=False)
 
-    # depth chart — bids left (negative x), asks right (positive x)
-    depth_fig = go.Figure()
-    bid_depth = market_data["bidDepth"]
-    ask_depth = market_data["askDepth"]
-    if bid_depth:
-        depth_fig.add_trace(go.Bar(
-            x=[-v for _, v in bid_depth],
-            y=[str(p) for p, _ in bid_depth],
-            orientation="h", marker_color=BID_CLR, name="Bid",
+    # trade feed rows
+    trade_rows = []
+    for ts, price, vol in list(trade_history):
+        trade_rows.append(html.Div(
+            style={"display": "flex", "gap": "24px", "fontFamily": FONT_MONO,
+                   "fontSize": "12px", "padding": "4px 0",
+                   "borderBottom": f"1px solid {BORDER}"},
+            children=[
+                html.Span(ts.strftime("%H:%M:%S"), style={"color": DIM, "width": "70px"}),
+                html.Span(f"{price:,}", style={"color": ACCENT, "width": "80px"}),
+                html.Span(f"qty {vol:,}", style={"color": TEXT}),
+            ],
         ))
-    if ask_depth:
-        depth_fig.add_trace(go.Bar(
-            x=[v for _, v in ask_depth],
-            y=[str(p) for p, _ in ask_depth],
-            orientation="h", marker_color=ASK_CLR, name="Ask",
-        ))
-
-    depth_layout = {**CHART_LAYOUT}
-    depth_layout["xaxis"] = dict(showgrid=False, color=DIM, tickfont=dict(family=FONT_MONO, size=10), zeroline=True, zerolinecolor=BORDER)
-    depth_layout["yaxis"] = dict(showgrid=False, color=DIM, tickfont=dict(family=FONT_MONO, size=10), categoryorder="category ascending")
-    depth_fig.update_layout(**depth_layout, barmode="overlay", showlegend=False)
+    if not trade_rows:
+        trade_rows = [html.Span("Waiting for trades...", style={"color": DIM, "fontFamily": FONT_MONO, "fontSize": "12px"})]
 
     clock = datetime.now().strftime("%H:%M:%S")
 
@@ -248,7 +235,7 @@ def refresh(_):
         f"vol {avol:,}",
         f"{spread:+}" if spread else "—",
         f"mid {mid:.1f}" if mid else "—",
-        price_fig, spread_fig, depth_fig, clock,
+        price_fig, spread_fig, trade_rows, clock,
     )
 
 

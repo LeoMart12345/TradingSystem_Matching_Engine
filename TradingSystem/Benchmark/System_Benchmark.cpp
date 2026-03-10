@@ -10,6 +10,8 @@
 #include <algorithm>
 #include <atomic>
 #include <chrono>
+#include <cstddef>
+#include <cstdint>
 #include <iostream>
 #include <random>
 #include <thread>
@@ -17,6 +19,8 @@
 
 static constexpr size_t WARMUP = 200;
 static constexpr size_t N = 5000;
+static constexpr size_t THROUGHPUT_CLIENTS = 10;
+static constexpr size_t THROUGHPUT_N = 500000;
 
 namespace {
 std::mt19937 rng(42);
@@ -94,6 +98,52 @@ int main() {
   std::cout << "System Benchmark — TCP round-trip (" << N << " orders)\n\n";
   std::cout << "PLACE ORDER:\n";
   printPercentiles(latencies);
+
+  /////////////// Throughput benchmarking ///////////////////////
+  std::cout << "throughput benchmarking " << THROUGHPUT_CLIENTS << " Clients x "
+            << THROUGHPUT_N << "orders each" << std::endl;
+
+  std::vector<std::vector<Order>> clientOrders(THROUGHPUT_CLIENTS);
+  for (auto &orders : clientOrders) {
+    orders.reserve(THROUGHPUT_N);
+    for (size_t i = 0; i < THROUGHPUT_N; i++) {
+      Order o;
+      o.BidOrAsk = (sideDist(rng) == 0) ? Bid : Ask;
+      o.mVolume = volDist(rng);
+      o.mName = "TSLA";
+      o.mPrice = Price(priceDist(rng));
+      orders.push_back(o);
+    }
+  }
+
+  std::vector<std::thread> throughputThreads;
+
+  for (size_t c = 0; c < THROUGHPUT_CLIENTS; c++) {
+    throughputThreads.emplace_back([&, c]() {
+      TCPOrderSession session;
+      session.connect("127.0.0.1", 5555);
+      for (size_t i = 0; i < THROUGHPUT_N; i++) {
+        uint64_t id = session.placeOrder(clientOrders[c][i]);
+        session.cancelOrder(id);
+      }
+    });
+  }
+
+  // Give threads time to connect before timing starts
+  std::this_thread::sleep_for(std::chrono::milliseconds(50));
+
+  auto tp1 = std::chrono::steady_clock::now();
+  for (auto &t : throughputThreads)
+    t.join();
+  auto tp2 = std::chrono::steady_clock::now();
+
+  double elapsed_s = std::chrono::duration<double>(tp2 - tp1).count();
+  size_t total = THROUGHPUT_CLIENTS * THROUGHPUT_N;
+
+  std::cout << "  Total orders: " << total << "\n";
+  std::cout << "  Elapsed:      " << elapsed_s * 1000.0 << " ms\n";
+  std::cout << "  Throughput:   " << (size_t)(total / elapsed_s)
+            << " orders/sec\n";
 
   running = false;
   return 0;

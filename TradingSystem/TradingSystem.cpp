@@ -36,11 +36,13 @@ void TradingSystem::start() {
 
   // Match limit orders:
   while (1) {
-    matchingEngine.matchLimitOrders();
-
-    // REMOVE IN PROD!
-    // std::this_thread::sleep_for(std::chrono::milliseconds(400));
+    auto trade = matchingEngine.matchLimitOrders();
+    if (trade.has_value()) {
+      UDPServerI->sendTrade(trade.value());
+    }
   }
+  // REMOVE IN PROD!
+  // std::this_thread::sleep_for(std::chrono::milliseconds(400));
 }
 
 void TradingSystem::stop() {

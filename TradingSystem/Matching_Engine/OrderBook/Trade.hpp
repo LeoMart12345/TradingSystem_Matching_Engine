@@ -1,6 +1,8 @@
 #pragma once
 #include "order.hpp"
 #include <iostream>
+#include <string>
+#include <sys/types.h>
 
 class Trade {
 
@@ -27,5 +29,12 @@ public:
     std::cout << "Bid Price: " << mBidOrder->getPrice().mPriceValueInCent
               << std::endl;
     std::cout << "Volume: " << mTradeVolume << std::endl;
+  }
+  // For sending data to the dashboard.py
+  u_int64_t getPrice() const { return mTradePrice; }
+  u_int64_t getVolume() const { return mTradeVolume; }
+
+  std::string serialise() const {
+    return std::to_string(mTradePrice) + ":" + std::to_string(mTradeVolume);
   }
 };

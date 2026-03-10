@@ -1,8 +1,11 @@
 #pragma once
 #include "../Matching_Engine/MatchingEngine.hpp"
+#include "../Matching_Engine/OrderBook/Trade.hpp"
+
 #include <MarketData.hpp>
 #include <boost/asio.hpp>
 #include <chrono>
+#include <mutex>
 #include <thread>
 
 class UDPServer {
@@ -11,6 +14,7 @@ private:
   boost::asio::io_context UDPcontext;
   boost::asio::ip::udp::socket UDPsocket;
   boost::asio::ip::udp::endpoint multicastEndpoint;
+  std::mutex socketMtx;
 
 public:
   explicit UDPServer(MatchingEngine &engine)
@@ -46,19 +50,27 @@ public:
           snapshot.askVolume = askVol;
 
           std::string data = snapshot.serialise();
+          std::lock_guard<std::mutex> lock(socketMtx);
           UDPsocket.send_to(boost::asio::buffer(data), multicastEndpoint);
 
         } catch (const std::exception &e) {
           MarketDataSnapshot empty;
+          std::lock_guard<std::mutex> lock(socketMtx);
           UDPsocket.send_to(boost::asio::buffer(empty.serialise()),
                             multicastEndpoint);
         }
 
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
       }
     });
     int arr[100];
 
     udpThread.detach();
+  }
+
+  void sendTrade(const Trade &trade) {
+    std::string data = "TRADE:" + trade.serialise();
+    std::lock_guard<std::mutex> lock(socketMtx);
+    UDPsocket.send_to(boost::asio::buffer(data), multicastEndpoint);
   }
 };
