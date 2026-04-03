@@ -54,6 +54,7 @@ std::optional<Trade> MatchingEngine::matchLimitOrders() {
     if (bidPrice >= askPrice) {
       u_int64_t tradeVolume =
           std::min(bestAsk->GetVolume(), bestBid->GetVolume());
+
       u_int64_t tradePrice = askPrice;
 
       bestAsk->reduceVolume(tradeVolume);

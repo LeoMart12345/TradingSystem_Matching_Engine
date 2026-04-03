@@ -42,7 +42,6 @@ public:
 
                 OrderRequest request = OrderRequest::deserialize(receivedData);
                 if (request.type == requestType::New) {
-
                   try {
                     u_int64_t assignedId =
                         matchingEngine.addOrder(request.requestOrder);

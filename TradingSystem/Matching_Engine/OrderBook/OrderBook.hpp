@@ -32,8 +32,6 @@ private:
     bool isValid = false;
   };
   // maps a unique orderID to a location
-  // replacing this with a flat structure that doesnt need malloc @ runtime.
-  //  std::unordered_map<u_int64_t, OrderLocation> orderIdtoPriceMapping;
   std::array<OrderLocation, 10000> orderIdtoPriceMapping;
   // Mutex for locking the orderbook.
   std::mutex mtx;
@@ -56,14 +54,11 @@ public:
   // updated API that takes into account quantity and the posibility of a
   // partial fill
   Order *getBestBid();
-  // todo peek best bid
-  Order *popBestBid();
 
   // void fillBestBid(u_int16_t quantity); // todo decide if this needs to be
   // matching engine logic
   Order *getBestAsk();
   // todo peek best ask
-  Order *popBestAsk();
 
   ObjectPool<Order, 10000> &getOrderPool() { return mOrderPool; }
 

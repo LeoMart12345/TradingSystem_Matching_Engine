@@ -18,14 +18,14 @@ ME_DIR = Matching_Engine
 OB_DIR = $(ME_DIR)/OrderBook
 UTIL_DIR = UtilityClass
 
-# Library sources (includes TradingSystem.cpp but NO main function)
+# Library sources
 LIB_SOURCES = $(SRC_DIR)/TradingSystem.cpp \
               $(ME_DIR)/MatchingEngine.cpp \
               $(OB_DIR)/OrderBook.cpp \
               $(OB_DIR)/Order.cpp \
               $(UTIL_DIR)/OrderIdGenerator.cpp
 
-# OrderBook benchmark sources — no TradingSystem, no networking
+# OrderBook benchmark sources — no TradingSystem, no networking involved
 OB_BENCH_SOURCES = Benchmark/OrderBook_Benchmark.cpp \
                    $(ME_DIR)/MatchingEngine.cpp \
                    $(OB_DIR)/OrderBook.cpp \
@@ -71,7 +71,7 @@ debug: clean $(EXEC)
 	@echo "Debug build complete."
 
 # Benchmark build - Benchmark.cpp + library sources (no main.cpp)
-benchmark: CXXFLAGS = -std=c++20 -Wall -Wextra -O3 -DNDEBUG
+benchmark: CXXFLAGS = -std=c++23 -Wall -Wextra -O3 -DNDEBUG
 benchmark: clean
 	@echo "Building benchmark (optimized, no debug prints)..."
 	$(CXX) $(CXXFLAGS) $(INCLUDES) Benchmark/Benchmark.cpp $(LIB_SOURCES) -o benchmark $(LDFLAGS)

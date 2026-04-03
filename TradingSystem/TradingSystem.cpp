@@ -31,8 +31,8 @@ void TradingSystem::start() {
   std::string host = "127.0.0.1";
 
   SimulatedTraders simulatedTraders(host, 5555);
-  // Spawns 10 clients and lets them randomly trade on their own threads.
-  simulatedTraders.run(10);
+  // Spawns x clients and lets them randomly trade on their own threads.
+  simulatedTraders.run(5);
 
   // Match limit orders:
   while (1) {
@@ -41,8 +41,6 @@ void TradingSystem::start() {
       UDPServerI->sendTrade(trade.value());
     }
   }
-  // REMOVE IN PROD!
-  // std::this_thread::sleep_for(std::chrono::milliseconds(400));
 }
 
 void TradingSystem::stop() {

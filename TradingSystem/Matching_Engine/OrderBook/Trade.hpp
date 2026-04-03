@@ -20,8 +20,7 @@ public:
         u_int64_t priceParam)
       : mBidOrder(bidOrderParam), mAskOrder(askOrderParam),
         mTradeVolume(tradeVolumeParam), mTradePrice(priceParam) {}
-  // these can be dangling pointers if the trade orders are released to the
-  // orderPool
+
   void printTrade() const {
     std::cout << "Trade Details:" << std::endl;
     std::cout << "Ask Price: " << mAskOrder->getPrice().mPriceValueInCent

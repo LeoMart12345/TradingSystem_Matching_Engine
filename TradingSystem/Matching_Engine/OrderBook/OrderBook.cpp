@@ -257,50 +257,6 @@ Order *OrderBook::getBestAsk() {
   return deque.front();
 }
 
-Order *OrderBook::popBestBid() {
-  int bestBidLevel = findBestBidLevel();
-
-  if (bestBidLevel == -1) {
-    throw std::runtime_error("No bids in the OrderBook!");
-  }
-  auto &deque = mBidpriceLevel[bestBidLevel];
-
-  if (deque.empty()) {
-    throw std::runtime_error(
-        "bitmapp shows the level marked but the deque at that level is empty!");
-  }
-
-  Order *order = deque.front();
-  deque.pop_front();
-
-  if (deque.empty()) {
-    setBidBitTo0(indexToPrice(bestBidLevel));
-  }
-
-  return order;
-}
-
-Order *OrderBook::popBestAsk() {
-  int bestAskLevel = findBestAskLevel();
-
-  if (bestAskLevel == -1) {
-    throw std::runtime_error("no asks in the OrderBook!");
-  }
-  auto &deque = mAskPriceLevel[bestAskLevel];
-  if (deque.empty()) {
-    throw std::runtime_error(
-        "bitmap shows the level marked but the deque at that level is empty!");
-  }
-  Order *order = deque.front();
-  deque.pop_front();
-
-  if (deque.empty()) {
-    setAskBitTo0(indexToPrice(bestAskLevel));
-  }
-
-  return order;
-}
-
 int OrderBook::findBestBidLevel() const {
   for (int i = static_cast<int>(mBidBitmap.size() - 1); i >= 0; --i) {
     u_int64_t word = mBidBitmap[i];
@@ -341,7 +297,6 @@ OrderBook::orderIdToPrice(const u_int64_t orderId) const {
   return std::make_pair(loc.price, loc.side);
 }
 
-// TODO: add the objectPool release to this:
 void OrderBook::removeOrderFromOrderId(u_int64_t orderId) {
   try {
     std::pair<Price, Side> orderPair = orderIdToPrice(orderId);
