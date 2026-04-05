@@ -62,7 +62,7 @@ make benchmark_sys
 
 ## Tests
 
-11 Google Test unit tests covering order book correctness, matching engine logic, serialisation, and order operations.
+Google Test unit tests covering order book correctness, matching engine logic, serialisation, and order operations.
 ```bash
 make test
 ./run_tests
