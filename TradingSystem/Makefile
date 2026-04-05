@@ -10,7 +10,7 @@ INCLUDES = -I. \
            -IUtilityClass \
            -IBenchmark
 
-LDFLAGS = -lboost_system -lpthread -lsfml-window -lsfml-system -fsanitize=address
+LDFLAGS = -lboost_system -lpthread -fsanitize=address
 
 # Directories
 SRC_DIR = .
@@ -81,7 +81,9 @@ benchmark: clean
 benchmark_ob: CXXFLAGS = -std=c++23 -Wall -Wextra -O3 -DNDEBUG
 benchmark_ob:
 	@echo "Building OrderBook benchmark..."
-	$(CXX) $(CXXFLAGS) $(INCLUDES) Benchmark/OrderBook_Benchmark.cpp $(ME_DIR)/MatchingEngine.cpp $(OB_DIR)/OrderBook.cpp $(OB_DIR)/Order.cpp $(UTIL_DIR)/OrderIdGenerator.cpp -o benchmark_ob -lpthread
+	$(CXX) $(CXXFLAGS) $(INCLUDES) Benchmark/OrderBook_Benchmark.cpp $(ME_DIR)/
+	MatchingEngine.cpp $(OB_DIR)/
+	OrderBook.cpp $(OB_DIR)/Order.cpp $(UTIL_DIR)/OrderIdGenerator.cpp -o benchmark_ob -lpthread
 	@echo "Ready! Run with: ./benchmark_ob"
 
 # Client build
@@ -106,5 +108,18 @@ benchmark_sys:
 		-o benchmark_sys -lboost_system -lpthread
 	@echo "Ready! Run with: ./benchmark_sys"
 
+# Google Test
+test: CXXFLAGS = -std=c++23 -Wall -Wextra -O0 -g
+test:
+	@echo "Building Google Tests..."
+	$(CXX) $(CXXFLAGS) $(INCLUDES) \
+	  Tests/TradingSystem_Test.cpp \
+	  $(ME_DIR)/MatchingEngine.cpp \
+	  $(OB_DIR)/OrderBook.cpp \
+	  $(OB_DIR)/Order.cpp \
+	  $(UTIL_DIR)/OrderIdGenerator.cpp \
+	  -o run_tests -lgtest -lgtest_main -lpthread
+	@echo "Ready! Run with: ./run_tests"
+
 # PHONY TARGETS
-.PHONY: all clean run debug benchmark benchmark_ob benchmark_sys client
+.PHONY: all clean run debug benchmark benchmark_ob benchmark_sys client test

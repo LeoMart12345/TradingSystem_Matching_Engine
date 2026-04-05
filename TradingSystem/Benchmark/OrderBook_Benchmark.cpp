@@ -9,8 +9,7 @@
 #include <vector>
 
 static constexpr size_t WARMUP = 500;
-// Pool is 10k slots keep totals under that
-
+// Pool is 10k slots, keeping totals under that
 std::mt19937 bench_rng(42); // fixed seed for reproducible runs
 std::uniform_int_distribution<int> bench_priceDist(950, 1050);
 std::uniform_int_distribution<int> bench_sideDist(0, 1);

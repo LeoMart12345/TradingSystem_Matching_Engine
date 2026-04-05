@@ -19,8 +19,8 @@
 
 static constexpr size_t WARMUP = 200;
 static constexpr size_t N = 5000;
-static constexpr size_t THROUGHPUT_CLIENTS = 10;
-static constexpr size_t THROUGHPUT_N = 500000;
+static constexpr size_t THROUGHPUT_CLIENTS = 3;
+static constexpr size_t THROUGHPUT_N = 1000;
 
 namespace {
 std::mt19937 rng(42);
@@ -62,7 +62,7 @@ int main() {
   TCPOrderSession session;
   session.connect("127.0.0.1", 5555);
 
-  // Pre-generate orders — mOrderID left 0, server overwrites it
+  // Pre-generate orders mOrderID left 0, server overwrites it
   std::vector<Order> orders;
   orders.reserve(N + WARMUP);
   for (size_t i = 0; i < N + WARMUP; i++) {
@@ -74,13 +74,13 @@ int main() {
     orders.push_back(o);
   }
 
-  // Warmup — not timed, heats up TCP buffers and branch predictors
+  // Warmup: not timed, heats up TCP buffers and branch predictors
   for (size_t i = 0; i < WARMUP; i++) {
     uint64_t id = session.placeOrder(orders[i]);
     session.cancelOrder(id);
   }
 
-  // Timed run — cancel is outside the timing window to keep pool free
+  // Timed run: cancel is outside the timing window to keep pool free
   std::vector<long long> latencies;
   latencies.reserve(N);
 
@@ -99,7 +99,7 @@ int main() {
   std::cout << "PLACE ORDER:\n";
   printPercentiles(latencies);
 
-  /////////////// Throughput benchmarking ///////////////////////
+  // Throughput benchmarking
   std::cout << "throughput benchmarking " << THROUGHPUT_CLIENTS << " Clients x "
             << THROUGHPUT_N << "orders each" << std::endl;
 
