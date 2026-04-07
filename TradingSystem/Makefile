@@ -1,7 +1,8 @@
 # Variables
 CXX = g++
 
-CXXFLAGS = -std=c++23 -Wall -Wextra -g -O0 -fsanitize=address
+#CXXFLAGS = -std=c++23 -Wall -Wextra -g -O0 -fsanitize=address
+CXXFLAGS = -std=c++23 -Wall -Wextra -O3
 # Include directories
 INCLUDES = -I. \
            -IMatching_Engine \
@@ -10,7 +11,7 @@ INCLUDES = -I. \
            -IUtilityClass \
            -IBenchmark
 
-LDFLAGS = -lboost_system -lpthread -fsanitize=address
+LDFLAGS = -lboost_system -lpthread
 
 # Directories
 SRC_DIR = .
@@ -25,7 +26,7 @@ LIB_SOURCES = $(SRC_DIR)/TradingSystem.cpp \
               $(OB_DIR)/Order.cpp \
               $(UTIL_DIR)/OrderIdGenerator.cpp
 
-# OrderBook benchmark sources — no TradingSystem, no networking involved
+# OrderBook benchmark sources: no TradingSystem, no networking involved
 OB_BENCH_SOURCES = Benchmark/OrderBook_Benchmark.cpp \
                    $(ME_DIR)/MatchingEngine.cpp \
                    $(OB_DIR)/OrderBook.cpp \
@@ -66,7 +67,12 @@ run: $(EXEC)
 	./$(EXEC)
 
 # Debug build
-debug: CXXFLAGS += -g -DDEBUG
+#debug: CXXFLAGS += -g -DDEBUG
+#debug: clean $(EXEC)
+#	@echo "Debug build complete."
+
+debug: CXXFLAGS = -std=c++23 -Wall -Wextra -g -O0 -fsanitize=address -DDEBUG
+debug: LDFLAGS = -lboost_system -lpthread -fsanitize=address
 debug: clean $(EXEC)
 	@echo "Debug build complete."
 
@@ -81,9 +87,12 @@ benchmark: clean
 benchmark_ob: CXXFLAGS = -std=c++23 -Wall -Wextra -O3 -DNDEBUG
 benchmark_ob:
 	@echo "Building OrderBook benchmark..."
-	$(CXX) $(CXXFLAGS) $(INCLUDES) Benchmark/OrderBook_Benchmark.cpp $(ME_DIR)/
-	MatchingEngine.cpp $(OB_DIR)/
-	OrderBook.cpp $(OB_DIR)/Order.cpp $(UTIL_DIR)/OrderIdGenerator.cpp -o benchmark_ob -lpthread
+	$(CXX) $(CXXFLAGS) $(INCLUDES) Benchmark/OrderBook_Benchmark.cpp \
+		$(ME_DIR)/MatchingEngine.cpp \
+		$(OB_DIR)/OrderBook.cpp \
+		$(OB_DIR)/Order.cpp \
+		$(UTIL_DIR)/OrderIdGenerator.cpp \
+		-o benchmark_ob -lpthread
 	@echo "Ready! Run with: ./benchmark_ob"
 
 # Client build
@@ -106,7 +115,7 @@ benchmark_sys:
 		$(OB_DIR)/Order.cpp \
 		$(UTIL_DIR)/OrderIdGenerator.cpp \
 		-o benchmark_sys -lboost_system -lpthread
-	@echo "Ready! Run with: ./benchmark_sys"
+	@echo "Benchmark Build Complete: Run with: ./benchmark_sys"
 
 # Google Test
 test: CXXFLAGS = -std=c++23 -Wall -Wextra -O0 -g

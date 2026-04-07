@@ -19,8 +19,8 @@
 
 static constexpr size_t WARMUP = 200;
 static constexpr size_t N = 5000;
-static constexpr size_t THROUGHPUT_CLIENTS = 3;
-static constexpr size_t THROUGHPUT_N = 1000;
+static constexpr size_t THROUGHPUT_CLIENTS = 10;
+static constexpr size_t THROUGHPUT_N = 500000;
 
 namespace {
 std::mt19937 rng(42);

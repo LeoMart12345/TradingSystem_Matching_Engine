@@ -55,10 +55,7 @@ public:
   // partial fill
   Order *getBestBid();
 
-  // void fillBestBid(u_int16_t quantity); // todo decide if this needs to be
-  // matching engine logic
   Order *getBestAsk();
-  // todo peek best ask
 
   ObjectPool<Order, 10000> &getOrderPool() { return mOrderPool; }
 

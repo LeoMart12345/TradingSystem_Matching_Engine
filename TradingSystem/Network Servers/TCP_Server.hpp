@@ -1,5 +1,5 @@
-
-
+// TcpServer listens on port 5555 for incoming client connections
+// Each connection haned off the a detached thread
 #pragma once
 #include <MarketData.hpp>
 #include <boost/asio.hpp>
@@ -30,7 +30,7 @@ public:
 
     while (true) {
       ip::tcp::socket socket(context);
-      acceptor.accept(socket);
+      acceptor.accept(socket); // blocks until a client connects
 
       std::thread clientThread(
           [this](ip::tcp::socket socket) {
@@ -39,7 +39,7 @@ public:
                 char order[1024];
                 size_t bytes = socket.read_some(buffer(order));
                 std::string receivedData(order, bytes);
-
+                // deserialoses the wrapper around the order (order request)
                 OrderRequest request = OrderRequest::deserialize(receivedData);
                 if (request.type == requestType::New) {
                   try {
@@ -71,7 +71,8 @@ public:
               }
             }
           },
-          std::move(socket));
+          std::move(socket)); // move ownership to the lambda, cant copy a file
+                              // desicriptor
       clientThread.detach();
     }
   }

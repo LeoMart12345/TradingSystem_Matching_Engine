@@ -1,12 +1,15 @@
+// ObjectPool.hpp
 #pragma once
 #include <array>
 #include <mutex>
 #include <stack>
 
+// pre-allocates size objects of type T
+// acquire() and release replace malloc and free() for the hot path
 template <typename T, size_t Size> class ObjectPool {
 private:
-  std::array<T, Size> pool;
-  std::stack<size_t> freeStack;
+  std::array<T, Size> pool;     // fixed blocks of pre- allocated objects
+  std::stack<size_t> freeStack; // indices of available slots
   std::mutex poolMutex;
 
 public:

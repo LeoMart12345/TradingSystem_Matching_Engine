@@ -29,7 +29,7 @@ OrderBook::OrderBook(size_t size)
   DEBUG_PRINT("BitMap create with " << mBidBitmap.size() << " 64 bit elements");
 }
 
-// TODO: remove this to test
+// generates random orders in a set distribution
 Order OrderBook::generateRandomOrder() {
   int randPriceint = PriceDist(rng);
   int randSide = sideDist(rng);
@@ -67,7 +67,7 @@ void OrderBook::addAsk(Order *order) {
   DEBUG_PRINT("ORDERBOOK::ADDASK after printing price");
 }
 
-// fixe to use deque with pointers.
+// removing a bid from an orderId
 void OrderBook::removeBid(u_int64_t orderId) {
   int bestLevel = findBestBidLevel();
   if (bestLevel == -1)
@@ -93,7 +93,6 @@ void OrderBook::removeBid(u_int64_t orderId) {
   mOrderPool.release(orderTop);
   // pop from the deque.
   deque.pop_front();
-  // removing from the
   orderIdtoPriceMapping[orderId % POOL_SIZE] = {};
 
   if (deque.empty()) {
@@ -129,7 +128,7 @@ void OrderBook::removeAsk(u_int64_t orderId) {
 
 std::pair<u_int64_t, u_int64_t>
 OrderBook::getVolumeAtLevelFromPrice(const Price &price) {
-  // TODO: IMPLEMENT
+
   int level = priceToIndex(price);
 
   uint64_t totalBidVolume = 0;

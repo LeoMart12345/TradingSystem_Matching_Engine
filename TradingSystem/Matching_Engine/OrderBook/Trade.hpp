@@ -13,7 +13,7 @@ private:
   u_int64_t mTradePrice;
 
 public:
-  // TODO make a default constructor:
+  // default constructor
   Trade() = default;
 
   Trade(Order *bidOrderParam, Order *askOrderParam, u_int64_t tradeVolumeParam,
@@ -29,7 +29,6 @@ public:
               << std::endl;
     std::cout << "Volume: " << mTradeVolume << std::endl;
   }
-  // For sending data to the dashboard.py
   u_int64_t getPrice() const { return mTradePrice; }
   u_int64_t getVolume() const { return mTradeVolume; }
 
