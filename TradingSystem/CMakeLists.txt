@@ -1,5 +1,5 @@
 find_package(Threads REQUIRED)
-find_package(Boost 1.70 REQUIRED COMPONENTS system CONFIG)
+find_package(Boost 1.70 REQUIRED)
 
 # Order book core. No Boost and no networking, so the microbenchmark can link
 # against it on its own.
@@ -22,7 +22,7 @@ target_include_directories(orderbook PUBLIC
 target_link_libraries(orderbook PUBLIC Threads::Threads)
 
 add_library(trading_system STATIC TradingSystem.cpp)
-target_link_libraries(trading_system PUBLIC orderbook Boost::system)
+target_link_libraries(trading_system PUBLIC orderbook Boost::headers)
 
 add_executable(TS main.cpp)
 target_link_libraries(TS PRIVATE trading_system)
@@ -34,7 +34,7 @@ add_executable(benchmark_ob Benchmark/OrderBook_Benchmark.cpp)
 target_link_libraries(benchmark_ob PRIVATE orderbook)
 
 add_executable(benchmark_sys Benchmark/System_Benchmark.cpp)
-target_link_libraries(benchmark_sys PRIVATE orderbook Boost::system)
+target_link_libraries(benchmark_sys PRIVATE orderbook Boost::headers)
 
 if(BUILD_TESTING)
   find_package(GTest)
