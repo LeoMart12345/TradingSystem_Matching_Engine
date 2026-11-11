@@ -9,6 +9,7 @@
 #include <deque>
 #include <map>
 #include <mutex>
+#include <optional>
 #include <queue>
 #include <unordered_map>
 
