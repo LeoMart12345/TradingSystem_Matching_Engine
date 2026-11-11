@@ -3,19 +3,41 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "make debug",
+            "label": "cmake configure",
             "type": "shell",
-            "command": "make",
-            "args": ["debug"],
+            "command": "cmake",
+            "args": [
+                "-S", ".",
+                "-B", "build",
+                "-DCMAKE_BUILD_TYPE=Debug",
+                "-DTS_ENABLE_ASAN=ON",
+                "-DTS_DEBUG_PRINTS=ON"
+            ],
             "options": {
-                "cwd": "${workspaceFolder}/TradingSystem" // Location of makefile
+                "cwd": "${workspaceFolder}"
             },
+            "problemMatcher": []
+        },
+        {
+            "label": "cmake build",
+            "type": "shell",
+            "command": "cmake",
+            "args": [
+                "--build", "build", "--parallel"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "dependsOn": [
+                "cmake configure"
+            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": ["$gcc"],
-            "detail": "Build with Makefile (debug mode)"
+            "problemMatcher": [
+                "$gcc"
+            ]
         }
     ]
 }
