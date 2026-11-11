@@ -3,6 +3,7 @@
 #include <array>
 #include <mutex>
 #include <stack>
+#include <stdexcept>
 
 // pre-allocates size objects of type T
 // acquire() and release replace malloc and free() for the hot path
