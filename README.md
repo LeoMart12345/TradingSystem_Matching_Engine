@@ -13,27 +13,40 @@ A low-latency limit order book matching engine written in C++23. Orders are subm
 
 ## Dependencies
 
+- `cmake` 3.20 or newer
 - `g++` with C++23 support
-- Boost.Asio (`libboost-dev`)
+- Boost 1.70+ (`libboost-dev`)
 - pthreads
 - Google Test (`libgtest-dev`) — for tests only
 
 **On Fedora:**
 ```bash
-sudo dnf install boost-devel gtest-devel
+sudo dnf install cmake gcc-c++ boost-devel gtest-devel
 ```
 # Build and Run
 
+The default configuration is a release build. Everything is written to `build/bin`.
+
+### Build
+```bash
+cmake -S . -B build
+cmake --build build
+```
+
+Debug build with AddressSanitizer and `DEBUG_PRINT` output:
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DTS_ENABLE_ASAN=ON -DTS_DEBUG_PRINTS=ON
+cmake --build build
+```
+
 ### Run the full trading system
 ```bash
-make
-./TS
+./build/bin/TS
 ```
 
 ### Run a simulated client (connects over TCP)
 ```bash
-make client
-./client
+./build/bin/client
 ```
 
 ---
@@ -44,8 +57,8 @@ make client
 
 Measures raw INSERT, CANCEL, and MATCH latency with no TCP overhead, mutex contention, or scheduler interference. This is the best-case performance of the core data structures.
 ```bash
-make benchmark_ob
-./benchmark_ob
+cmake --build build --target benchmark_ob
+./build/bin/benchmark_ob
 ```
 
 Reports p50, p99, and p999 latency percentiles for each operation.
@@ -54,8 +67,8 @@ Reports p50, p99, and p999 latency percentiles for each operation.
 
 Measures the full round-trip latency of a single order submission from the client serialising the order, through TCP, through the server, and back. Includes all networking and system overhead.
 ```bash
-make benchmark_sys
-./benchmark_sys
+cmake --build build --target benchmark_sys
+./build/bin/benchmark_sys
 ```
 
 ---
@@ -64,8 +77,8 @@ make benchmark_sys
 
 Google Test unit tests covering order book correctness, matching engine logic, serialisation, and order operations.
 ```bash
-make test
-./run_tests
+cmake --build build --target run_tests
+ctest --test-dir build --output-on-failure
 ```
 
 Tests cover:
