@@ -9,8 +9,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": false,
-      "cwd": "${workspaceFolder}/TradingSystem",
-      "program": "${workspaceFolder}/TradingSystem/TS",
+      "cwd": "${workspaceFolder}",
+      "program": "${workspaceFolder}/build/bin/TS",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
@@ -20,7 +20,7 @@
           "ignoreFailures": true
         }
       ],
-      "preLaunchTask": "make debug"
+      "preLaunchTask": "cmake build"
     }
   ]
 }
