@@ -367,3 +367,6 @@ build/
 CMakeFiles/
 CMakeCache.txt
 cmake_install.cmake
+
+# TradingSystem sources live in Debug/, which the Visual Studio rules above ignore
+!TradingSystem/Debug/
