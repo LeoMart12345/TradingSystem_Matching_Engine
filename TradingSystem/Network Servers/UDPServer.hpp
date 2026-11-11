@@ -20,7 +20,7 @@ private:
 public:
   explicit UDPServer(MatchingEngine &engine)
       : matchingEngine(engine), UDPsocket(UDPcontext),
-        multicastEndpoint(boost::asio::ip::address::from_string("239.0.0.1"),
+        multicastEndpoint(boost::asio::ip::make_address("239.0.0.1"),
                           9999) {
     UDPsocket.open(boost::asio::ip::udp::v4());
     UDPsocket.set_option(boost::asio::ip::multicast::enable_loopback(true));

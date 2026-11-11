@@ -19,7 +19,7 @@ public:
 
   void connect(const std::string &host, int port) {
     socket.connect(boost::asio::ip::tcp::endpoint(
-        boost::asio::ip::address::from_string(host), port));
+        boost::asio::ip::make_address(host), port));
   }
 
   u_int64_t placeOrder(const Order &order) {

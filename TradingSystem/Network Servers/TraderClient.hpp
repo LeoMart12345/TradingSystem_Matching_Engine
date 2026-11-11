@@ -1,6 +1,7 @@
 // TraderClient.hpp
 #pragma once
 #include <cstddef>
+#include <iomanip>
 #include <iostream>
 #include <random>
 #include <string>

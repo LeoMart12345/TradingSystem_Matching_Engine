@@ -19,9 +19,9 @@ public:
     UDPsocket.open(boost::asio::ip::udp::v4());
     UDPsocket.set_option(boost::asio::ip::udp::socket::reuse_address(true));
     UDPsocket.bind(boost::asio::ip::udp::endpoint(
-        boost::asio::ip::address::from_string("239.0.0.1"), 9999));
+        boost::asio::ip::make_address("239.0.0.1"), 9999));
     UDPsocket.set_option(boost::asio::ip::multicast::join_group(
-        boost::asio::ip::address::from_string("239.0.0.1")));
+        boost::asio::ip::make_address("239.0.0.1")));
   }
 
   void start() {
