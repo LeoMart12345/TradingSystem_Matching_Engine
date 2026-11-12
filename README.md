@@ -1,15 +1,41 @@
-# C++ Limit Order Book Matching Engine Thesis project
+# C++ Limit Order Book Matching Engine
 
-A low-latency limit order book matching engine written in C++23. Orders are submitted over TCP, matched against the order book, and market data is broadcast over UDP multicast to connected clients.
+A low-latency limit order book and matching engine written in C++23. Orders
+arrive over TCP, are matched with price-time priority, and the resulting top of
+book and trades are published over UDP multicast.
 
 ## What it does
 
-- Accepts buy/sell orders from clients over TCP
-- Matches orders using price-time priority (best bid meets best ask)
-- Broadcasts live market data (best bid, best ask, volumes) over UDP multicast every 50ms
-- Uses a bitmap-based order book for O(1) best price discovery
-- Pre-allocates order object memory at startup using an object pool
+- Accepts new and cancel requests from clients over TCP (Boost.Asio, one thread
+  per session).
+- Matches with price-time priority: best bid against best ask, one trade per
+  `matchLimitOrders()` call.
+- Finds the best price in O(1) from a per-side bitmap plus a cached best level,
+  so inserts and cancels never scan the book.
+- Queues resting orders in intrusive FIFO price levels, so cancelling a known
+  order id is O(1) and never touches the allocator.
+- Publishes a market data snapshot every 50 ms and each trade immediately, on
+  the UDP multicast group `239.0.0.1:9999`.
 
+## Repository layout
+
+```
+CMakeLists.txt              build options, warnings, sanitizer switch
+TradingSystem/
+  CMakeLists.txt            libraries and executables
+  main.cpp                  entry point: starts the system on ports 5555/12345
+  TradingSystem.{hpp,cpp}   wires the matching engine, TCP gateway and UDP
+                            publisher together
+  MatchingEngine/
+    MatchingEngine.{hpp,cpp}  matching logic over the order book
+    OrderBook/                order pool, price levels, bitmaps, trades
+  Network/                  Boost.Asio transport: TCP gateway, UDP publisher,
+                            market data, client and simulated traders
+  Benchmark/                order book microbenchmark, end-to-end benchmark
+  Tests/                    Google Test suite
+  Utilities/                order id generation
+  Debug/                    DEBUG_PRINT helper
+```
 
 ## Dependencies
 
@@ -17,76 +43,94 @@ A low-latency limit order book matching engine written in C++23. Orders are subm
 - `g++` with C++23 support
 - Boost 1.70+ (`libboost-dev`)
 - pthreads
-- Google Test (`libgtest-dev`) — for tests only
+- Google Test (`libgtest-dev`), for the tests only
 
-**On Fedora:**
+Fedora:
+
 ```bash
 sudo dnf install cmake gcc-c++ boost-devel gtest-devel
 ```
-# Build and Run
 
-The default configuration is a release build. Everything is written to `build/bin`.
+Debian/Ubuntu:
 
-### Build
+```bash
+sudo apt install cmake g++ libboost-dev libgtest-dev
+```
+
+## Build
+
+The default build type is `Release` and every executable lands in `build/bin`.
+
 ```bash
 cmake -S . -B build
-cmake --build build
+cmake --build build --parallel
 ```
 
 Debug build with AddressSanitizer and `DEBUG_PRINT` output:
+
 ```bash
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DTS_ENABLE_ASAN=ON -DTS_DEBUG_PRINTS=ON
-cmake --build build
+cmake --build build --parallel
 ```
 
-### Run the full trading system
+## Run
+
+The server starts a TCP order gateway, the UDP market data publisher and five
+simulated traders, then matches orders until the process is killed:
+
 ```bash
 ./build/bin/TS
 ```
 
-### Run a simulated client (connects over TCP)
+An interactive client that connects over TCP:
+
 ```bash
 ./build/bin/client
 ```
 
----
-
 ## Benchmarks
 
-### Order book microbenchmark (isolated, no networking)
+`benchmark_ob` measures the order book in isolation: raw INSERT, CANCEL and
+MATCH latency with no sockets, no serialisation and no scheduler noise. It
+reports p50, p99 and p999 for each operation.
 
-Measures raw INSERT, CANCEL, and MATCH latency with no TCP overhead, mutex contention, or scheduler interference. This is the best-case performance of the core data structures.
 ```bash
 cmake --build build --target benchmark_ob
 ./build/bin/benchmark_ob
 ```
 
-Reports p50, p99, and p999 latency percentiles for each operation.
+`benchmark_sys` measures a full round trip: the client serialises an order,
+sends it over TCP to the server and waits for the reply, so the numbers include
+every layer of overhead.
 
-### End-to-end system benchmark (full round-trip over TCP)
-
-Measures the full round-trip latency of a single order submission from the client serialising the order, through TCP, through the server, and back. Includes all networking and system overhead.
 ```bash
 cmake --build build --target benchmark_sys
 ./build/bin/benchmark_sys
 ```
 
----
+For comparable numbers across runs, pin both the measurement and the machine
+down with `taskset -c 2` and compare medians of several alternating runs rather
+than single samples.
 
 ## Tests
 
-Google Test unit tests covering order book correctness, matching engine logic, serialisation, and order operations.
 ```bash
 cmake --build build --target run_tests
 ctest --test-dir build --output-on-failure
 ```
 
-Tests cover:
-- Bid/ask price priority
-- Order insertion and cancellation
-- Trade generation on matching orders
-- Partial and full fills
-- Serialisation round trips
-- Volume reduction
+The suite covers bid/ask price priority, insertion and cancellation, trade
+generation, partial and full fills, serialisation round trips and volume
+reduction. The same suite runs under AddressSanitizer with `-DTS_ENABLE_ASAN=ON`.
 
----
+## Design notes
+
+- **Best price discovery.** Each side keeps a bitmap of active price levels, so
+  the best level is a bit scan rather than a search. The best bid and ask are
+  also cached and only recomputed when a level empties.
+- **Resting orders.** Each price level is a head/tail pair and orders are linked
+  through their own `mPrev`/`mNext` pointers, so append, unlink and cancel are
+  O(1) with no allocations.
+- **Order storage.** Orders come from a fixed-size `ObjectPool` with a
+  contiguous index free list. The pool is not internally synchronised; the
+  matching engine serialises access with its own mutex.
