@@ -20,6 +20,11 @@ private:
   std::vector<u_int64_t> mBidBitmap;
   std::vector<u_int64_t> mAskBitmap;
 
+  // best active level of each side, -1 when the side is empty. Kept up to date
+  // on insert/remove so the hot path never has to scan the bitmaps.
+  int mBestBidLevel = -1;
+  int mBestAskLevel = -1;
+
   // These levels hold a deque of orders for both sides.
   std::vector<std::deque<Order *>> mBidpriceLevel;
   std::vector<std::deque<Order *>> mAskPriceLevel;
@@ -35,6 +40,11 @@ private:
   std::array<OrderLocation, 10000> orderIdtoPriceMapping;
   // Mutex for locking the orderbook.
   std::mutex mtx;
+
+  // refresh a cached best level from the bitmap (used when the best level
+  // empties out)
+  int rescanBestBidLevel();
+  int rescanBestAskLevel();
 
 public:
   explicit OrderBook(size_t size);
@@ -56,6 +66,11 @@ public:
   Order *getBestBid();
 
   Order *getBestAsk();
+
+  // non-throwing variants, return nullptr when the side is empty
+  Order *tryGetBestBid();
+
+  Order *tryGetBestAsk();
 
   ObjectPool<Order, 10000> &getOrderPool() { return mOrderPool; }
 

@@ -51,6 +51,9 @@ void OrderBook::addBid(Order *order) {
   mBidpriceLevel[BidLevel].emplace_back(order);
   DEBUG_PRINT("ORDERBOOK::ADDBID printing price of the order below.");
   setBidBitTo1(order->getPrice());
+  if (BidLevel > mBestBidLevel) {
+    mBestBidLevel = BidLevel;
+  }
   // add the orderid to the array
   orderIdtoPriceMapping[order->mOrderID % POOL_SIZE] = {order->mPrice, Bid,
                                                         true};
@@ -62,6 +65,9 @@ void OrderBook::addAsk(Order *order) {
   int AskLevel = priceToIndex(order->mPrice);
   mAskPriceLevel[AskLevel].emplace_back(order);
   setAskBitTo1(order->getPrice());
+  if (mBestAskLevel == -1 || AskLevel < mBestAskLevel) {
+    mBestAskLevel = AskLevel;
+  }
   orderIdtoPriceMapping[order->mOrderID % POOL_SIZE] = {order->mPrice, Ask,
                                                         true};
   DEBUG_PRINT("ORDERBOOK::ADDASK after printing price");
@@ -69,7 +75,7 @@ void OrderBook::addAsk(Order *order) {
 
 // removing a bid from an orderId
 void OrderBook::removeBid(u_int64_t orderId) {
-  int bestLevel = findBestBidLevel();
+  int bestLevel = mBestBidLevel;
   if (bestLevel == -1)
     return;
 
@@ -77,6 +83,7 @@ void OrderBook::removeBid(u_int64_t orderId) {
 
   if (deque.empty()) {
     setBidBitTo0(indexToPrice(bestLevel)); // clear stale bit
+    rescanBestBidLevel();
     return;
   }
 
@@ -97,17 +104,19 @@ void OrderBook::removeBid(u_int64_t orderId) {
 
   if (deque.empty()) {
     setBidBitTo0(indexToPrice(bestLevel));
+    rescanBestBidLevel();
   }
 }
 
 void OrderBook::removeAsk(u_int64_t orderId) {
-  int bestLevel = findBestAskLevel();
+  int bestLevel = mBestAskLevel;
   if (bestLevel == -1)
     return;
   auto &deque = mAskPriceLevel[bestLevel];
 
   if (deque.empty()) {
     setAskBitTo0(indexToPrice(bestLevel)); // clear stale bit
+    rescanBestAskLevel();
     return;
   }
 
@@ -123,6 +132,7 @@ void OrderBook::removeAsk(u_int64_t orderId) {
   orderIdtoPriceMapping[orderId % POOL_SIZE] = {};
   if (deque.empty()) {
     setAskBitTo0(indexToPrice(bestLevel));
+    rescanBestAskLevel();
   }
 }
 
@@ -225,35 +235,74 @@ void OrderBook::setAskBitTo0(const Price &price) {
 }
 
 Order *OrderBook::getBestBid() {
-  int bestBidLevel = findBestBidLevel();
+  Order *bestBid = tryGetBestBid();
 
-  if (bestBidLevel == -1) {
+  if (bestBid == nullptr) {
     throw std::runtime_error("No bids in the OrderBook!");
   }
-  auto &deque = mBidpriceLevel[bestBidLevel];
+  return bestBid;
+}
 
-  if (deque.empty()) {
-    throw std::runtime_error(
-        "bitmapp shows the level marked but the deque is empty");
+Order *OrderBook::getBestAsk() {
+  Order *bestAsk = tryGetBestAsk();
+
+  if (bestAsk == nullptr) {
+    throw std::runtime_error("No Asks in the OrderBook");
+  }
+  return bestAsk;
+}
+
+Order *OrderBook::tryGetBestBid() {
+  if (mBestBidLevel == -1)
+    return nullptr;
+
+  auto &deque = mBidpriceLevel[mBestBidLevel];
+
+  if (deque.empty()) { // stale cache, rebuild it from the bitmap
+    rescanBestBidLevel();
+    if (mBestBidLevel == -1)
+      return nullptr;
+    return mBidpriceLevel[mBestBidLevel].front();
   }
 
   return deque.front();
 }
 
-Order *OrderBook::getBestAsk() {
-  int bestAskLevel = findBestAskLevel();
+Order *OrderBook::tryGetBestAsk() {
+  if (mBestAskLevel == -1)
+    return nullptr;
 
-  if (bestAskLevel == -1) {
-    throw std::runtime_error("No Asks in the OrderBook");
-  }
-  auto &deque = mAskPriceLevel[bestAskLevel];
+  auto &deque = mAskPriceLevel[mBestAskLevel];
 
-  if (deque.empty()) {
-    throw std::runtime_error(
-        "bitmapp shows the level marked but the deque is empty");
+  if (deque.empty()) { // stale cache, rebuild it from the bitmap
+    rescanBestAskLevel();
+    if (mBestAskLevel == -1)
+      return nullptr;
+    return mAskPriceLevel[mBestAskLevel].front();
   }
 
   return deque.front();
+}
+
+int OrderBook::rescanBestBidLevel() {
+  int level = findBestBidLevel();
+  // drop stale bits left behind by levels that no longer hold orders
+  while (level != -1 && mBidpriceLevel[level].empty()) {
+    mBidBitmap[level / CHUNK] &= ~(1ULL << (level % CHUNK));
+    level = findBestBidLevel();
+  }
+  mBestBidLevel = level;
+  return level;
+}
+
+int OrderBook::rescanBestAskLevel() {
+  int level = findBestAskLevel();
+  while (level != -1 && mAskPriceLevel[level].empty()) {
+    mAskBitmap[level / CHUNK] &= ~(1ULL << (level % CHUNK));
+    level = findBestAskLevel();
+  }
+  mBestAskLevel = level;
+  return level;
 }
 
 int OrderBook::findBestBidLevel() const {
@@ -309,6 +358,9 @@ void OrderBook::removeOrderFromOrderId(u_int64_t orderId) {
           pOrderDeQue.erase(it);
           if (pOrderDeQue.empty()) {
             setBidBitTo0(orderPair.first);
+            if (mBestBidLevel == orderIndex) {
+              rescanBestBidLevel();
+            }
           }
           break;
         }
@@ -321,6 +373,9 @@ void OrderBook::removeOrderFromOrderId(u_int64_t orderId) {
           pOrderDeQue.erase(it);
           if (pOrderDeQue.empty()) {
             setAskBitTo0(orderPair.first);
+            if (mBestAskLevel == orderIndex) {
+              rescanBestAskLevel();
+            }
           }
           break;
         }
