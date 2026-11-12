@@ -4,8 +4,6 @@
 #include "Price.hpp"
 #include "order.hpp"
 #include <array>
-#include <deque>
-#include <mutex>
 #include <vector>
 
 class OrderBook {
@@ -14,6 +12,14 @@ private:
   ObjectPool<Order, 10000>
       mOrderPool; // pool of objects that will be acquired and released to as
                   // opposed to a syscall.
+
+  // FIFO queue of resting orders for one price level. The orders are linked
+  // through their own mPrev/mNext pointers, so appending and cancelling is
+  // O(1) and never touches the allocator.
+  struct PriceLevel {
+    Order *head = nullptr;
+    Order *tail = nullptr;
+  };
 
   // each of these holds 64 bits each bit represents a level, if bit = 1 the
   // level is active, if bit is 0 level is inactive
@@ -25,21 +31,19 @@ private:
   int mBestBidLevel = -1;
   int mBestAskLevel = -1;
 
-  // These levels hold a deque of orders for both sides.
-  std::vector<std::deque<Order *>> mBidpriceLevel;
-  std::vector<std::deque<Order *>> mAskPriceLevel;
+  // these levels queue the orders of both sides in price-time priority
+  std::vector<PriceLevel> mBidpriceLevel;
+  std::vector<PriceLevel> mAskPriceLevel;
 
   // Hashmap for keeping track of orderId (useful for cancelling orders by
   // orderId)
   struct OrderLocation {
     Price price;
     Side side;
-    bool isValid = false;
+    Order *order = nullptr;
   };
   // maps a unique orderID to a location
   std::array<OrderLocation, 10000> orderIdtoPriceMapping;
-  // Mutex for locking the orderbook.
-  std::mutex mtx;
 
   // refresh a cached best level from the bitmap (used when the best level
   // empties out)
@@ -80,6 +84,9 @@ public:
   void removeAsk(u_int64_t orderId);
   void setAskBitTo1(const Price &price);
   void setAskBitTo0(const Price &price);
+
+  // unlinks the order from its price level and returns it to the pool
+  void removeOrder(Order *order);
 
   std::pair<u_int64_t, u_int64_t> getVolumeAtLevelFromPrice(const Price &price);
   void getTotalVolume();

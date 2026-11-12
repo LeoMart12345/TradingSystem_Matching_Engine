@@ -15,6 +15,10 @@ public:
     u_int64_t mOrderID;
     Price mPrice;
 
+    // intrusive links used by the order book's price level queues
+    Order *mPrev = nullptr;
+    Order *mNext = nullptr;
+
     // default constructor for init the Order Pool
     Order() : BidOrAsk(Bid), mVolume(0), mName(""), mOrderID(0), mPrice(Price(0)) {}
     Order(Side Side, u_int64_t volume, std::string name, u_int64_t orderID, Price Price);

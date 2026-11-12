@@ -67,10 +67,10 @@ std::optional<Trade> MatchingEngine::matchLimitOrders() {
   Trade trade(bestBid, bestAsk, tradeVolume, tradePrice);
 
   if (bestAsk->GetVolume() == 0) {
-    orderBook.removeAsk(bestAsk->getOrderId());
+    orderBook.removeOrder(bestAsk);
   }
   if (bestBid->GetVolume() == 0) {
-    orderBook.removeBid(bestBid->getOrderId());
+    orderBook.removeOrder(bestBid);
   }
 
   return trade;

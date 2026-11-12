@@ -126,6 +126,56 @@ TEST(TradingSystemTest, TradeSerialise) {
   EXPECT_EQ(trade->serialise(), "1000:10");
 }
 
+// Cancelling an order in the middle of a level must keep price-time priority
+TEST(TradingSystemTest, CancelMiddleOrderKeepsPriority) {
+  OrderBook book(101);
+  MatchingEngine engine(book);
+  uint64_t first = engine.addOrder(makeOrder(Bid, 1000, 10));
+  uint64_t second = engine.addOrder(makeOrder(Bid, 1000, 20));
+  uint64_t third = engine.addOrder(makeOrder(Bid, 1000, 30));
+
+  engine.cancelOrder(second);
+
+  ASSERT_NE(book.getBestBid(), nullptr);
+  EXPECT_EQ(book.getBestBid()->getOrderId(), first);
+
+  engine.cancelOrder(first);
+  ASSERT_NE(book.getBestBid(), nullptr);
+  EXPECT_EQ(book.getBestBid()->getOrderId(), third);
+  EXPECT_EQ(book.getBestBid()->mVolume, 30u);
+
+  engine.cancelOrder(third);
+  EXPECT_EQ(book.findBestBidLevel(), -1);
+}
+
+// Cancelling a resting order away from the best level must not disturb the top
+TEST(TradingSystemTest, CancelNonBestLevelOrder) {
+  OrderBook book(101);
+  MatchingEngine engine(book);
+  uint64_t best = engine.addOrder(makeOrder(Bid, 1000, 10));
+  uint64_t worse = engine.addOrder(makeOrder(Bid, 990, 10));
+
+  engine.cancelOrder(worse);
+
+  ASSERT_NE(book.getBestBid(), nullptr);
+  EXPECT_EQ(book.getBestBid()->getOrderId(), best);
+  auto [bidVolume, askVolume] = book.getVolumeAtLevelFromPrice(Price(990));
+  EXPECT_EQ(bidVolume, 0u);
+  EXPECT_EQ(askVolume, 0u);
+}
+
+// Cancelling an unknown order id must be a no-op
+TEST(TradingSystemTest, CancelUnknownOrderIsIgnored) {
+  OrderBook book(101);
+  MatchingEngine engine(book);
+  uint64_t id = engine.addOrder(makeOrder(Ask, 1000, 10));
+
+  engine.cancelOrder(id + 12345);
+  engine.cancelOrder(id);
+
+  EXPECT_EQ(book.findBestAskLevel(), -1);
+}
+
 // reduceVolume correctly decrements the order volume
 TEST(TradingSystemTest, ReduceVolume) {
   Order o = makeOrder(Bid, 1000, 10);
