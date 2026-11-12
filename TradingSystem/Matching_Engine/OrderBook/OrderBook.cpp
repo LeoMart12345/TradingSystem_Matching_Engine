@@ -64,8 +64,7 @@ void OrderBook::addBid(Order *order) {
     mBestBidLevel = bidLevel;
   }
   // add the orderid to the array
-  orderIdtoPriceMapping[order->mOrderID % POOL_SIZE] = {order->mPrice, Bid,
-                                                        order};
+  orderIdtoOrderMapping[order->mOrderID % POOL_SIZE] = order;
   DEBUG_PRINT("ORDERBOOK::ADDBID after printing price");
 }
 
@@ -87,8 +86,7 @@ void OrderBook::addAsk(Order *order) {
   if (mBestAskLevel == -1 || askLevel < mBestAskLevel) {
     mBestAskLevel = askLevel;
   }
-  orderIdtoPriceMapping[order->mOrderID % POOL_SIZE] = {order->mPrice, Ask,
-                                                        order};
+  orderIdtoOrderMapping[order->mOrderID % POOL_SIZE] = order;
   DEBUG_PRINT("ORDERBOOK::ADDASK after printing price");
 }
 
@@ -116,7 +114,7 @@ void OrderBook::removeOrder(Order *order) {
   order->mPrev = nullptr;
   order->mNext = nullptr;
 
-  orderIdtoPriceMapping[order->mOrderID % POOL_SIZE] = {};
+  orderIdtoOrderMapping[order->mOrderID % POOL_SIZE] = nullptr;
   mOrderPool.release(order);
 
   if (priceLevel.head != nullptr) {
@@ -319,22 +317,22 @@ int OrderBook::findBestAskLevel() const {
 
 std::pair<Price, Side>
 OrderBook::orderIdToPrice(const u_int64_t orderId) const {
-  const auto &loc = orderIdtoPriceMapping[orderId % POOL_SIZE];
+  const Order *order = orderIdtoOrderMapping[orderId % POOL_SIZE];
 
-  if (loc.order == nullptr)
+  if (order == nullptr)
     throw std::runtime_error("there was no orderID with this number:" +
                              std::to_string(orderId));
-  return std::make_pair(loc.price, loc.side);
+  return std::make_pair(order->mPrice, order->BidOrAsk);
 }
 
 void OrderBook::removeOrderFromOrderId(u_int64_t orderId) {
-  const auto &loc = orderIdtoPriceMapping[orderId % POOL_SIZE];
+  Order *order = orderIdtoOrderMapping[orderId % POOL_SIZE];
 
   // the slot is either empty or reused by a newer order whose id collides
-  if (loc.order == nullptr || loc.order->mOrderID != orderId)
+  if (order == nullptr || order->mOrderID != orderId)
     return;
 
-  removeOrder(loc.order);
+  removeOrder(order);
 }
 
 void OrderBook::printOrderBook() const {

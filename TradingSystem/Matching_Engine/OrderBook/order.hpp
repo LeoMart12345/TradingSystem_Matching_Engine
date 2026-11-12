@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <string>
 #include "Price.hpp"
 
@@ -25,13 +26,22 @@ public:
 
 	void PrintOrder() const;
     //getters
-    Side getBidOrAsk() const;
-    int GetVolume() const;
+    Side getBidOrAsk() const { return BidOrAsk; }
+    int GetVolume() const { return static_cast<int>(mVolume); }
     std::string getName()const;
-    u_int64_t getOrderId() const;
-    Price getPrice() const;
-    
-    u_int64_t reduceVolume(u_int64_t volume);
+    u_int64_t getOrderId() const { return mOrderID; }
+    Price getPrice() const { return mPrice; }
+
+    // takes at most volumeReduction away and reports how much was taken
+    u_int64_t reduceVolume(u_int64_t volumeReduction) {
+        if (mVolume == 0) return 0;
+
+        // cant take away more than there is in the volume.
+        const u_int64_t feasableReduction = std::min(mVolume, volumeReduction);
+        mVolume -= feasableReduction;
+
+        return feasableReduction;
+    }
 
     std::string serialize() const;
     static Order deserialize(const std::string& data);

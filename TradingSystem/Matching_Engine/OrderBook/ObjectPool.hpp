@@ -1,42 +1,40 @@
 // ObjectPool.hpp
 #pragma once
 #include <array>
-#include <mutex>
-#include <stack>
 #include <stdexcept>
 
 // pre-allocates size objects of type T
-// acquire() and release replace malloc and free() for the hot path
+// acquire() and release replace malloc and free() for the hot path.
+// Not internally synchronized: callers must serialise access (MatchingEngine
+// does it with its own mutex, so the pool itself only needs to keep the free
+// list contiguous and cheap).
 template <typename T, size_t Size> class ObjectPool {
 private:
-  std::array<T, Size> pool;     // fixed blocks of pre- allocated objects
-  std::stack<size_t> freeStack; // indices of available slots
-  std::mutex poolMutex;
+  std::array<T, Size> pool;           // fixed blocks of pre- allocated objects
+  std::array<size_t, Size> freeSlots; // indices of available slots, used as a
+                                      // stack so the hot end stays in cache
+  size_t freeCount = Size;            // number of slots still available
 
 public:
   ObjectPool() {
     for (size_t i = 0; i < Size; i++) {
-      freeStack.push(i);
+      freeSlots[i] = i;
     }
   }
 
   T *acquire() {
-    std::lock_guard<std::mutex> lock(poolMutex);
-    if (freeStack.empty())
+    if (freeCount == 0)
       throw std::runtime_error(
           "freeStack is full: there are no objects to acquire");
-    size_t slot = freeStack.top(); // using top as pop returns void.
-    freeStack.pop();
-    return &pool[slot];
+    return &pool[freeSlots[--freeCount]];
   }
 
   void release(T *obj) {
-    std::lock_guard<std::mutex> lock(poolMutex);
     size_t slot = obj - &pool[0];
     if (slot >= Size) {
       throw std::runtime_error(
           "ObjectPool::release received pointer outside pool bounds");
     }
-    freeStack.push(slot);
+    freeSlots[freeCount++] = slot;
   }
 };

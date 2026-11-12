@@ -36,14 +36,9 @@ private:
   std::vector<PriceLevel> mAskPriceLevel;
 
   // Hashmap for keeping track of orderId (useful for cancelling orders by
-  // orderId)
-  struct OrderLocation {
-    Price price;
-    Side side;
-    Order *order = nullptr;
-  };
-  // maps a unique orderID to a location
-  std::array<OrderLocation, 10000> orderIdtoPriceMapping;
+  // orderId). The order itself holds the price and the side, so a pointer is
+  // all we need and the table stays cache friendly.
+  std::array<Order *, 10000> orderIdtoOrderMapping{};
 
   // refresh a cached best level from the bitmap (used when the best level
   // empties out)

@@ -23,17 +23,8 @@ void Order::PrintOrder() const{
     std::cout << "Price Level: " << mPrice.mPriceValueInCent << "\n";
     std::cout << "-------------------------------------" << std::endl;
 }
-//returns the new volume that
-u_int64_t Order::reduceVolume(u_int64_t volumeReduction){
-    if(mVolume == 0) return 0;
-
-    // cant take away more than there is in the volume.
-    int feasableReduction = std::min(mVolume, volumeReduction);
-    mVolume -= feasableReduction;
-
-    return feasableReduction;
-}
-
+// Getters
+std::string Order::getName() const {return mName;}
     std::string Order::serialize() const {
         std::string result;
         result += (BidOrAsk == Bid) ? "BUY" : "SELL";
@@ -69,11 +60,3 @@ Order Order::deserialize(const std::string& data) {
         
     return Order(side, volume, name, orderId, Price(priceVal));
 }
-
-// Getters
-int Order::GetVolume() const{return mVolume;}
-Side Order::getBidOrAsk() const{return BidOrAsk;}
-std::string Order::getName() const {return mName;}
-u_int64_t Order::getOrderId() const {return mOrderID;}
-Price Order::getPrice() const {return mPrice;}
-// setters
