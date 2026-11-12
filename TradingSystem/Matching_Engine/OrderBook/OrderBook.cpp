@@ -22,9 +22,9 @@ static constexpr size_t POOL_SIZE = 10000;
 // Order Ids that are used for benchmarking
 
 OrderBook::OrderBook(size_t size)
-    : mBidpriceLevel(size), mAskPriceLevel(size),
-      mBidBitmap((size + CHUNK - 1) / CHUNK, 0ULL),
-      mAskBitmap((size + CHUNK - 1) / CHUNK, 0ULL) {
+    : mBidBitmap((size + CHUNK - 1) / CHUNK, 0ULL),
+      mAskBitmap((size + CHUNK - 1) / CHUNK, 0ULL), mBidpriceLevel(size),
+      mAskPriceLevel(size) {
   DEBUG_PRINT("OrderBook created with " << size << " price levels");
   DEBUG_PRINT("BitMap create with " << mBidBitmap.size() << " 64 bit elements");
 }

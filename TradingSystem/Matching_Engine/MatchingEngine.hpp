@@ -5,19 +5,13 @@
 #include "./OrderBook/Trade.hpp"
 #include "./OrderBook/order.hpp"
 
-#include <atomic>
-#include <deque>
-#include <map>
 #include <mutex>
 #include <optional>
-#include <queue>
-#include <unordered_map>
 
 class MatchingEngine {
 
 private:
   OrderBook &orderBook;
-  std::atomic<u_int64_t> nextOrderId{1000};
   std::mutex mtx;
 
 public:
