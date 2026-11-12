@@ -75,7 +75,7 @@ public:
       system("clear");
       MarketDataSnapshot snapshot = getMarketData();
 
-      std::cout << "=== TRADING TERMINAL ===\n\n";
+      std::cout << " TRADING TERMINAL \n\n";
       std::cout << "+-----------+----------+----------+\n";
       std::cout << "| TSLA      |   BID    |   ASK    |\n";
       std::cout << "+-----------+----------+----------+\n";
