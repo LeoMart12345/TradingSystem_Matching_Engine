@@ -1,4 +1,4 @@
-#include "./Network Servers/TraderClient.hpp"
+#include "TraderClient.hpp"
 
 int main() {
   std::string host = "127.0.0.1";

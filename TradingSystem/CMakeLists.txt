@@ -4,19 +4,16 @@ find_package(Boost 1.70 REQUIRED)
 # Order book core. No Boost and no networking, so the microbenchmark can link
 # against it on its own.
 add_library(orderbook STATIC
-  Matching_Engine/MatchingEngine.cpp
-  Matching_Engine/OrderBook/OrderBook.cpp
-  Matching_Engine/OrderBook/Order.cpp
-  UtilityClass/OrderIdGenerator.cpp
+  MatchingEngine/MatchingEngine.cpp
+  MatchingEngine/OrderBook/OrderBook.cpp
+  MatchingEngine/OrderBook/Order.cpp
+  Utilities/OrderIdGenerator.cpp
 )
 
 target_include_directories(orderbook PUBLIC
   ${CMAKE_CURRENT_SOURCE_DIR}
-  ${CMAKE_CURRENT_SOURCE_DIR}/Matching_Engine
-  ${CMAKE_CURRENT_SOURCE_DIR}/Matching_Engine/OrderBook
-  ${CMAKE_CURRENT_SOURCE_DIR}/UtilityClass
-  "${CMAKE_CURRENT_SOURCE_DIR}/Network Servers"
-  ${CMAKE_CURRENT_SOURCE_DIR}/Benchmark
+  ${CMAKE_CURRENT_SOURCE_DIR}/MatchingEngine
+  ${CMAKE_CURRENT_SOURCE_DIR}/MatchingEngine/OrderBook
 )
 
 target_link_libraries(orderbook PUBLIC Threads::Threads)
@@ -27,7 +24,7 @@ target_link_libraries(trading_system PUBLIC orderbook Boost::headers)
 add_executable(TS main.cpp)
 target_link_libraries(TS PRIVATE trading_system)
 
-add_executable(client "Network Servers/TraderClient.cpp")
+add_executable(client Network/TraderClient.cpp)
 target_link_libraries(client PRIVATE trading_system)
 
 add_executable(benchmark_ob Benchmark/OrderBook_Benchmark.cpp)

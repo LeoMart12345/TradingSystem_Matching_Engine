@@ -1,3 +1,0 @@
-// Benchmark.hpp
-#pragma once
-

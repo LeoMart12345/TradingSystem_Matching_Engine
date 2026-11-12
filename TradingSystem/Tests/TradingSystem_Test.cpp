@@ -3,7 +3,7 @@
 #include "MatchingEngine.hpp"
 #include "OrderBook.hpp"
 #include "Price.hpp"
-#include "order.hpp"
+#include "Order.hpp"
 #include <gtest/gtest.h>
 
 static Order makeOrder(Side side, int price, int volume) {

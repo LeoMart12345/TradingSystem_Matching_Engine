@@ -1,7 +1,7 @@
 #include "./TradingSystem.hpp"
-#include "./Matching_Engine/MatchingEngine.hpp"
-#include "./Matching_Engine/OrderBook/OrderBook.hpp"
-#include "./Network Servers/SimulatedTraders.hpp"
+#include "./MatchingEngine/MatchingEngine.hpp"
+#include "./MatchingEngine/OrderBook/OrderBook.hpp"
+#include "./Network/SimulatedTraders.hpp"
 
 TradingSystem::TradingSystem(int tcp_port, int udp_port)
     : orderBook(std::make_unique<OrderBook>(101)), matchingEngine(*orderBook),

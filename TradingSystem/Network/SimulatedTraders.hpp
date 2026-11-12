@@ -6,10 +6,10 @@
 #include "Order_Request.hpp"
 #include <vector>
 #include <random>
-#include "./Network Servers/TCPOrderSession.hpp"
-#include "./Network Servers/UDPMarketDataReceiver.hpp"
+#include "TCPOrderSession.hpp"
+#include "UDPMarketDataReceiver.hpp"
 #include <atomic>
-#include "./Network Servers/TraderClient.hpp"
+#include "TraderClient.hpp"
 #include <random>
 
 class SimulatedTraders{

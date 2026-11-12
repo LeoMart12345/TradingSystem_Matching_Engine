@@ -1,10 +1,10 @@
 #pragma once
-#include "./Matching_Engine/MatchingEngine.hpp"
-#include "./Matching_Engine/OrderBook/OrderBook.hpp"
-#include "./Network Servers/TCPOrderSession.hpp"
-#include "./Network Servers/TCP_Server.hpp"
-#include "./Network Servers/TraderClient.hpp"
-#include "./Network Servers/UDPMarketDataReceiver.hpp"
+#include "./MatchingEngine/MatchingEngine.hpp"
+#include "./MatchingEngine/OrderBook/OrderBook.hpp"
+#include "./Network/TCPOrderSession.hpp"
+#include "./Network/TCP_Server.hpp"
+#include "./Network/TraderClient.hpp"
+#include "./Network/UDPMarketDataReceiver.hpp"
 #include <iostream>
 #include <vector>
 
