@@ -64,7 +64,6 @@ public:
         std::this_thread::sleep_for(std::chrono::milliseconds(50));
       }
     });
-    int arr[100];
 
     udpThread.detach();
   }

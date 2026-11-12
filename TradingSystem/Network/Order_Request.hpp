@@ -14,8 +14,9 @@ struct OrderRequest {
   u_int64_t clientId;
   requestType type;
 
+  // Members are initialised in declaration order: requestOrder, clientId, type.
   OrderRequest(u_int64_t clientId, requestType type, const Order &order)
-      : clientId(clientId), type(type), requestOrder(order) {}
+      : requestOrder(order), clientId(clientId), type(type) {}
 
   std::string serialize() const {
     std::string result;

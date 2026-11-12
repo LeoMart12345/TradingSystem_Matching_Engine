@@ -3,7 +3,9 @@
 #include "./MatchingEngine/OrderBook/OrderBook.hpp"
 #include "./Network/SimulatedTraders.hpp"
 
-TradingSystem::TradingSystem(int tcp_port, int udp_port)
+// udp_port is not wired through yet: UDPServer publishes to the hard-coded
+// multicast port in its own constructor.
+TradingSystem::TradingSystem(int tcp_port, [[maybe_unused]] int udp_port)
     : orderBook(std::make_unique<OrderBook>(101)), matchingEngine(*orderBook),
       TCPServerI(std::make_unique<TCPServer>(tcp_port, matchingEngine)),
       UDPServerI(std::make_unique<UDPServer>(matchingEngine)) {}

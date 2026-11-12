@@ -1,14 +1,9 @@
 #include "TradingSystem.hpp"
-#include "MatchingEngine/OrderBook/OrderBook.hpp"
+#include <memory>
 
-int main(){
-
-    auto TS  = std::make_unique<TradingSystem>(5555, 12345);
-
-    OrderBook& orderBook = TS->getOrderBook();
-    
-    // google benchmark?
-    
-    // starts the tcp server and then does some benchmarking.
-    TS->start();
+int main() {
+  // Starts the TCP order gateway, the UDP market data publisher and the
+  // simulated traders, then matches orders until the process is killed.
+  auto system = std::make_unique<TradingSystem>(5555, 12345);
+  system->start();
 }
